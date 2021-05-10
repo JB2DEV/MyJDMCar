@@ -1,7 +1,9 @@
 
 
+///FORM UTILS
 bool isEmailValid(String email) {
-  String regexEmail = r'^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+  String regexEmail =
+      r'^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
 
   if (RegExp(regexEmail).hasMatch(email)) {
     return true;
@@ -11,14 +13,15 @@ bool isEmailValid(String email) {
 }
 
 bool isPasswordValid(String password) {
-    if (password.length < 8) {
-      return false;
-    } 
-    return true;
+  if (password.length < 8) {
+    return false;
+  }
+  return true;
 }
 
 bool isPostalCodeValid(String postalCode) {
-  String regexEmail = r'^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+  String regexEmail =
+      r'^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
 
   if (RegExp(regexEmail).hasMatch(postalCode)) {
     return true;
@@ -35,10 +38,8 @@ double parseCommaDecimal(String value) {
   return _result;
 }
 
-
 String capitalize(String value) {
-  if (value.isNotEmpty)
-    return "${value[0].toUpperCase()}${value.substring(1)}";
+  if (value.isNotEmpty) return "${value[0].toUpperCase()}${value.substring(1)}";
   return null;
 }
 
@@ -78,8 +79,7 @@ String formatDateTimeToServerFormatDate(DateTime dateTime) {
 String formatTimeToHourMinutes(String time) {
   List<String> units = time.split(":");
 
-  if (units.isNotEmpty)
-    return "${units[0]}:${units[1]}";
+  if (units.isNotEmpty) return "${units[0]}:${units[1]}";
 
   return "";
 }
@@ -99,8 +99,8 @@ String formatPrice(double toFormat) {
   return "NAN";
 }
 
-String formatDate(String date){
- // return Jiffy(date, "dd/MM/yyyy").format("yyyy-MM-dd");
+String formatDate(String date) {
+  // return Jiffy(date, "dd/MM/yyyy").format("yyyy-MM-dd");
 }
 
 /// Retorna un [double] si [value] conté un valor decimal o numèric.

@@ -4,13 +4,14 @@ import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/src/widgets/buttons/theme_button.dart';
 import 'package:myjdmcar/src/widgets/decoration/logo_app.dart';
 import 'package:myjdmcar/src/widgets/form/login_form.dart';
+import 'package:myjdmcar/utils/utils.dart';
 
-class SignIn extends StatefulWidget {
+class SignInPage extends StatefulWidget {
   @override
-  _SignInState createState() => _SignInState();
+  _SignInPageState createState() => _SignInPageState();
 }
 
-class _SignInState extends State<SignIn> {
+class _SignInPageState extends State<SignInPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -21,6 +22,7 @@ class _SignInState extends State<SignIn> {
         FocusScope.of(context).unfocus();
       },
       child: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.all(30.0),
           child: Column(
@@ -43,24 +45,30 @@ class _SignInState extends State<SignIn> {
                         .translate("loginPageForgotPassword"),
                     style: TextStyle(color: Colors.grey),
                   ),
-                  SizedBox(width: 5,),
+                  SizedBox(
+                    width: 5,
+                  ),
                   GestureDetector(
                       onTap: () =>
-                          Navigator.pushNamed(context, "recover_password"),
+                          Navigator.pushNamed(context, "recover_password_page"),
                       child: Text(
                         AppLocalizations.of(context)
                             .translate("loginPageRecoverPassword"),
                         style: TextStyle(
-                            color:  AppColors.green_jdm_arrow, fontWeight: FontWeight.bold),
+                            color: AppColors.green_jdm_arrow,
+                            fontWeight: FontWeight.bold),
                       )),
                 ],
               ),
               SizedBox(
                 height: 80,
               ),
-              ThemeButton(function: validateForm, buttonText: AppLocalizations.of(context)
-                  .translate("loginButtonText")
-                  .toUpperCase(),),
+              ThemeButton(
+                function: validateForm,
+                buttonText: AppLocalizations.of(context)
+                    .translate("loginButtonText")
+                    .toUpperCase(),
+              ),
               SizedBox(
                 height: 20,
               ),
@@ -72,16 +80,19 @@ class _SignInState extends State<SignIn> {
                         .translate("loginPageHaveAccount"),
                     style: TextStyle(color: Colors.grey),
                   ),
-                  SizedBox(width: 5,),
+                  SizedBox(
+                    width: 5,
+                  ),
                   GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, "register");
+                        Navigator.pushNamed(context, "sign_up_page");
                       },
                       child: Text(
                         AppLocalizations.of(context)
                             .translate("loginPageRegister"),
                         style: TextStyle(
-                            color: AppColors.green_jdm_arrow, fontWeight: FontWeight.bold),
+                            color: AppColors.green_jdm_arrow,
+                            fontWeight: FontWeight.bold),
                       )),
                 ],
               ),
@@ -93,10 +104,10 @@ class _SignInState extends State<SignIn> {
   }
 
   ///Valida el que el formulario cumpla las restricciones
-  void validateForm(){
+  void validateForm() {
     if (_formKey.currentState.validate()) {
       print("validated");
-      Navigator.popAndPushNamed(context, "home");
+      Navigator.popAndPushNamed(context, "home_page");
     } else {
       print("Not validated");
     }
