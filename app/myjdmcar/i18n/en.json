@@ -1,2 +1,21 @@
 {
+    "loginPageTitle"                    : "Bienvenido a MyJDMCar",
+    "loginPageForgotPassword"           : "Has olvidado la contraseña?",
+    "loginPageRecoverPassword"          : "Recuperar",
+    "loginPageHaveAccount"              : "No tienes cuenta?",
+    "loginPageRegister"                 : "Regístrate!",
+    "loginButtonText"                   : "Entrar",
+
+
+
+
+
+
+    "emailTextFormFieldLabel"           : "Email",
+    "emailTextFormFieldHint"            : "email@ejemplo.com",
+    "emailTextFormFieldValidationError" : "Introduce un email válido",
+
+    "passwordTextFormFieldLabel"        : "Contraseña",
+    "passwordTextFormFieldHint"         : "********",
+    "passwordTextFormFieldError"        : "Introduce una contraseña válida ( + 8 carácteres )"
 }

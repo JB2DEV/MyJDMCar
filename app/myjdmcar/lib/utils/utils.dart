@@ -10,6 +10,13 @@ bool isEmailValid(String email) {
   return false;
 }
 
+bool isPasswordValid(String password) {
+    if (password.length < 8) {
+      return false;
+    } 
+    return true;
+}
+
 bool isPostalCodeValid(String postalCode) {
   String regexEmail = r'^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
 

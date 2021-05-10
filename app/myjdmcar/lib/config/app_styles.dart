@@ -12,7 +12,6 @@ class AppStyles {
     scaffoldBackgroundColor: AppColors.white,
     bottomAppBarColor: AppColors.white,
     canvasColor: AppColors.white,
-    cursorColor: AppColors.black,
     //unselectedWidgetColor: Color(0xFFFFFFFF),
     unselectedWidgetColor: AppColors.grey,
     errorColor: AppColors.red,
@@ -27,7 +26,6 @@ class AppStyles {
       color: AppColors.white,
       textTheme: TextTheme(
         headline4: TextStyle(
-          fontFamily: 'Montserrat',
           fontSize: 18.0,
           fontWeight: FontWeight.w600,
           color: AppColors.black,
@@ -39,9 +37,9 @@ class AppStyles {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(Colors.amber),
+          backgroundColor: MaterialStateProperty.all<Color>(AppColors.green_jdm_arrow),
           //The color of the textStyle is typically not used directly, the foregroundColor is used instead.
-          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
           elevation: MaterialStateProperty.all<double>(0),
           textStyle: MaterialStateProperty.all<TextStyle>(
             TextTheme().button
@@ -50,7 +48,7 @@ class AppStyles {
         )
     ),
     buttonTheme: ButtonThemeData(
-      buttonColor: Colors.amber,
+      buttonColor: Colors.red,
       splashColor: AppColors.blue,
       textTheme: ButtonTextTheme.primary,
       shape: RoundedRectangleBorder(
@@ -74,7 +72,6 @@ class AppStyles {
       ),
       //Appbar
       headline6: TextStyle(
-        fontFamily: 'Montserrat',
         fontSize: 18.0,
         fontWeight: FontWeight.w600,
         color: AppColors.black,
@@ -101,13 +98,13 @@ class AppStyles {
     inputDecorationTheme: InputDecorationTheme(
       floatingLabelBehavior: FloatingLabelBehavior.always,
       labelStyle:
-      TextStyle(color: Colors.lightGreen, fontWeight: FontWeight.bold, fontSize: 20),
+      TextStyle(color: AppColors.green_jdm_arrow, fontWeight: FontWeight.bold, fontSize: 20),
       hintStyle: TextStyle(color: Colors.grey),
       enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5.0),
           borderSide: BorderSide(color: Colors.grey, width: 1.5)),
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.lightGreen,  width: 1.5),
+        borderSide: BorderSide(color: AppColors.green_jdm_arrow,  width: 1.5),
         borderRadius: BorderRadius.circular(5.0),
       ),
       focusedErrorBorder: OutlineInputBorder(

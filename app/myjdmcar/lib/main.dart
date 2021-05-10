@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:myjdmcar/config/app_colors.dart';
-import 'package:myjdmcar/src/ui/test/buttons.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:myjdmcar/config/app_styles.dart';
+import 'package:myjdmcar/config/internationalization/app_localizations.dart';
+import 'package:myjdmcar/config/navigator_routes.dart';
+import 'package:myjdmcar/src/ui/auth/sign_in.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -10,7 +14,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'MyJDMCar',
-      home: AppButtons(),
+      theme: AppStyles.mainTheme,
+      routes: getAppRoutes(),
+      home: SignIn(),
+      supportedLocales: [Locale("en"), Locale("es"), Locale("ca")],
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        FallbackCupertinoLocalisationsDelegate(),
+      ],
     );
   }
 }
