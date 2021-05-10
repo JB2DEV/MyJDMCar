@@ -1,36 +1,16 @@
 import 'package:flutter/material.dart';
- 
+import 'package:myjdmcar/config/app_colors.dart';
+import 'package:myjdmcar/src/ui/test/buttons.dart';
+
 void main() => runApp(MyApp());
- 
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Material App',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Material App Bar'),
-        ),
-        body: Center(
-          child: SizedBox(
-            width: 230,
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    
-                  ]
-
-                )
-              ),
-              child: ElevatedButton(
-              onPressed: () {  },
-              child: null,
-              ),
-            ),
-          )
-        ),
-      ),
+      debugShowCheckedModeBanner: false,
+      title: 'MyJDMCar',
+      home: AppButtons(),
     );
   }
 }

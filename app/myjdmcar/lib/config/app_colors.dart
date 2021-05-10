@@ -24,5 +24,7 @@ class AppColors {
 
   static Color analysisBlue = Color(0xFFD9E021);
 
+  static Color yellow_jdm_arrow = Color(0xFFfbf205);
+  static Color green_jdm_arrow = Color(0xFF04bb53);
 
 }
