@@ -1,9 +1,4 @@
-<html>
- <head>
-  <title>PHP Test</title>
- </head>
- <body>
- <?php  
+<?php  
 	require('config.php');
 	$select = $conn->query("SELECT * FROM usuario");
 	$data = array();
@@ -14,6 +9,4 @@
 	echo json_encode($data);
 	$conn->close();
 	return;
- ?> 
- </body>
-</html>
+ ?>

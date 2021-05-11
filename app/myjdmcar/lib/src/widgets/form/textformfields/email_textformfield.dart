@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myjdmcar/config/globals.dart';
 import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/utils/utils.dart';
 
@@ -13,15 +14,19 @@ class _EmailTextFormFieldState extends State<EmailTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      validator: validateEmail,
-      keyboardType: TextInputType.emailAddress,
-      controller: emailController,
-      decoration: InputDecoration(
-          labelText:
-              AppLocalizations.of(context).translate("emailTextFormFieldLabel"),
-          hintText:
-              AppLocalizations.of(context).translate("emailTextFormFieldHint")),
-    );
+        validator: validateEmail,
+        keyboardType: TextInputType.emailAddress,
+        controller: emailController,
+        decoration: InputDecoration(
+            labelText: AppLocalizations.of(context)
+                .translate("emailTextFormFieldLabel"),
+            hintText: AppLocalizations.of(context)
+                .translate("emailTextFormFieldHint")),
+        onChanged: (value) {
+          setState(() {
+            variable1 = value;
+          });
+        });
   }
 
   String validateEmail(String email) {

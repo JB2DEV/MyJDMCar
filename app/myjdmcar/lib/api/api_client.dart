@@ -15,7 +15,7 @@ class ApiClient {
 
   ApiClient._internal();
 
-  final baseUrl = 'ehl.apiabalit2.com';
+  final baseUrl = '10.0.2.2';
   final api = "/api";
   final currentVersion = '/v1';
 
@@ -52,7 +52,7 @@ class ApiClient {
         return user;
         break;
       default:
-      // KO
+        // KO
         throw ApiException(getRCMessage(rc), rc);
         break;
     }
@@ -71,7 +71,7 @@ class ApiClient {
 
     switch (rc) {
       case 0:
-      // LOGIN OK
+        // LOGIN OK
         final prefs = await SharedPreferences.getInstance();
         User user = User.fromJson(response["data"]["user"]);
 
@@ -81,7 +81,7 @@ class ApiClient {
         return user;
         break;
       default:
-      // ERROR
+        // ERROR
         throw ApiException(getRCMessage(rc), rc);
         break;
     }
@@ -97,11 +97,11 @@ class ApiClient {
 
     switch (rc) {
       case 0:
-      // OK
+        // OK
         return response["data"];
         break;
       default:
-      // ERROR
+        // ERROR
         throw ApiException(getRCMessage(rc), rc);
         break;
     }
@@ -115,7 +115,8 @@ class ApiClient {
     var url = Uri.http(baseUrl, '$api$authUrl${routes["edit"]}');
     print(url);
 
-    var response = await apiGETAuthRequest(url, jsonEncode(params), accessToken);
+    var response =
+        await apiGETAuthRequest(url, jsonEncode(params), accessToken);
     var rc = response["rc"];
 
     switch (rc) {
@@ -140,7 +141,7 @@ class ApiClient {
     var url = Uri.http(baseUrl, '$api$authUrl${routes["changePassword"]}');
 
     var response =
-    await apiPOSTAuthRequest(url, jsonEncode(params), accessToken);
+        await apiPOSTAuthRequest(url, jsonEncode(params), accessToken);
     var rc = response["rc"];
 
     switch (rc) {
@@ -283,7 +284,7 @@ class ApiClient {
 
     if (returnMesgage != null) {
       return returnMesgage;
-    }else{
+    } else {
       return returnCodes[1];
     }
   }
