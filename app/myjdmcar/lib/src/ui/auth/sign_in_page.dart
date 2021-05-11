@@ -38,13 +38,12 @@ class _SignInPageState extends State<SignInPage> {
               ),
               SizedBox(height: 30),
               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    AppLocalizations.of(context)
-                        .translate("loginPageForgotPassword"),
-                    style: TextStyle(color: Colors.grey),
-                  ),
+                      AppLocalizations.of(context)
+                          .translate("loginPageForgotPassword"),
+                      style: Theme.of(context).textTheme.bodyText2),
                   SizedBox(
                     width: 5,
                   ),
@@ -54,9 +53,7 @@ class _SignInPageState extends State<SignInPage> {
                       child: Text(
                         AppLocalizations.of(context)
                             .translate("loginPageRecoverPassword"),
-                        style: TextStyle(
-                            color: AppColors.green_jdm_arrow,
-                            fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.bodyText1.copyWith(color: AppColors.green_jdm_arrow)
                       )),
                 ],
               ),
@@ -78,7 +75,7 @@ class _SignInPageState extends State<SignInPage> {
                   Text(
                     AppLocalizations.of(context)
                         .translate("loginPageHaveAccount"),
-                    style: TextStyle(color: Colors.grey),
+                    style: Theme.of(context).textTheme.bodyText2,
                   ),
                   SizedBox(
                     width: 5,
@@ -90,9 +87,7 @@ class _SignInPageState extends State<SignInPage> {
                       child: Text(
                         AppLocalizations.of(context)
                             .translate("loginPageRegister"),
-                        style: TextStyle(
-                            color: AppColors.green_jdm_arrow,
-                            fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.bodyText1.copyWith(color: AppColors.green_jdm_arrow)
                       )),
                 ],
               ),
@@ -107,8 +102,7 @@ class _SignInPageState extends State<SignInPage> {
   void validateForm() {
     if (_formKey.currentState.validate()) {
       print("validated");
-          Navigator.popAndPushNamed(context, "home_page");
-
+      Navigator.popAndPushNamed(context, "home_page");
     } else {
       print("Not validated");
     }

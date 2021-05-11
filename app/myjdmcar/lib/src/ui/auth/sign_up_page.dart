@@ -30,8 +30,7 @@ class _SignUpPageState extends State<SignUpPage> {
               LogoApp(),
               SizedBox(height: 50),
               Text(AppLocalizations.of(context)
-                    .translate("signUpPageTitle")),
-              SizedBox(height: 30),
+                    .translate("signUpPageTitle"), style: Theme.of(context).textTheme.headline1,),
               RegisterForm(formKey: _formKey),
               SizedBox(
                 height: 80,

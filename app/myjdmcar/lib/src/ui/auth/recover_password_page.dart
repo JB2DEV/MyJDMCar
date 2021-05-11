@@ -30,10 +30,10 @@ class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
               LogoApp(),
               SizedBox(height: 50),
               Text(AppLocalizations.of(context)
-                    .translate("recoverPasswordPageTitle")),
+                    .translate("recoverPasswordPageTitle"), style: Theme.of(context).textTheme.headline1,),
               SizedBox(height: 30),
               Text(AppLocalizations.of(context)
-                    .translate("recoverPasswordPageSubtitle")),
+                    .translate("recoverPasswordPageSubtitle"), style: Theme.of(context).textTheme.headline2,),
               SizedBox(height: 30),
               Form(key: _formKey, child: EmailTextFormField()),
               SizedBox(height: 30),
