@@ -66,7 +66,7 @@ class _SignInPageState extends State<SignInPage> {
               ThemeButton(
                 function: validateForm,
                 buttonText: AppLocalizations.of(context)
-                    .translate("loginButtonText")
+                    .translate("loginPageButtonText")
                     .toUpperCase(),
               ),
               SizedBox(

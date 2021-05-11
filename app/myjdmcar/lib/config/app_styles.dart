@@ -8,11 +8,10 @@ class AppStyles {
     fontFamily: 'Montserrat',
     brightness: Brightness.light,
     primaryColor: AppColors.blue,
-    accentColor: AppColors.blue,
+    accentColor: AppColors.green_jdm_arrow,
     scaffoldBackgroundColor: AppColors.white,
     bottomAppBarColor: AppColors.white,
     canvasColor: AppColors.white,
-    //unselectedWidgetColor: Color(0xFFFFFFFF),
     unselectedWidgetColor: AppColors.grey,
     errorColor: AppColors.red,
     bottomSheetTheme: BottomSheetThemeData(
