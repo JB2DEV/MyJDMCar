@@ -10,3 +10,4 @@ String accessToken = "";
 
 String variable1 = "";
 String variable2 = "";
+String variable3 = "";

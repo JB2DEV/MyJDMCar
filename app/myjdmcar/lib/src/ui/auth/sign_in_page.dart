@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:myjdmcar/config/app_colors.dart';
+import 'package:myjdmcar/config/globals.dart';
 import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/src/widgets/buttons/theme_button.dart';
 import 'package:myjdmcar/src/widgets/decoration/logo_app.dart';
@@ -54,10 +55,12 @@ class _SignInPageState extends State<SignInPage> {
                       onTap: () =>
                           Navigator.pushNamed(context, "recover_password_page"),
                       child: Text(
-                        AppLocalizations.of(context)
-                            .translate("loginPageRecoverPassword"),
-                        style: Theme.of(context).textTheme.bodyText1.copyWith(color: AppColors.green_jdm_arrow)
-                      )),
+                          AppLocalizations.of(context)
+                              .translate("loginPageRecoverPassword"),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1
+                              .copyWith(color: AppColors.green_jdm_arrow))),
                 ],
               ),
               SizedBox(
@@ -88,10 +91,12 @@ class _SignInPageState extends State<SignInPage> {
                         Navigator.pushNamed(context, "sign_up_page");
                       },
                       child: Text(
-                        AppLocalizations.of(context)
-                            .translate("loginPageRegister"),
-                        style: Theme.of(context).textTheme.bodyText1.copyWith(color: AppColors.green_jdm_arrow)
-                      )),
+                          AppLocalizations.of(context)
+                              .translate("loginPageRegister"),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1
+                              .copyWith(color: AppColors.green_jdm_arrow))),
                 ],
               ),
             ],
@@ -105,9 +110,26 @@ class _SignInPageState extends State<SignInPage> {
   void validateForm() {
     if (_formKey.currentState.validate()) {
       print("validated");
-      Navigator.popAndPushNamed(context, "home_page");
+      try {
+        login();
+
+        Navigator.popAndPushNamed(context, "home_page");
+      } on Exception catch (_) {
+        print("Error: ");
+      }
     } else {
       print("Not validated");
     }
+  }
+
+  void login() async {
+    var url = '10.0.2.2:80';
+    var test = '/auth/login.php';
+    Map<String, dynamic> toJson() => {'user': variable1, 'pass': variable2};
+    final response = await http.post(Uri.http(url, test), body: toJson());
+    //final decodedJson = await json.decode(response.body);
+    Map<String, dynamic> decodedJson = jsonDecode(response.body);
+
+    print(decodedJson['RESPONSE'] == 'success' ? true : false);
   }
 }

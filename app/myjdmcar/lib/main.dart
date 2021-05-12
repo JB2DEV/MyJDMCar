@@ -4,6 +4,7 @@ import 'package:myjdmcar/config/app_styles.dart';
 import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/config/navigator_routes.dart';
 import 'package:myjdmcar/src/ui/auth/sign_in_page.dart';
+import 'package:myjdmcar/src/ui/home/home_page.dart';
 import 'package:myjdmcar/src/ui/test/buttons.dart';
 
 void main() => runApp(MyApp());
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'MyJDMCar',
       theme: AppStyles.mainTheme,
       routes: getAppRoutes(),
-      home: AppButtons(),
+      home: SignInPage(),
       supportedLocales: [Locale("en"), Locale("es"), Locale("ca")],
       localizationsDelegates: [
         AppLocalizations.delegate,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myjdmcar/config/globals.dart';
 import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/utils/utils.dart';
 
@@ -15,15 +16,19 @@ class _UsernameTextFormFieldState extends State<UsernameTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      validator: validateTextField,
-      keyboardType: TextInputType.name,
-      controller: usernameController,
-      decoration: InputDecoration(
-          labelText: AppLocalizations.of(context)
-              .translate("usernameTextFormFieldLabel"),
-          hintText: AppLocalizations.of(context)
-              .translate("usernameTextFormFieldHint")),
-    );
+        validator: validateTextField,
+        keyboardType: TextInputType.name,
+        controller: usernameController,
+        decoration: InputDecoration(
+            labelText: AppLocalizations.of(context)
+                .translate("usernameTextFormFieldLabel"),
+            hintText: AppLocalizations.of(context)
+                .translate("usernameTextFormFieldHint")),
+        onChanged: (value) {
+          setState(() {
+            variable3 = value;
+          });
+        });
   }
 
   ///Valida que el textfield no esté vacío

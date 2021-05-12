@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:myjdmcar/config/globals.dart';
 import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/src/widgets/buttons/theme_button.dart';
 import 'package:myjdmcar/src/widgets/decoration/logo_app.dart';
 import 'package:myjdmcar/src/widgets/form/register_form.dart';
+import 'package:http/http.dart' as http;
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -29,14 +33,19 @@ class _SignUpPageState extends State<SignUpPage> {
               SizedBox(height: 30),
               LogoApp(),
               SizedBox(height: 50),
-              Text(AppLocalizations.of(context)
-                    .translate("signUpPageTitle"), style: Theme.of(context).textTheme.headline1,),
+              Text(
+                AppLocalizations.of(context).translate("signUpPageTitle"),
+                style: Theme.of(context).textTheme.headline1,
+              ),
               RegisterForm(formKey: _formKey),
               SizedBox(
                 height: 80,
               ),
-              ThemeButton(function: validateForm, buttonText: AppLocalizations.of(context)
-                    .translate("signUpPageButtonText").toUpperCase()),
+              ThemeButton(
+                  function: validateForm,
+                  buttonText: AppLocalizations.of(context)
+                      .translate("signUpPageButtonText")
+                      .toUpperCase()),
               SizedBox(
                 height: 20,
               ),
@@ -51,9 +60,24 @@ class _SignUpPageState extends State<SignUpPage> {
   void validateForm() {
     if (_formKey.currentState.validate()) {
       print("validated");
-      Navigator.pop(context);
+      try {
+        insertOne();
+        Navigator.pop(context);
+      } on Exception catch (_) {
+        print("Error");
+      }
     } else {
       print("Not validated");
     }
+  }
+
+  void insertOne() async {
+    var url = '10.0.2.2:80';
+    var test = '/auth/signup.php';
+    Map<String, dynamic> toJson() =>
+        {'user': variable3, 'email': variable1, 'pass': variable2};
+    final response = await http.post(Uri.http(url, test), body: toJson());
+    final decodedJson = await json.decode(response.body);
+    print(decodedJson);
   }
 }

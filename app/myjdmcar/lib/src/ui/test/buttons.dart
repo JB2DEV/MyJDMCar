@@ -24,7 +24,7 @@ class AppButtons extends StatelessWidget {
               ElevatedButton(onPressed: insertOne, child: Text("testInsert")),
               ElevatedButton(
                   onPressed: selectOne, child: Text("testSelectOne")),
-              ElevatedButton(onPressed: selectAll, child: Text("testDelete")),
+              ElevatedButton(onPressed: login, child: Text("testLo")),
               SizedBox(
                 height: 20,
               ),
@@ -54,6 +54,7 @@ class AppButtons extends StatelessWidget {
     var test = '/test/insert.php';
     Map<String, dynamic> toJson() =>
         {'user': variable1, 'email': variable1, 'pass': variable2};
+    print(toJson());
     final response = await http.post(Uri.http(url, test), body: toJson());
     final decodedJson = await json.decode(response.body);
     print(decodedJson);
@@ -63,6 +64,15 @@ class AppButtons extends StatelessWidget {
     var url = '10.0.2.2:80';
     var test = '/test/getOne.php';
     Map<String, dynamic> toJson() => {'user': variable1};
+    final response = await http.post(Uri.http(url, test), body: toJson());
+    final decodedJson = await json.decode(response.body);
+    print(decodedJson);
+  }
+
+  void login() async {
+    var url = '10.0.2.2:80';
+    var test = '/auth/login.php';
+    Map<String, dynamic> toJson() => {'user': variable1, 'pass': variable2};
     final response = await http.post(Uri.http(url, test), body: toJson());
     final decodedJson = await json.decode(response.body);
     print(decodedJson);
