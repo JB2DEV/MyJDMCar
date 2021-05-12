@@ -4,10 +4,14 @@
     "loginPageRecoverPassword"          : "Recuperar",
     "loginPageHaveAccount"              : "No tienes cuenta?",
     "loginPageRegister"                 : "Regístrate!",
-    "loginButtonText"                   : "Entrar",
+    "loginPageButtonText"               : "Entrar",
 
+    "recoverPasswordPageTitle"          : "Ayúdanos a recuperar tu contraseña",
+    "recoverPasswordPageSubtitle"       : "Introduce tu correo y te enviaremos un correo con las instrucciones",
+    "recoverPasswordPageButtonText"     : "Recuperar",
 
-
+    "signUpPageTitle"                   : "Regístrate en MyJDMCar",
+    "signUpPageButtonText"              : "Registrarse",
 
 
 
@@ -17,5 +21,9 @@
 
     "passwordTextFormFieldLabel"        : "Contraseña",
     "passwordTextFormFieldHint"         : "********",
-    "passwordTextFormFieldError"        : "Introduce una contraseña válida ( + 8 carácteres )"
+    "passwordTextFormFieldError"        : "Introduce una contraseña válida ( + 8 carácteres )",
+
+    "usernameTextFormFieldLabel"        : "Usuario",
+    "usernameTextFormFieldHint"         : "Usuario2392",
+    "usernameTextFormFieldError"        : "Introduce un nombre de usuario"
 }

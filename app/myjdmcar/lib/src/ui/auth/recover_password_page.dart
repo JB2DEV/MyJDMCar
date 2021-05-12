@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/src/widgets/buttons/theme_button.dart';
 import 'package:myjdmcar/src/widgets/decoration/logo_app.dart';
 import 'package:myjdmcar/src/widgets/form/textformfields/email_textformfield.dart';
@@ -28,16 +29,20 @@ class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
               SizedBox(height: 30),
               LogoApp(),
               SizedBox(height: 50),
-              Text("Ayúdanos a recuperar tu contraseña"),
+              Text(AppLocalizations.of(context)
+                    .translate("recoverPasswordPageTitle"), style: Theme.of(context).textTheme.headline1,),
               SizedBox(height: 30),
-              Text("Introduce tu correo y te enviaremos un correo con las instrucciones"),
+              Text(AppLocalizations.of(context)
+                    .translate("recoverPasswordPageSubtitle"), style: Theme.of(context).textTheme.headline2,),
               SizedBox(height: 30),
               Form(key: _formKey, child: EmailTextFormField()),
               SizedBox(height: 30),
               SizedBox(
                 height: 80,
               ),
-              ThemeButton(function: validateForm, buttonText: "Recover"),
+              ThemeButton(function: validateForm, buttonText: AppLocalizations.of(context)
+                    .translate("recoverPasswordPageButtonText")
+                    .toUpperCase()),
               SizedBox(
                 height: 20,
               ),
