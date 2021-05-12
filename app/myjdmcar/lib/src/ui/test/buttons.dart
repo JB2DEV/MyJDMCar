@@ -20,7 +20,11 @@ class AppButtons extends StatelessWidget {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
-              ElevatedButton(onPressed: selectAll, child: Text("test")),
+              ElevatedButton(onPressed: selectAll, child: Text("testSelect")),
+              ElevatedButton(onPressed: insertOne, child: Text("testInsert")),
+              ElevatedButton(
+                  onPressed: selectOne, child: Text("testSelectOne")),
+              ElevatedButton(onPressed: selectAll, child: Text("testDelete")),
               SizedBox(
                 height: 20,
               ),
@@ -41,8 +45,26 @@ class AppButtons extends StatelessWidget {
     var url = '10.0.2.2:80';
     var test = '/test/usuario.php';
     final response = await http.post(Uri.http(url, test));
-    //  final response =  await http.post(Uri.parse("http://bema222.com/vacaciones.txt"));
     final decodedJson = await json.decode(response.body);
-    print(variable1);
+    print(decodedJson);
+  }
+
+  void insertOne() async {
+    var url = '10.0.2.2:80';
+    var test = '/test/insert.php';
+    Map<String, dynamic> toJson() =>
+        {'user': variable1, 'email': variable1, 'pass': variable2};
+    final response = await http.post(Uri.http(url, test), body: toJson());
+    final decodedJson = await json.decode(response.body);
+    print(decodedJson);
+  }
+
+  void selectOne() async {
+    var url = '10.0.2.2:80';
+    var test = '/test/getOne.php';
+    Map<String, dynamic> toJson() => {'user': variable1};
+    final response = await http.post(Uri.http(url, test), body: toJson());
+    final decodedJson = await json.decode(response.body);
+    print(decodedJson);
   }
 }
