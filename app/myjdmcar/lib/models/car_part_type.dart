@@ -6,9 +6,9 @@ class CarPartTypeModel {
   CarPartTypeModel({this.id, this.name, this.icon});
 
   CarPartTypeModel.fromJson(Map<String, dynamic> parsedJson)
-      : this.id = parsedJson['id'],
-        this.name = parsedJson['name'],
-        this.icon = parsedJson['icon'];
+      : this.id = parsedJson['id'] ?? null,
+        this.name = parsedJson['name'] ?? null,
+        this.icon = parsedJson['icon'] ?? null;
 
-  Map<String, dynamic> toJson() => {'id': id, 'name': name, "icon": icon};
+  Map<String, dynamic> toJson() => {'id': id ?? null, 'name': name ?? null, "icon": icon ?? null};
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:myjdmcar/config/app_colors.dart';
+import 'package:myjdmcar/models/car.dart';
 import 'package:myjdmcar/models/car_part_type.dart';
 import 'package:myjdmcar/provider/car_parts_type_provider.dart';
 import 'package:provider/provider.dart';
@@ -16,10 +17,9 @@ class CarPartsTypeFilter extends StatefulWidget {
 }
 
 class _CarPartsTypeFilterState extends State<CarPartsTypeFilter> {
-
   List<CarPartTypeModel> carPartsTypeList;
-  Future carPartsType;
-  Future getData() async {
+  Future carPartsTypeData;
+  Future getCarPartsTypeData() async {
     final result =
         await rootBundle.loadString('assets/data/car_parts_type.json');
     print(result);
@@ -32,9 +32,23 @@ class _CarPartsTypeFilterState extends State<CarPartsTypeFilter> {
     return data;
   }
 
+  List<CarModel> userCarsList;
+  Future userCarsData;
+  Future getUserCarsData() async {
+    final result = await rootBundle.loadString('assets/data/user_cars.json');
+    print(result);
+    final data = json.decode(result);
+    print(data);
+    userCarsList =
+        (data['data'] as List).map((i) => new CarModel.fromJson(i)).toList();
+
+    return data;
+  }
+
   @override
   void initState() {
-    carPartsType = getData();
+    carPartsTypeData = getCarPartsTypeData();
+    userCarsData = getUserCarsData();
     super.initState();
   }
 
@@ -49,7 +63,7 @@ class _CarPartsTypeFilterState extends State<CarPartsTypeFilter> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: FutureBuilder(
-              future: carPartsType,
+              future: carPartsTypeData,
               builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                 if (snapshot.hasData) {
                   print("Has data");
