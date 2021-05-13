@@ -51,7 +51,7 @@ class _SignUpPageState extends State<SignUpPage> {
   void validateForm() {
     if (_formKey.currentState.validate()) {
       print("validated");
-      Navigator.pop(context);
+      Navigator.popAndPushNamed(context, "home_page");
     } else {
       print("Not validated");
     }
