@@ -1,19 +1,19 @@
-class User {
+class UserModel {
   final int id;
   final String email;
   String accessToken;
-  final String name;
+  final String userName;
 
-  User({this.id, this.email, this.accessToken, this.name});
+  UserModel({this.id, this.email, this.accessToken, this.userName});
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return new User(
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return new UserModel(
       id: json['id'] as int,
-      name: json['name'] as String,
+      userName: json['userName'] as String,
       email: json['email'] as String,
     );
   }
 
   Map<String, dynamic> toJson() =>
-      {'id': id, 'accessToken': accessToken, 'name': name, 'email': email};
+      {'id': id, 'accessToken': accessToken, 'name': userName, 'email': email};
 }

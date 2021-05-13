@@ -25,7 +25,7 @@ class ApiClient {
 
   factory ApiClient() => _client;
 
-  Future<User> signUp(String email, String password) async {
+  Future<UserModel> signUp(String email, String password) async {
     Map<String, dynamic> params = {
       "email": email,
       "password": password,
@@ -39,7 +39,7 @@ class ApiClient {
     switch (rc) {
       case 0:
         final prefs = await SharedPreferences.getInstance();
-        User user = User.fromJson(response["data"]["user"]);
+        UserModel user = UserModel.fromJson(response["data"]["user"]);
 
         prefs.setString('user', json.encode(response["data"]["user"]));
         prefs.setString('accessToken', response["data"]["access_token"]);
@@ -58,7 +58,7 @@ class ApiClient {
     }
   }
 
-  Future<User> signIn(String email, String password) async {
+  Future<UserModel> signIn(String email, String password) async {
     Map<String, dynamic> params = {
       "email": email,
       "password": password,
@@ -73,7 +73,7 @@ class ApiClient {
       case 0:
       // LOGIN OK
         final prefs = await SharedPreferences.getInstance();
-        User user = User.fromJson(response["data"]["user"]);
+        UserModel user = UserModel.fromJson(response["data"]["user"]);
 
         prefs.setString('user', json.encode(response["data"]["user"]));
         prefs.setString('accessToken', response["data"]["access_token"]);
@@ -121,7 +121,7 @@ class ApiClient {
     switch (rc) {
       case 0:
         final prefs = await SharedPreferences.getInstance();
-        User user = User.fromJson(response["data"]);
+        UserModel user = UserModel.fromJson(response["data"]);
 
         prefs.setString('user', json.encode(response["data"]));
 

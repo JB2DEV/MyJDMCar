@@ -80,7 +80,6 @@ class _HomeDrawerState extends State<HomeDrawer> {
             height: 1,
             color: AppColors.grey,
           ),
-          Expanded(child: Container()),
           ListTile(
             leading: Icon(
               Icons.settings,

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:myjdmcar/config/app_colors.dart';
-import 'package:myjdmcar/models/car_parts_model.dart';
+import 'package:myjdmcar/models/car_part_type.dart';
 import 'package:myjdmcar/provider/car_parts_type_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +17,7 @@ class CarPartsTypeFilter extends StatefulWidget {
 
 class _CarPartsTypeFilterState extends State<CarPartsTypeFilter> {
 
-  List<CarPartsTypeModel> carPartsTypeList;
+  List<CarPartTypeModel> carPartsTypeList;
   Future carPartsType;
   Future getData() async {
     final result =
@@ -26,7 +26,7 @@ class _CarPartsTypeFilterState extends State<CarPartsTypeFilter> {
     final data = json.decode(result);
     print(data);
     carPartsTypeList = (data['data'] as List)
-        .map((i) => new CarPartsTypeModel.fromJson(i))
+        .map((i) => new CarPartTypeModel.fromJson(i))
         .toList();
 
     return data;

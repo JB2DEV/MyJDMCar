@@ -10,11 +10,11 @@ class RequestProvider {
 
   ApiClient _apiClient = ApiClient();
 
-  Future<User> signUp(String email, String password) async {
+  Future<UserModel> signUp(String email, String password) async {
     return _apiClient.signUp(email, password);
   }
 
-  Future<User> signIn(String email, String password) async {
+  Future<UserModel> signIn(String email, String password) async {
     return _apiClient.signIn(email, password);
   }
 
