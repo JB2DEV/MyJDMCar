@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:myjdmcar/api/request_provider.dart';
 import 'package:myjdmcar/config/globals.dart';
 import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/src/widgets/buttons/theme_button.dart';
@@ -15,6 +16,7 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final RequestProvider _provider = RequestProvider();
 
   @override
   Widget build(BuildContext context) {
@@ -57,27 +59,17 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   ///Valida el que el formulario cumpla las restricciones
-  void validateForm() {
+  void validateForm() async {
     if (_formKey.currentState.validate()) {
       print("validated");
       try {
-        insertOne();
+        await _provider.mySignUp();
         Navigator.pop(context);
       } on Exception catch (_) {
-        print("Error");
+        print("Error signup");
       }
     } else {
       print("Not validated");
     }
-  }
-
-  void insertOne() async {
-    var url = '10.0.2.2:80';
-    var test = '/auth/signup.php';
-    Map<String, dynamic> toJson() =>
-        {'user': variable3, 'email': variable1, 'pass': variable2};
-    final response = await http.post(Uri.http(url, test), body: toJson());
-    final decodedJson = await json.decode(response.body);
-    print(decodedJson);
   }
 }

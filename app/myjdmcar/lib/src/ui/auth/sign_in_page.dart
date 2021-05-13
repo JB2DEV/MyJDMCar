@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:myjdmcar/api/request_provider.dart';
 import 'package:myjdmcar/config/app_colors.dart';
 import 'package:myjdmcar/config/globals.dart';
 import 'package:myjdmcar/config/internationalization/app_localizations.dart';
@@ -17,6 +18,7 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final RequestProvider _provider = RequestProvider();
 
   @override
   Widget build(BuildContext context) {
@@ -107,12 +109,11 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   ///Valida el que el formulario cumpla las restricciones
-  void validateForm() {
+  void validateForm() async {
     if (_formKey.currentState.validate()) {
       print("validated");
       try {
-        login();
-
+        await _provider.mySignIn();
         Navigator.popAndPushNamed(context, "home_page");
       } on Exception catch (_) {
         print("Error: ");
@@ -120,16 +121,5 @@ class _SignInPageState extends State<SignInPage> {
     } else {
       print("Not validated");
     }
-  }
-
-  void login() async {
-    var url = '10.0.2.2:80';
-    var test = '/auth/login.php';
-    Map<String, dynamic> toJson() => {'user': variable1, 'pass': variable2};
-    final response = await http.post(Uri.http(url, test), body: toJson());
-    //final decodedJson = await json.decode(response.body);
-    Map<String, dynamic> decodedJson = jsonDecode(response.body);
-
-    print(decodedJson['RESPONSE'] == 'success' ? true : false);
   }
 }

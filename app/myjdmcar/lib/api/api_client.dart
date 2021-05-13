@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:myjdmcar/config/globals.dart';
 import 'package:myjdmcar/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -24,6 +25,34 @@ class ApiClient {
   final dataUrl = "data/";
 
   factory ApiClient() => _client;
+
+  Future<User> mySignIn() async {
+    var test = '/auth/login.php';
+    Map<String, dynamic> toJson() => {'user': variable1, 'pass': variable2};
+    final response = await http.post(Uri.http(baseUrl, test), body: toJson());
+    //final decodedJson = await json.decode(response.body);
+    Map<String, dynamic> decodedJson = jsonDecode(response.body);
+    print(decodedJson);
+    if (decodedJson['response'] == 'success') {
+      return User.fromJson(jsonDecode(decodedJson['data']));
+    } else {
+      throw Exception("Login fail");
+    }
+  }
+
+  Future<User> mySignUp() async {
+    var test = '/auth/signup.php';
+    Map<String, dynamic> toJson() =>
+        {'user': variable3, 'email': variable1, 'pass': variable2};
+    final response = await http.post(Uri.http(baseUrl, test), body: toJson());
+    final decodedJson = await json.decode(response.body);
+    print(decodedJson);
+    if (decodedJson['response'] == 'insertado') {
+      return User.fromJson(jsonDecode(decodedJson['data']));
+    } else {
+      throw Exception("Signup fail");
+    }
+  }
 
   Future<User> signUp(String email, String password) async {
     Map<String, dynamic> params = {

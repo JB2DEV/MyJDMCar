@@ -1,7 +1,4 @@
-
-
 import 'package:myjdmcar/models/user.dart';
-
 
 import 'api_client.dart';
 
@@ -9,6 +6,14 @@ class RequestProvider {
   RequestProvider();
 
   ApiClient _apiClient = ApiClient();
+
+  Future<User> mySignIn() async {
+    return _apiClient.mySignIn();
+  }
+
+  Future<User> mySignUp() async {
+    return _apiClient.mySignUp();
+  }
 
   Future<User> signUp(String email, String password) async {
     return _apiClient.signUp(email, password);
