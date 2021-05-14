@@ -1,0 +1,64 @@
+{
+    "data" : [
+      {
+        "id": 0,
+        "name": "Todos",
+        "icon": "japan.svg"
+      },
+      {
+        "id": 1,
+        "name": "Frenos",
+        "icon": "frenada.svg"
+      },
+      {
+        "id": 2,
+        "name": "Escape",
+        "icon": "escape1.svg"
+      },
+      {
+        "id": 3,
+        "name": "Admisión",
+        "icon": "turbo.svg"
+      },
+      {
+        "id": 4,
+        "name": "Interior",
+        "icon": "interior.svg"
+      },
+      {
+        "id": 5,
+        "name": "Motor",
+        "icon": "motor.svg"
+      },
+      {
+        "id": 6,
+        "name": "Refrigeración",
+        "icon": "radiador.svg"
+      },
+      {
+        "id": 7,
+        "name": "Ruedas",
+        "icon": "rueda.svg"
+      },
+      {
+        "id": 8,
+        "name": "Suspensión",
+        "icon": "suspension.svg"
+      },
+      {
+        "id": 9,
+        "name": "Transmisión",
+        "icon": "trans.svg"
+      },
+      {
+        "id": 10,
+        "name": "Carrocería",
+        "icon": "carroceria.svg"
+      },
+      {
+        "id": 11,
+        "name": "Dirección",
+        "icon": "volante.svg"
+      }
+    ]
+  }

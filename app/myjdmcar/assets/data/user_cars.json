@@ -1,0 +1,22 @@
+{
+    "data": [
+        {
+            "id": 1111,
+            "carBrand": {
+                "name": "Nissan"
+            },
+            "carModel": {
+                "name": "Silvia s14"
+            }
+        },
+        {
+            "id": 2222,
+            "carBrand": {
+                "name": "Nissan"
+            },
+            "carModel": {
+                "name": "Silvia s13"
+            }
+        }
+    ]
+}
