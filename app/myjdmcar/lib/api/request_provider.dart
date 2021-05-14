@@ -7,14 +7,14 @@ class RequestProvider {
 
   ApiClient _apiClient = ApiClient();
 
-  Future<User> mySignIn() async {
+  Future<UserModel> mySignIn() async {
     return _apiClient.mySignIn();
   }
 
-  Future<User> mySignUp() async {
+  Future<UserModel> mySignUp() async {
     return _apiClient.mySignUp();
   }
-
+/*
   Future<User> signUp(String email, String password) async {
     return _apiClient.signUp(email, password);
   }
@@ -33,5 +33,5 @@ class RequestProvider {
 
   Future<dynamic> changePassword(String password, String accessToken) async {
     return _apiClient.changePassword(password, accessToken);
-  }
+  }*/
 }

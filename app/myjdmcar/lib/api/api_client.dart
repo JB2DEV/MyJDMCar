@@ -26,7 +26,7 @@ class ApiClient {
 
   factory ApiClient() => _client;
 
-  Future<User> mySignIn() async {
+  Future<UserModel> mySignIn() async {
     var test = '/auth/login.php';
     Map<String, dynamic> toJson() => {'user': variable1, 'pass': variable2};
     final response = await http.post(Uri.http(baseUrl, test), body: toJson());
@@ -34,13 +34,13 @@ class ApiClient {
     Map<String, dynamic> decodedJson = jsonDecode(response.body);
     print(decodedJson);
     if (decodedJson['response'] == 'success') {
-      return User.fromJson(jsonDecode(decodedJson['data']));
+      return UserModel.fromJson(jsonDecode(decodedJson['data']));
     } else {
       throw Exception("Login fail");
     }
   }
 
-  Future<User> mySignUp() async {
+  Future<UserModel> mySignUp() async {
     var test = '/auth/signup.php';
     Map<String, dynamic> toJson() =>
         {'user': variable3, 'email': variable1, 'pass': variable2};
@@ -48,12 +48,12 @@ class ApiClient {
     final decodedJson = await json.decode(response.body);
     print(decodedJson);
     if (decodedJson['response'] == 'insertado') {
-      return User.fromJson(jsonDecode(decodedJson['data']));
+      return UserModel.fromJson(jsonDecode(decodedJson['data']));
     } else {
       throw Exception("Signup fail");
     }
   }
-
+/*
   Future<User> signUp(String email, String password) async {
     Map<String, dynamic> params = {
       "email": email,
@@ -316,5 +316,5 @@ class ApiClient {
     } else {
       return returnCodes[1];
     }
-  }
+  }*/
 }
