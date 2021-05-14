@@ -1,0 +1,43 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "reference": "Reference 1",
+            "name": "Turbo XRY",
+            "description": "Descripcion Turbo XRY",
+            "image": "turbo_xry.png",
+            "carPartBrand": {
+                "name": "Garrett"
+            },
+            "carPartType": {
+                "name": "Sobrealimentación"
+            }
+        },
+        {
+            "id": 2,
+            "reference": "Reference 2",
+            "name": "Escape Trust FYHK",
+            "description": "Descripcion Escape Trust FYHK",
+            "image": "escape_trust_fyhk.png",
+            "carPartBrand": {
+                "name": "Trust"
+            },
+            "carPartType": {
+                "name": "Escape"
+            }
+        },
+        {
+            "id": 3,
+            "reference": "Reference 3",
+            "name": "Discos DBA T2",
+            "description": "Descripcion Discos DBA T2",
+            "image": "discos_dba_t2.png",
+            "carPartBrand": {
+                "name": "DBA"
+            },
+            "carPartType": {
+                "name": "Frenos"
+            }
+        }
+    ]
+}

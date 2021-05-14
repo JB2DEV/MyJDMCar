@@ -2,13 +2,13 @@
     "data" : [
       {
         "id": 0,
-        "name": "Todo",
+        "name": "Todos",
         "icon": "japan.svg"
       },
       {
         "id": 1,
-        "name": "Carrocería",
-        "icon": "carroceria.svg"
+        "name": "Frenos",
+        "icon": "frenada.svg"
       },
       {
         "id": 2,
@@ -17,8 +17,8 @@
       },
       {
         "id": 3,
-        "name": "Frenos",
-        "icon": "frenada.svg"
+        "name": "Admisión",
+        "icon": "turbo.svg"
       },
       {
         "id": 4,
@@ -52,8 +52,8 @@
       },
       {
         "id": 10,
-        "name": "Admisión",
-        "icon": "turbo.svg"
+        "name": "Carrocería",
+        "icon": "carroceria.svg"
       },
       {
         "id": 11,

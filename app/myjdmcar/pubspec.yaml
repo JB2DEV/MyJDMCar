@@ -60,6 +60,8 @@ flutter:
     - assets/icons/
     - assets/data/car_parts_type.json
     - assets/data/user_cars.json
+    - assets/data/Escape.json
+    - assets/data/Todos.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

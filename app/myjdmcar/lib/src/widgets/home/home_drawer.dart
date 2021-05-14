@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:myjdmcar/config/app_colors.dart';
+import 'package:myjdmcar/models/car.dart';
 
 class HomeDrawer extends StatefulWidget {
   HomeDrawer({Key key}) : super(key: key);
@@ -9,6 +13,25 @@ class HomeDrawer extends StatefulWidget {
 }
 
 class _HomeDrawerState extends State<HomeDrawer> {
+  List<CarModel> userCarsList;
+  Future userCarsData;
+  Future getUserCarsData() async {
+    final result = await rootBundle.loadString('assets/data/user_cars.json');
+    print(result);
+    final data = json.decode(result);
+    print(data);
+    userCarsList =
+        (data['data'] as List).map((i) => new CarModel.fromJson(i)).toList();
+
+    return data;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    userCarsData = getUserCarsData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -24,38 +47,46 @@ class _HomeDrawerState extends State<HomeDrawer> {
               alignment: Alignment.bottomCenter,
             ),
           ),
-          ListView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: 5, //data == null ? 0 : data.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Column(
-                children: [
-                  ListTile(
-                    leading: Icon(
-                      Icons.drive_eta,
-                      color: AppColors.green_jdm_arrow,
-                    ),
-                    trailing: Icon(
-                      Icons.arrow_forward_ios_sharp,
-                      size: 18,
-                      color: AppColors.green_jdm_arrow,
-                    ),
-                    title: Text('Car ' + index.toString(),
-                        textAlign: TextAlign.center),
-                    onTap: () {
-                      // Update the state of the app
-                      // ...
-                      // Then close the drawer
-                      Navigator.pop(context);
-                    },
-                  ),
-                  Container(
-                    height: 1,
-                    color: AppColors.grey,
-                  ),
-                ],
-              );
+          FutureBuilder(
+            future: userCarsData,
+            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+              if (snapshot.hasData) {
+                return ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: userCarsList.length, 
+                  itemBuilder: (BuildContext context, int index) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ListTile(
+                          
+                          leading: Icon(
+                            Icons.drive_eta,
+                            color: AppColors.green_jdm_arrow,
+                            size: 35,
+                          ),
+                          trailing: Icon(
+                            Icons.arrow_forward_ios_sharp,
+                            size: 18,
+                            color: AppColors.green_jdm_arrow,
+                          ),
+                          title: Text(userCarsList[index].carBrand.name,
+                              textAlign: TextAlign.center),
+                              subtitle: Text(userCarsList[index].carModel.name, textAlign: TextAlign.center,),
+                          onTap: () {
+                            // Update the state of the app
+                            // ...
+                            // Then close the drawer
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              }
+              return CircularProgressIndicator();
             },
           ),
           ListTile(
@@ -75,10 +106,6 @@ class _HomeDrawerState extends State<HomeDrawer> {
               // Then close the drawer
               Navigator.pop(context);
             },
-          ),
-          Container(
-            height: 1,
-            color: AppColors.grey,
           ),
           ListTile(
             leading: Icon(
@@ -100,10 +127,6 @@ class _HomeDrawerState extends State<HomeDrawer> {
               // Then close the drawer
               Navigator.pop(context);
             },
-          ),
-          Container(
-            height: 1,
-            color: AppColors.grey,
           ),
           ListTile(
             trailing: Icon(
