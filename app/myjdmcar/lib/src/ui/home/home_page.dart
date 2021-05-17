@@ -6,6 +6,7 @@ import 'package:myjdmcar/models/car_part.dart';
 import 'package:myjdmcar/models/car_part_type.dart';
 import 'package:myjdmcar/provider/car_parts_type_provider.dart';
 import 'package:myjdmcar/src/widgets/appbars/home_appbar.dart';
+import 'package:myjdmcar/src/widgets/home/home_car_part_item.dart';
 import 'package:myjdmcar/src/widgets/home/home_drawer.dart';
 import 'package:myjdmcar/src/widgets/home/home_filter_item.dart';
 import 'package:provider/provider.dart';
@@ -51,6 +52,7 @@ class _HomePageState extends State<HomePage> {
                 // ignore: missing_return
                 builder: (BuildContext context,
                     AsyncSnapshot<List<CarPartModel>> snapshot) {
+     
                   switch (snapshot.connectionState) {
                     case ConnectionState.none:
                       return Text('Input a URL to start');
@@ -70,23 +72,12 @@ class _HomePageState extends State<HomePage> {
                       } else {
                         List<CarPartModel> carParts = snapshot.data;
                         return ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          physics: BouncingScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: carParts.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return Center(
-                              child: Column(
-                                children: [
-                                  Text(carParts[index].name),
-                                  Text(carParts[index].reference),
-                                  Text(carParts[index].description),
-                                  Container(
-                                    height: 1,
-                                    color: Colors.black,
-                                    width: double.infinity,
-                                  )
-                                ],
-                              ),
-                            );
+                            return HomeCarPartItem(carPart: carParts[index],);
                           },
                         );
                       }
@@ -95,6 +86,10 @@ class _HomePageState extends State<HomePage> {
                 }),
           ])),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {  },
+        child: Icon(Icons.add),
       ),
     );
   }

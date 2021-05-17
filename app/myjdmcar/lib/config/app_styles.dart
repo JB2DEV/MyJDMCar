@@ -19,7 +19,8 @@ class AppStyles {
     ),
     appBarTheme: AppBarTheme(
       brightness: Brightness.light,
-      color: AppColors.white,
+      color: AppColors.green_jdm_arrow,
+      centerTitle: true,
       textTheme: TextTheme(
         headline4: TextStyle(
           fontSize: 18.0,
