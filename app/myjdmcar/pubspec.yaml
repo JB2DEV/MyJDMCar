@@ -56,12 +56,19 @@ flutter:
     - i18n/en.json
     - i18n/en.json
     - assets/images/
+    - assets/images/car_parts/brazos_traseros_regulables_s13.jpg
+    - assets/images/car_parts/brazos_traseros_regulables_s14.jpg
+    - assets/images/car_parts/GT2560R.jpg
+    - assets/images/car_parts/nardi_deep_corn_350mm.jpg
+    - assets/images/car_parts/type24F_s14_s15.jpg
+    - assets/images/car_part_brand/garret.png
     - fonts/
     - assets/icons/
     - assets/data/car_parts_type.json
     - assets/data/user_cars.json
     - assets/data/Escape.json
     - assets/data/Todos.json
+    - assets/data/user_car_model_1111.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

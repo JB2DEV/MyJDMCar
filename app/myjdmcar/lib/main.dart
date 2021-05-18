@@ -4,6 +4,7 @@ import 'package:myjdmcar/config/app_styles.dart';
 import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/config/navigator_routes.dart';
 import 'package:myjdmcar/provider/car_parts_type_provider.dart';
+import 'package:myjdmcar/provider/user_car_provider.dart';
 import 'package:myjdmcar/src/ui/auth/sign_in_page.dart';
 import 'package:myjdmcar/src/ui/home/home_page.dart';
 import 'package:myjdmcar/src/ui/test/buttons.dart';
@@ -18,6 +19,8 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
             create: (BuildContext context) => CarPartsFilterProvider()),
+            ChangeNotifierProvider(
+            create: (BuildContext context) => UserCarProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

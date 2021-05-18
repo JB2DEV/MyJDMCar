@@ -2,10 +2,9 @@
     "data" : [
         {
             "id": 2,
-            "reference": "Reference 2",
-            "name": "Escape Trust FYHK",
-            "description": "Descripcion Escape Trust FYHK",
-            "image": "escape_trust_fyhk.png",
+            "reference": null,
+            "name": "Cat-back G200-Ti",
+            "image": "Escape/catback/nvidia/G200-Ti.jpg",
             "carPartBrand": {
                 "name": "Trust"
             },

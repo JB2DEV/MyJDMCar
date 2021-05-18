@@ -1,54 +1,62 @@
+import 'dart:convert';
+
 import 'package:myjdmcar/models/car_model.dart';
 import 'package:myjdmcar/models/car_part_brand.dart';
 import 'package:myjdmcar/models/car_part_type.dart';
 
 class CarPartModel {
   final int id;
-  final String reference;
   final String name;
   final String description;
   final String image;
+  final String url;
   final CarPartBrandModel carPartBrand;
-  final CarModelModel carModel;
   final CarPartTypeModel carPartType;
+  final List<CarModelModel> carModels;
 
-  CarPartModel(
-      {this.id,
-      this.reference,
-      this.name,
-      this.description,
-      this.image,
-      this.carPartBrand,
-      this.carModel,
-      this.carPartType});
+  CarPartModel({
+    this.id,
+    this.name,
+    this.description,
+    this.image,
+    this.url,
+    this.carPartBrand,
+    this.carPartType,
+    this.carModels,
+  });
 
   CarPartModel.fromJson(Map<String, dynamic> parsedJson)
       : this.id = parsedJson['id'] ?? null,
-        this.reference = parsedJson['reference'] ?? null,
         this.name = parsedJson['name'] ?? null,
         this.description = parsedJson['description'] ?? null,
         this.image = parsedJson['image'] ?? null,
+        this.url = parsedJson['url'] ?? null,
         this.carPartBrand = parsedJson.keys.contains('carPartBrand') &&
                 parsedJson['carPartBrand'] != null
             ? CarPartBrandModel.fromJson(parsedJson['carPartBrand'])
             : null,
-        this.carModel = parsedJson.keys.contains('carModel') &&
-                parsedJson['carModel'] != null
-            ? CarModelModel.fromJson(parsedJson['carModel'])
-            : null,
         this.carPartType = parsedJson.keys.contains('carPartType') &&
                 parsedJson['carPartType'] != null
             ? CarPartTypeModel.fromJson(parsedJson['carPartType'])
-            : null;
+            : null,
+            this.carModels = getCarModels(parsedJson) == null ? [] : getCarModels(parsedJson);
 
   Map<String, dynamic> toJson() => {
         'id': id ?? null,
-        'reference': reference ?? null,
         'name': name ?? null,
         'description': description ?? null,
         'image': image ?? null,
+        'url' : url ?? null,
         'carPartBrand': carPartBrand.toJson() ?? null,
-        'carModel': carModel.toJson() ?? null,
-        'carPartType': carPartType.toJson() ?? null
+        'carPartType': carPartType.toJson() ?? null,
+        'carModels': jsonEncode(carModels) ?? null
       };
+
+  static getCarModels(Map<String, dynamic> parsedJson) {
+    var list = parsedJson['carModels'] as List;
+    if (list == null) return null;
+    List<CarModelModel> carModelsList =
+        list.map((i) => CarModelModel.fromJson(i)).toList();
+    return carModelsList;
+  }
 }

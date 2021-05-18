@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:myjdmcar/config/app_colors.dart';
 import 'package:myjdmcar/models/car.dart';
+import 'package:myjdmcar/provider/user_car_provider.dart';
+import 'package:provider/provider.dart';
 
 class HomeDrawer extends StatefulWidget {
   HomeDrawer({Key key}) : super(key: key);
@@ -54,13 +56,12 @@ class _HomeDrawerState extends State<HomeDrawer> {
                 return ListView.builder(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
-                  itemCount: userCarsList.length, 
+                  itemCount: userCarsList.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ListTile(
-                          
                           leading: Icon(
                             Icons.drive_eta,
                             color: AppColors.green_jdm_arrow,
@@ -73,11 +74,18 @@ class _HomeDrawerState extends State<HomeDrawer> {
                           ),
                           title: Text(userCarsList[index].carBrand.name,
                               textAlign: TextAlign.center),
-                              subtitle: Text(userCarsList[index].carModel.name, textAlign: TextAlign.center,),
+                          subtitle: Text(
+                            userCarsList[index].carModel.name,
+                            textAlign: TextAlign.center,
+                          ),
                           onTap: () {
-                            // Update the state of the app
-                            // ...
-                            // Then close the drawer
+                            print(userCarsList[index].id);
+                            Provider.of<UserCarProvider>(context, listen: false)
+                                .carId = userCarsList[index].id;
+                            Provider.of<UserCarProvider>(context, listen: false)
+                                .carModel = userCarsList[index].carBrand.name + " " + userCarsList[index].carModel.name;
+                                print(Provider.of<UserCarProvider>(context, listen: false)
+                                .carModel);
                             Navigator.pop(context);
                           },
                         ),
@@ -101,10 +109,8 @@ class _HomeDrawerState extends State<HomeDrawer> {
             ),
             title: Text('Añadir otro coche', textAlign: TextAlign.center),
             onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
-              Navigator.pop(context);
+              print("Navigate to create car");
+              Navigator.pushNamed(context, "routeName");
             },
           ),
           ListTile(
