@@ -1,10 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:myjdmcar/api/request_provider.dart';
 import 'package:myjdmcar/config/app_colors.dart';
+import 'package:myjdmcar/config/globals.dart';
 import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/src/widgets/buttons/theme_button.dart';
 import 'package:myjdmcar/src/widgets/decoration/logo_app.dart';
 import 'package:myjdmcar/src/widgets/form/login_form.dart';
-import 'package:myjdmcar/utils/utils.dart';
+
+import 'package:http/http.dart' as http;
 
 class SignInPage extends StatefulWidget {
   @override
@@ -13,6 +18,7 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final RequestProvider _provider = RequestProvider();
 
   @override
   Widget build(BuildContext context) {
@@ -51,10 +57,12 @@ class _SignInPageState extends State<SignInPage> {
                       onTap: () =>
                           Navigator.pushNamed(context, "recover_password_page"),
                       child: Text(
-                        AppLocalizations.of(context)
-                            .translate("loginPageRecoverPassword"),
-                        style: Theme.of(context).textTheme.bodyText1.copyWith(color: AppColors.green_jdm_arrow)
-                      )),
+                          AppLocalizations.of(context)
+                              .translate("loginPageRecoverPassword"),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1
+                              .copyWith(color: AppColors.green_jdm_arrow))),
                 ],
               ),
               SizedBox(
@@ -85,10 +93,12 @@ class _SignInPageState extends State<SignInPage> {
                         Navigator.pushNamed(context, "sign_up_page");
                       },
                       child: Text(
-                        AppLocalizations.of(context)
-                            .translate("loginPageRegister"),
-                        style: Theme.of(context).textTheme.bodyText1.copyWith(color: AppColors.green_jdm_arrow)
-                      )),
+                          AppLocalizations.of(context)
+                              .translate("loginPageRegister"),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1
+                              .copyWith(color: AppColors.green_jdm_arrow))),
                 ],
               ),
             ],
@@ -99,10 +109,15 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   ///Valida el que el formulario cumpla las restricciones
-  void validateForm() {
+  void validateForm() async {
     if (_formKey.currentState.validate()) {
       print("validated");
-      Navigator.popAndPushNamed(context, "home_page");
+      try {
+        await _provider.mySignIn();
+        Navigator.popAndPushNamed(context, "home_page");
+      } on Exception catch (_) {
+        print("Error: ");
+      }
     } else {
       print("Not validated");
     }

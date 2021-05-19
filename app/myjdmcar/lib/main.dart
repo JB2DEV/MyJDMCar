@@ -6,6 +6,8 @@ import 'package:myjdmcar/config/navigator_routes.dart';
 import 'package:myjdmcar/provider/car_parts_type_provider.dart';
 import 'package:myjdmcar/provider/user_car_provider.dart';
 import 'package:myjdmcar/src/ui/auth/sign_in_page.dart';
+import 'package:myjdmcar/src/ui/home/home_page.dart';
+import 'package:myjdmcar/src/ui/test/buttons.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(MyApp());
@@ -25,6 +27,7 @@ class MyApp extends StatelessWidget {
         title: 'MyJDMCar',
         theme: AppStyles.mainTheme,
         routes: getAppRoutes(),
+        //initialRoute: 'sign_in_page',
         home: SignInPage(),
         supportedLocales: [Locale("en"), Locale("es"), Locale("ca")],
         localizationsDelegates: [

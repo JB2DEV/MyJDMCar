@@ -15,7 +15,7 @@ class CarModel {
   CarModel({this.id, this.user, this.carBrand, this.carModel, this.carParts});
 
   CarModel.fromJson(Map<String, dynamic> parsedJson)
-      : this.id = parsedJson['id'] ?? null,
+      : this.id = parsedJson['id'] as int ?? null,
         this.user =
             parsedJson.keys.contains('user') && parsedJson['user'] != null
                 ? UserModel.fromJson(parsedJson['user'])

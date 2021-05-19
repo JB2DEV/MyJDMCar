@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:myjdmcar/config/globals.dart';
 import 'package:myjdmcar/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -15,7 +16,7 @@ class ApiClient {
 
   ApiClient._internal();
 
-  final baseUrl = 'ehl.apiabalit2.com';
+  static final baseUrl = '10.0.2.2';
   final api = "/api";
   final currentVersion = '/v1';
 
@@ -25,7 +26,36 @@ class ApiClient {
 
   factory ApiClient() => _client;
 
-  Future<UserModel> signUp(String email, String password) async {
+  Future<UserModel> mySignIn() async {
+    var test = '/auth/login.php';
+    Map<String, dynamic> toJson() => {'user': variable1, 'pass': variable2};
+    final response = await http.post(Uri.http(baseUrl, test), body: toJson());
+    //final decodedJson = await json.decode(response.body);
+    Map<String, dynamic> decodedJson = jsonDecode(response.body);
+    print(decodedJson);
+    if (decodedJson['response'] == 'success') {
+      return UserModel.fromJson(jsonDecode(decodedJson['data']));
+    } else {
+      throw Exception("Login fail");
+    }
+  }
+
+  Future<UserModel> mySignUp() async {
+    var test = '/auth/signup.php';
+    Map<String, dynamic> toJson() =>
+        {'user': variable3, 'email': variable1, 'pass': variable2};
+    final response = await http.post(Uri.http(baseUrl, test), body: toJson());
+    final decodedJson = await json.decode(response.body);
+    print(decodedJson);
+    if (decodedJson['response'] == 'insertado') {
+      return UserModel.fromJson(jsonDecode(decodedJson['data']));
+    } else {
+      throw Exception("Signup fail");
+    }
+  }
+
+/*
+  Future<User> signUp(String email, String password) async {
     Map<String, dynamic> params = {
       "email": email,
       "password": password,
@@ -39,7 +69,7 @@ class ApiClient {
     switch (rc) {
       case 0:
         final prefs = await SharedPreferences.getInstance();
-        UserModel user = UserModel.fromJson(response["data"]["user"]);
+        User user = User.fromJson(response["data"]["user"]);
 
         prefs.setString('user', json.encode(response["data"]["user"]));
         prefs.setString('accessToken', response["data"]["access_token"]);
@@ -52,13 +82,13 @@ class ApiClient {
         return user;
         break;
       default:
-      // KO
+        // KO
         throw ApiException(getRCMessage(rc), rc);
         break;
     }
   }
 
-  Future<UserModel> signIn(String email, String password) async {
+  Future<User> signIn(String email, String password) async {
     Map<String, dynamic> params = {
       "email": email,
       "password": password,
@@ -71,9 +101,9 @@ class ApiClient {
 
     switch (rc) {
       case 0:
-      // LOGIN OK
+        // LOGIN OK
         final prefs = await SharedPreferences.getInstance();
-        UserModel user = UserModel.fromJson(response["data"]["user"]);
+        User user = User.fromJson(response["data"]["user"]);
 
         prefs.setString('user', json.encode(response["data"]["user"]));
         prefs.setString('accessToken', response["data"]["access_token"]);
@@ -81,7 +111,7 @@ class ApiClient {
         return user;
         break;
       default:
-      // ERROR
+        // ERROR
         throw ApiException(getRCMessage(rc), rc);
         break;
     }
@@ -97,11 +127,11 @@ class ApiClient {
 
     switch (rc) {
       case 0:
-      // OK
+        // OK
         return response["data"];
         break;
       default:
-      // ERROR
+        // ERROR
         throw ApiException(getRCMessage(rc), rc);
         break;
     }
@@ -115,13 +145,14 @@ class ApiClient {
     var url = Uri.http(baseUrl, '$api$authUrl${routes["edit"]}');
     print(url);
 
-    var response = await apiGETAuthRequest(url, jsonEncode(params), accessToken);
+    var response =
+        await apiGETAuthRequest(url, jsonEncode(params), accessToken);
     var rc = response["rc"];
 
     switch (rc) {
       case 0:
         final prefs = await SharedPreferences.getInstance();
-        UserModel user = UserModel.fromJson(response["data"]);
+        User user = User.fromJson(response["data"]);
 
         prefs.setString('user', json.encode(response["data"]));
 
@@ -140,7 +171,7 @@ class ApiClient {
     var url = Uri.http(baseUrl, '$api$authUrl${routes["changePassword"]}');
 
     var response =
-    await apiPOSTAuthRequest(url, jsonEncode(params), accessToken);
+        await apiPOSTAuthRequest(url, jsonEncode(params), accessToken);
     var rc = response["rc"];
 
     switch (rc) {
@@ -283,8 +314,8 @@ class ApiClient {
 
     if (returnMesgage != null) {
       return returnMesgage;
-    }else{
+    } else {
       return returnCodes[1];
     }
-  }
+  }*/
 }

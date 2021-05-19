@@ -1,8 +1,5 @@
-
-
-class CarModelModel{
-
-  final int id;
+class CarModelModel {
+  final String id;
   final String name;
   final String description;
   final String engine;
@@ -10,19 +7,31 @@ class CarModelModel{
   final String transmission;
   final String image;
 
-  CarModelModel({this.id, this.name, this.description, this.engine,this.power, this.transmission, this.image});
+  CarModelModel(
+      {this.id,
+      this.name,
+      this.description,
+      this.engine,
+      this.power,
+      this.transmission,
+      this.image});
 
-    CarModelModel.fromJson(Map<String, dynamic> parsedJson)
+  CarModelModel.fromJson(Map<String, dynamic> parsedJson)
       : this.id = parsedJson['id'] ?? null,
-        this.name = parsedJson['name'] ?? null,
-        this.description = parsedJson['description'] ?? null,
-        this.engine = parsedJson['engine'] ?? null,
-        this.power = parsedJson['power'] ?? null,
-        this.transmission = parsedJson['transmission'] ?? null,
-        this.image = parsedJson['image'] ?? null;
+        this.name = parsedJson['nombre'] ?? null,
+        this.description = parsedJson['descripcion'] ?? null,
+        this.engine = parsedJson['motor'] ?? null,
+        this.power = parsedJson['potencia'] ?? null,
+        this.transmission = parsedJson['transmision'] ?? null,
+        this.image = parsedJson['imagen'] ?? null;
 
-  Map<String, dynamic> toJson() =>
-      {'id': id ?? null, 'name': name ?? null, 'description': description ?? null, 'engine' : engine ?? null, 'power' : power ?? null, 'transmission' : transmission ?? null, 'image': image ?? null};
-
-
+  Map<String, dynamic> toJson() => {
+        'id': id ?? null,
+        'name': name ?? null,
+        'description': description ?? null,
+        'engine': engine ?? null,
+        'power': power ?? null,
+        'transmission': transmission ?? null,
+        'image': image ?? null
+      };
 }

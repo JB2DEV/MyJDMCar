@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:myjdmcar/api/api_client.dart';
 import 'package:myjdmcar/api/api_client_test.dart';
 import 'package:myjdmcar/config/app_colors.dart';
 import 'package:myjdmcar/models/car_model.dart';
@@ -22,6 +23,7 @@ class _UserCarDetailPageState extends State<UserCarDetailPage> {
   @override
   void initState() {
     super.initState();
+
     int carId = Provider.of<UserCarProvider>(context, listen: false).carId;
     data = apiTest.getUserCarModelData(carId);
   }
@@ -61,7 +63,10 @@ class _UserCarDetailPageState extends State<UserCarDetailPage> {
                             height: 200,
                             width: double.infinity,
                             child: Image.network(
-                              carModel.image,
+                              "http://" +
+                                  ApiClient.baseUrl +
+                                  "/img/modelos_coches/" +
+                                  carModel.image,
                               fit: BoxFit.cover,
                             ),
                           ),

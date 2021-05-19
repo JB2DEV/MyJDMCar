@@ -1,193 +1,80 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:myjdmcar/config/app_colors.dart';
 import 'dart:math';
+import 'package:http/http.dart' as http;
+import 'package:myjdmcar/config/globals.dart';
+import 'package:myjdmcar/src/widgets/form/textformfields/email_textformfield.dart';
+import 'package:myjdmcar/src/widgets/form/textformfields/password_textformfield.dart';
 
 class AppButtons extends StatelessWidget {
   const AppButtons({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var data;
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Material App Bar'),
-        ),
-        body: Center(
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Center(
-                  child: SizedBox(
-                width: 230,
-                height: 50,
-                child: Material(
-                  elevation: 8.0,
-                  borderRadius: BorderRadius.circular(8),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        gradient: LinearGradient(
-                            begin: FractionalOffset.centerLeft,
-                            end: FractionalOffset.centerRight,
-                            stops: [
-                              0.5,
-                              0.5
-                            ],
-                            colors: [
-                              AppColors.yellow_jdm_arrow,
-                              AppColors.green_jdm_arrow
-                            ])),
-                    child: Align(
-                        alignment: Alignment.center, child: Text("Horizontal")),
-                  ),
-                ),
-              )),
+              ElevatedButton(onPressed: selectAll, child: Text("testSelect")),
+              ElevatedButton(onPressed: insertOne, child: Text("testInsert")),
+              ElevatedButton(
+                  onPressed: selectOne, child: Text("testSelectOne")),
+              ElevatedButton(onPressed: login, child: Text("testLo")),
               SizedBox(
                 height: 20,
               ),
-              Center(
-                  child: SizedBox(
-                width: 230,
-                height: 50,
-                child: Material(
-                  elevation: 8.0,
-                  borderRadius: BorderRadius.circular(8),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        gradient: LinearGradient(
-                            begin: FractionalOffset.centerLeft,
-                            end: FractionalOffset.centerRight,
-                            stops: [
-                              0.45,
-                              0.65
-                            ],
-                            colors: [
-                              AppColors.yellow_jdm_arrow,
-                              AppColors.green_jdm_arrow
-                            ])),
-                    child: Align(
-                        alignment: Alignment.center,
-                        child: Text("Horizontal Gradient")),
-                  ),
-                ),
-              )),
+              EmailTextFormField(),
               SizedBox(
                 height: 20,
               ),
-              Center(
-                  child: SizedBox(
-                width: 230,
-                height: 50,
-                child: Material(
-                  elevation: 8.0,
-                  borderRadius: BorderRadius.circular(8),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        gradient: LinearGradient(
-                            begin: FractionalOffset.topCenter,
-                            end: FractionalOffset.bottomCenter,
-                            stops: [
-                              0.5,
-                              0.5
-                            ],
-                            colors: [
-                              AppColors.yellow_jdm_arrow,
-                              AppColors.green_jdm_arrow
-                            ])),
-                    child: Align(
-                        alignment: Alignment.center, child: Text("Vertical")),
-                  ),
-                ),
-              )),
-              SizedBox(
-                height: 20,
-              ),
-              Center(
-                  child: SizedBox(
-                width: 230,
-                height: 50,
-                child: Material(
-                  elevation: 8.0,
-                  borderRadius: BorderRadius.circular(8),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        gradient: LinearGradient(
-                            begin: FractionalOffset.topCenter,
-                            end: FractionalOffset.bottomCenter,
-                            stops: [
-                              0.4,
-                              0.7
-                            ],
-                            colors: [
-                              AppColors.yellow_jdm_arrow,
-                              AppColors.green_jdm_arrow
-                            ])),
-                    child: Align(
-                        alignment: Alignment.center,
-                        child: Text("Vertical Gradient")),
-                  ),
-                ),
-              )),
-              SizedBox(
-                height: 20,
-              ),
-              Center(
-                  child: SizedBox(
-                width: 230,
-                height: 50,
-                child: Material(
-                  elevation: 8.0,
-                  borderRadius: BorderRadius.circular(8),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        gradient: LinearGradient(
-                            begin: Alignment.bottomLeft,
-                            end: Alignment.topRight,
-                            transform: GradientRotation(3.14/2),
-                            stops: [0.5,0.5],
-                            colors: [
-                              AppColors.yellow_jdm_arrow,
-                              AppColors.green_jdm_arrow,
-                              
-                            ])),
-                    child: Align(
-                        alignment: Alignment.center, child: Text("Diagonal", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),)),
-                  ),
-                ),
-              )),
-                    SizedBox(
-                height: 20,
-              ),
-              Center(
-                  child: SizedBox(
-                width: 230,
-                height: 50,
-                child: Material(
-                  elevation: 8.0,
-                  borderRadius: BorderRadius.circular(8),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        gradient: LinearGradient(
-                            begin: Alignment.bottomLeft,
-                            end: Alignment.topRight,
-                            transform: GradientRotation(3.14/2),
-                            stops: [0.48,0.52],
-                            colors: [
-                              AppColors.yellow_jdm_arrow,
-                              AppColors.green_jdm_arrow,
-                              
-                            ])),
-                    child: Align(
-                        alignment: Alignment.center, child: Text("Diagonal", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),)),
-                  ),
-                ),
-              )),
+              PasswordTextFormField()
             ],
+            mainAxisAlignment: MainAxisAlignment.center,
           ),
-        ));
+        ),
+      ),
+    );
+  }
+
+  void selectAll() async {
+    var url = '10.0.2.2:80';
+    var test = '/test/usuario.php';
+    final response = await http.post(Uri.http(url, test));
+    final decodedJson = await json.decode(response.body);
+    print(decodedJson);
+  }
+
+  void insertOne() async {
+    var url = '10.0.2.2:80';
+    var test = '/test/insert.php';
+    Map<String, dynamic> toJson() =>
+        {'user': variable1, 'email': variable1, 'pass': variable2};
+    print(toJson());
+    final response = await http.post(Uri.http(url, test), body: toJson());
+    final decodedJson = await json.decode(response.body);
+    print(decodedJson);
+  }
+
+  void selectOne() async {
+    var url = '10.0.2.2:80';
+    var test = '/test/getOne.php';
+    Map<String, dynamic> toJson() => {'user': variable1};
+    final response = await http.post(Uri.http(url, test), body: toJson());
+    final decodedJson = await json.decode(response.body);
+    print(decodedJson);
+  }
+
+  void login() async {
+    var url = '10.0.2.2:80';
+    var test = '/auth/login.php';
+    Map<String, dynamic> toJson() => {'user': variable1, 'pass': variable2};
+    final response = await http.post(Uri.http(url, test), body: toJson());
+    final decodedJson = await json.decode(response.body);
+    print(decodedJson);
   }
 }
