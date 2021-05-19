@@ -108,9 +108,7 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
       if (items.isEmpty) {
         carPartBrandSelected = true;
         direction = DismissDirection.endToStart;
-        CarPartBrandItemContainer newItem = CarPartBrandItemContainer(
-          carPartBrand: item,
-        );
+        Text newItem = Text("CarParBrand: " + item.name);
         _addItem(newItem, direction);
         data = apiTest.addCarPartDynamic(carPartBrandSelected, carPartSelected);
       } else {
