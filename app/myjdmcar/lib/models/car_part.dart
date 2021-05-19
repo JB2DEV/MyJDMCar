@@ -26,7 +26,7 @@ class CarPartModel {
   });
 
   CarPartModel.fromJson(Map<String, dynamic> parsedJson)
-      : this.id = parsedJson['id'] ?? null,
+      : this.id = parsedJson['id'] as int ?? null,
         this.name = parsedJson['name'] ?? null,
         this.description = parsedJson['description'] ?? null,
         this.image = parsedJson['image'] ?? null,
@@ -39,14 +39,15 @@ class CarPartModel {
                 parsedJson['carPartType'] != null
             ? CarPartTypeModel.fromJson(parsedJson['carPartType'])
             : null,
-            this.carModels = getCarModels(parsedJson) == null ? [] : getCarModels(parsedJson);
+        this.carModels =
+            getCarModels(parsedJson) == null ? [] : getCarModels(parsedJson);
 
   Map<String, dynamic> toJson() => {
         'id': id ?? null,
         'name': name ?? null,
         'description': description ?? null,
         'image': image ?? null,
-        'url' : url ?? null,
+        'url': url ?? null,
         'carPartBrand': carPartBrand.toJson() ?? null,
         'carPartType': carPartType.toJson() ?? null,
         'carModels': jsonEncode(carModels) ?? null

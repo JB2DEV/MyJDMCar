@@ -16,7 +16,7 @@ class ApiClient {
 
   ApiClient._internal();
 
-  final baseUrl = '10.0.2.2';
+  static final baseUrl = '10.0.2.2';
   final api = "/api";
   final currentVersion = '/v1';
 
@@ -53,6 +53,7 @@ class ApiClient {
       throw Exception("Signup fail");
     }
   }
+
 /*
   Future<User> signUp(String email, String password) async {
     Map<String, dynamic> params = {

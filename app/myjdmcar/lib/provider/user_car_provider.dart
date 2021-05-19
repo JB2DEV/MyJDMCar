@@ -1,10 +1,10 @@
 import 'package:flutter/widgets.dart';
 
 class UserCarProvider extends ChangeNotifier {
-    //TODO - Shared Preference
+  //TODO - Shared Preference
 
-  int _carId = 1111;
-  String _carModel = "Nissan Silvia s14";
+  int _carId = 1;
+  String _carModel = "";
 
   get carId => _carId;
 

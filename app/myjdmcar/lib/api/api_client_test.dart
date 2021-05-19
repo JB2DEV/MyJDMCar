@@ -1,18 +1,46 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
+import 'package:myjdmcar/models/car.dart';
 import 'package:myjdmcar/models/car_model.dart';
 import 'package:myjdmcar/models/car_part.dart';
 import 'package:myjdmcar/models/car_part_type.dart';
+import 'package:http/http.dart' as http;
 
 class ApiClientTest {
   ApiClientTest();
+  final baseUrl = '10.0.2.2';
 
   Future<CarModelModel> getUserCarModelData(int carId) async {
-    final result = await rootBundle
-        .loadString("assets/data/user_car_model_" + carId.toString() + ".json");
-    final data = json.decode(result);
-    print(data);
-    return CarModelModel.fromJson(data);
+    //final result = await rootBundle.loadString("assets/data/user_car_model_" + carId.toString() + ".json");
+
+    Map<String, dynamic> toJson() => {'id': carId.toString()};
+    final response = await http.post(
+        Uri.http(baseUrl, "/getters/getUserCarModelData.php"),
+        body: toJson());
+    final data = json.decode(response.body);
+    print("data");
+    CarModelModel car = CarModelModel.fromJson(data);
+    print(car.toJson());
+    return car;
+  }
+
+  Future<List<CarModel>> getUserCarsData(int userId) async {
+    Map<String, dynamic> toJson() => {"id": userId.toString()};
+    final response = await http.post(
+        Uri.http(baseUrl, "/getters/getUserCarsData.php"),
+        body: toJson());
+
+    List<dynamic> data = json.decode(response.body);
+    /*//CHECK DATATYPE
+    print(data.runtimeType.toString() + " " + data.toString());
+    data.forEach((element) {
+      print(element.runtimeType.toString() + " " + element.toString());
+    });*/
+
+    List<CarModel> userCarsList =
+        data.map((i) => CarModel.fromJson(json.decode(i))).toList();
+    print(userCarsList[0].carBrand.name);
+    return userCarsList;
   }
 
   Future<List<CarPartModel>> getCarPartData(int id) async {

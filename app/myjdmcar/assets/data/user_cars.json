@@ -20,3 +20,25 @@
         }
     ]
 }
+{
+    "data": [
+        {
+            "id": 1,
+            "carBrand": {
+                "name": "Nissan"
+            },
+            "carModel": {
+                "name": "s13 200SX"
+            }
+        },
+        {
+            "id": 2,
+            "carBrand": {
+                "name": "Nissan"
+            },
+            "carModel": {
+                "name": "s14 200SX"
+            }
+        }
+    ]
+}
