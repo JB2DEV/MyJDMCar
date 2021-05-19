@@ -2,10 +2,17 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:myjdmcar/models/car_model.dart';
 import 'package:myjdmcar/models/car_part.dart';
+import 'package:myjdmcar/models/car_part_brand.dart';
 import 'package:myjdmcar/models/car_part_type.dart';
 
 class ApiClientTest {
   ApiClientTest();
+
+  Future addCarPartDynamic(bool carPartBrandSelected, bool carPartSelected) async {
+    if (!carPartBrandSelected) return await getCarPartsBrands();
+    if(!carPartSelected) return await getData("Todos");
+    return null;
+  }
 
   Future<CarModelModel> getUserCarModelData(int carId) async {
     final result = await rootBundle
@@ -38,6 +45,20 @@ class ApiClientTest {
         .toList();
 
     return carPartsTypeList;
+  }
+
+  Future<List<CarPartBrandModel>> getCarPartsBrands() async {
+    final result =
+        await rootBundle.loadString('assets/data/car_parts_brands.json');
+    print(result);
+    final data = json.decode(result);
+    print(data);
+    List<CarPartBrandModel> carPartsBrandsList;
+    carPartsBrandsList = (data['data'] as List)
+        .map((i) => new CarPartBrandModel.fromJson(i))
+        .toList();
+
+    return carPartsBrandsList;
   }
 
   Future<List<CarPartTypeModel>> getCarPartsTypeData() async {

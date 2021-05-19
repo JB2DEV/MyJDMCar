@@ -33,6 +33,7 @@ dependencies:
   http: ^0.13.1
   shared_preferences: ^2.0.5
   flutter_svg: ^0.22.0
+  url_launcher: ^6.0.3
   provider:
 
 dev_dependencies:
@@ -56,12 +57,7 @@ flutter:
     - i18n/en.json
     - i18n/en.json
     - assets/images/
-    - assets/images/car_parts/brazos_traseros_regulables_s13.jpg
-    - assets/images/car_parts/brazos_traseros_regulables_s14.jpg
-    - assets/images/car_parts/GT2560R.jpg
-    - assets/images/car_parts/nardi_deep_corn_350mm.jpg
-    - assets/images/car_parts/type24F_s14_s15.jpg
-    - assets/images/car_part_brand/garret.png
+    - assets/images/
     - fonts/
     - assets/icons/
     - assets/data/car_parts_type.json
@@ -69,6 +65,7 @@ flutter:
     - assets/data/Escape.json
     - assets/data/Todos.json
     - assets/data/user_car_model_1111.json
+    - assets/data/car_parts_brands.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

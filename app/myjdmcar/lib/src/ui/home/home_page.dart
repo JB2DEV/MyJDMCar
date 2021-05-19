@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:myjdmcar/api/api_client_test.dart';
 import 'package:myjdmcar/config/app_colors.dart';
 import 'package:myjdmcar/models/car_part.dart';
 import 'package:myjdmcar/models/car_part_type.dart';
 import 'package:myjdmcar/provider/car_parts_type_provider.dart';
 import 'package:myjdmcar/src/widgets/appbars/home_appbar.dart';
-import 'package:myjdmcar/src/widgets/home/home_car_part_item.dart';
+import 'package:myjdmcar/src/widgets/car_part/home_car_part_item.dart';
 import 'package:myjdmcar/src/widgets/home/home_drawer.dart';
 import 'package:myjdmcar/src/widgets/home/home_filter_item.dart';
 import 'package:provider/provider.dart';
@@ -49,7 +48,6 @@ class _HomePageState extends State<HomePage> {
               delegate: SliverChildListDelegate([
             FutureBuilder<List<CarPartModel>>(
                 future: data,
-                // ignore: missing_return
                 builder: (BuildContext context,
                     AsyncSnapshot<List<CarPartModel>> snapshot) {
      
@@ -88,7 +86,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {  },
+        onPressed: () => Navigator.pushNamed(context, "add_car_part_page"),
         child: Icon(Icons.add),
       ),
     );

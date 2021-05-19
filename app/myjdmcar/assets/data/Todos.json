@@ -3,17 +3,22 @@
         {
             "id": 1,
             "name": "TURBO GARRETT GT2560R",
+            "description" : "Voluptate sit aute commodo aliqua Lorem magna veniam fugiat ea. Velit ipsum eu adipisicing deserunt cupidatat nisi qui aliquip commodo aliqua laborum consequat exercitation. Ut quis commodo qui consectetur. Exercitation do officia sit enim excepteur anim sunt esse officia eiusmod voluptate. Est Lorem ut pariatur occaecat ullamco est fugiat velit proident cillum esse ut voluptate aliqua.",
             "image": "GT2560R.jpg",
+            "url" : "https://www.dna-autoparts.com/accesorios-nissan-200sx-s14-motor-y-preparacion/2864-turbo-garrett-gt2560r-466541-5004s-s15.html?search_query=turbo&results=185",
             "carPartBrand": {
-                "name": "Garrett"
+                "name": "Garrett",
+                "image" : "https://www.seekpng.com/png/detail/264-2649143_garrett-turbocharger-logo.png"
             }
         },
         {
             "id" : 2,
             "name" : "Brazos de caída regulables",
+            "description" : "Voluptate sit aute commodo aliqua Lorem magna veniam fugiat ea. Velit ipsum eu adipisicing deserunt cupidatat nisi qui aliquip commodo aliqua laborum consequat exercitation. Ut quis commodo qui consectetur. Exercitation do officia sit enim excepteur anim sunt esse officia eiusmod voluptate. Est Lorem ut pariatur occaecat ullamco est fugiat velit proident cillum esse ut voluptate aliqua.",
             "image" : "brazos_traseros_regulables_s14.jpg",
             "carPartBrand" : {
-                "name" : "Driftworks"
+                "name" : "Driftworks",
+                "image" : "http://overrev.co.uk/wp-content/uploads/2019/10/orange-baka-worn-1.png"
             }
         }
         

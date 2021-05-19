@@ -21,7 +21,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
     final result = await rootBundle.loadString('assets/data/user_cars.json');
     print(result);
     final data = json.decode(result);
-    print(data);
+    print("data!!!!" + data.toString());
     userCarsList =
         (data['data'] as List).map((i) => new CarModel.fromJson(i)).toList();
 
