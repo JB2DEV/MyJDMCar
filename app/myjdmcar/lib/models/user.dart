@@ -8,8 +8,9 @@ class UserModel {
 
   UserModel.fromJson(Map<String, dynamic> parsedJson)
       : this.id = parsedJson['id'] as int ?? null,
-        this.userName = parsedJson['userName'] ?? null,
-        this.email = parsedJson['email'] ?? null;
+        this.email = parsedJson['email'] ?? null,
+        this.accessToken = parsedJson['token'] ?? null,
+        this.userName = parsedJson['userName'] ?? null;
 
   Map<String, dynamic> toJson() => {
         'id': id ?? null,

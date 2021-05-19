@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 
 class CarPartsFilterProvider with ChangeNotifier {
   int _currentIndex = 0;
-  String _carPartType = "Todos";
-
 
   get currentIndex => _currentIndex;
 
@@ -14,11 +12,4 @@ class CarPartsFilterProvider with ChangeNotifier {
     print("Index " + index.toString());
   }
 
-  get carPartType => _carPartType;
-
-  set carPartType(String carPartType) {
-    _carPartType = carPartType;
-    notifyListeners();
-    print("Index " + carPartType);
-  }
 }

@@ -5,11 +5,13 @@ import 'package:myjdmcar/api/request_provider.dart';
 import 'package:myjdmcar/config/app_colors.dart';
 import 'package:myjdmcar/config/globals.dart';
 import 'package:myjdmcar/config/internationalization/app_localizations.dart';
+import 'package:myjdmcar/models/user.dart';
 import 'package:myjdmcar/src/widgets/buttons/theme_button.dart';
 import 'package:myjdmcar/src/widgets/decoration/logo_app.dart';
 import 'package:myjdmcar/src/widgets/form/login_form.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -113,7 +115,7 @@ class _SignInPageState extends State<SignInPage> {
     if (_formKey.currentState.validate()) {
       print("validated");
       try {
-        await _provider.mySignIn();
+        _provider.mySignIn();
         Navigator.popAndPushNamed(context, "home_page");
       } on Exception catch (_) {
         print("Error: ");

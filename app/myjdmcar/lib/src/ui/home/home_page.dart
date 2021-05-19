@@ -23,13 +23,12 @@ class _HomePageState extends State<HomePage> {
   Future data;
   Future carPartsTypeData;
   ApiClientTest apiTest = ApiClientTest();
-  String tipo = "Todos";
 
   @override
   void initState() {
     super.initState();
     carPartsTypeData = apiTest.getCarPartsTypeData();
-    data = apiTest.getData(tipo);
+    data = apiTest.getData(0);
   }
 
   @override
@@ -144,14 +143,10 @@ class _HomePageState extends State<HomePage> {
                                               context,
                                               listen: false)
                                           .currentIndex = index;
-                                      Provider.of<CarPartsFilterProvider>(
-                                                  context,
-                                                  listen: false)
-                                              .carPartType =
-                                          carPartsTypeList[index].name;
-
                                       data = apiTest.getData(
-                                          carPartsTypeList[index].name);
+                                           Provider.of<CarPartsFilterProvider>(
+                                                  context,
+                                                  listen: false).currentIndex);
                                     });
                                   },
                                   child: HomeFilterItem(index: index, item: carPartsTypeList[index] ,)),

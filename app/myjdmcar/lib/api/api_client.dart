@@ -34,7 +34,13 @@ class ApiClient {
     Map<String, dynamic> decodedJson = jsonDecode(response.body);
     print(decodedJson);
     if (decodedJson['response'] == 'success') {
-      return UserModel.fromJson(jsonDecode(decodedJson['data']));
+      UserModel actualUser =
+          UserModel.fromJson(jsonDecode(decodedJson['data']));
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('userId', actualUser.id.toString());
+      await prefs.setString('accessToken', actualUser.accessToken);
+      await prefs.setString('userName', actualUser.userName);
+      return actualUser;
     } else {
       throw Exception("Login fail");
     }

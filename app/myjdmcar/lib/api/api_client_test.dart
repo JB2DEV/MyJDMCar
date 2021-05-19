@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:myjdmcar/models/car.dart';
 import 'package:myjdmcar/models/car_model.dart';
@@ -6,14 +7,18 @@ import 'package:myjdmcar/models/car_part.dart';
 import 'package:myjdmcar/models/car_part_brand.dart';
 import 'package:myjdmcar/models/car_part_type.dart';
 import 'package:http/http.dart' as http;
+import 'package:myjdmcar/provider/car_parts_type_provider.dart';
+import 'package:provider/provider.dart';
 
 class ApiClientTest {
   ApiClientTest();
   final baseUrl = '10.0.2.2';
 
-  Future addCarPartDynamic(bool carPartBrandSelected, bool carPartSelected) async {
+  Future addCarPartDynamic(bool carPartBrandSelected, bool carPartSelected, BuildContext context) async {
     if (!carPartBrandSelected) return await getCarPartsBrands();
-    if(!carPartSelected) return await getData("Todos");
+    if(!carPartSelected) return await getData( Provider.of<CarPartsFilterProvider>(
+                                                  context,
+                                                  listen: false).currentIndex);
     return null;
   }
 
@@ -63,8 +68,8 @@ class ApiClientTest {
     return carPartsTypeList;
   }
 
-  Future<List<CarPartModel>> getData(String tipo) async {
-    final result = await rootBundle.loadString('assets/data/' + tipo + '.json');
+  Future<List<CarPartModel>> getData(int typeId) async {
+    final result = await rootBundle.loadString('assets/data/' + typeId.toString() + '.json');
     final data = json.decode(result);
     print(data);
     List<CarPartModel> carPartsTypeList;
