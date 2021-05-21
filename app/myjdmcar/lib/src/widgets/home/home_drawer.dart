@@ -82,6 +82,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             FocusedMenuHolder(
+                              openWithTap: true,
                               menuOffset: 100,
                               blurSize: 2,
                               menuWidth: 200,
@@ -90,7 +91,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                               menuItems: <FocusedMenuItem>[
                                 FocusedMenuItem(
                                     title: Text("Open Detail"),
-                                    onPressed: () => Navigator.popAndPushNamed(context, "user_car_detail_page"),
+                                    onPressed: () {},
                                     trailingIcon: Icon(Icons.open_in_new, color: AppColors.green_jdm_arrow,)),
                                 FocusedMenuItem(
                                     title: Text("Delete", style: TextStyle(color: AppColors.white),),

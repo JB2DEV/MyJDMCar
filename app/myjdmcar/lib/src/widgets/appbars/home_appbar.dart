@@ -33,8 +33,9 @@ class HomeSliverAppbar extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(right: 20),
           child: IconButton(
-            icon: Icon(Icons.construction_outlined),
-            onPressed: () {},
+            icon: Icon(Icons.directions_car_sharp),
+            onPressed: () =>
+                Navigator.popAndPushNamed(context, "user_car_detail_page"),
           ),
         ),
       ],
