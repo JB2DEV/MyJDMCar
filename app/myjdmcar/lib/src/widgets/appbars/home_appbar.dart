@@ -24,7 +24,7 @@ class HomeSliverAppbar extends StatelessWidget {
         style: Theme.of(context).textTheme.headline6,
       ),
       leading: IconButton(
-        icon: Icon(Icons.person_rounded),
+        icon: Icon(Icons.menu),
         onPressed: () {
           showDrawer();
         },
@@ -33,8 +33,8 @@ class HomeSliverAppbar extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(right: 20),
           child: IconButton(
-            icon: Icon(Icons.drive_eta_rounded),
-            onPressed: () => Navigator.pushNamed(context, "user_car_detail_page"),
+            icon: Icon(Icons.construction_outlined),
+            onPressed: () {},
           ),
         ),
       ],

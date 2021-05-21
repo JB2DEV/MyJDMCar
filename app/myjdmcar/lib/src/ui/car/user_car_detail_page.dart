@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:myjdmcar/api/api_client.dart';
 import 'package:myjdmcar/api/api_client_test.dart';
 import 'package:myjdmcar/config/app_colors.dart';
@@ -92,7 +91,7 @@ class _UserCarDetailPageState extends State<UserCarDetailPage> {
                               Expanded(child: SizedBox()),
                               CarDataContainer(
                                 icon: "assets/icons/hp.svg",
-                                text: carModel.power,
+                                text: carModel.power + " HP",
                               ),
                               Expanded(child: SizedBox()),
                               CarDataContainer(

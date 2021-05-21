@@ -33,6 +33,7 @@ dependencies:
   http: ^0.13.1
   shared_preferences: ^2.0.5
   flutter_svg: ^0.22.0
+  focused_menu: ^1.0.5
   url_launcher: ^6.0.3
   provider:
 
@@ -62,8 +63,8 @@ flutter:
     - assets/icons/
     - assets/data/car_parts_type.json
     - assets/data/user_cars.json
-    - assets/data/Escape.json
-    - assets/data/Todos.json
+    - assets/data/0.json
+    - assets/data/1.json
     - assets/data/user_car_model_1111.json
     - assets/data/car_parts_brands.json
 

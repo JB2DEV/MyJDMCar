@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:myjdmcar/api/api_client_test.dart';
+import 'package:myjdmcar/config/app_colors.dart';
+import 'package:myjdmcar/src/widgets/buttons/theme_button.dart';
 import 'package:myjdmcar/src/widgets/car_part/add_car_part_item.dart';
-import 'package:myjdmcar/src/widgets/car_part/home_car_part_item.dart';
 import 'package:myjdmcar/src/widgets/part_brand/part_brand_item_container.dart';
 
 class AddCarPartPage extends StatefulWidget {
@@ -22,12 +23,25 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
   @override
   void initState() {
     super.initState();
-    data = apiTest.addCarPartDynamic(carPartBrandSelected, carPartSelected,context);
+    data = apiTest.addCarPartDynamic(
+        carPartBrandSelected, carPartSelected, context);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Añadir pieza",
+          style: Theme.of(context).textTheme.headline6,
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: Icon(Icons.notification_important),
+          )
+        ],
+      ),
       body: CustomScrollView(
         scrollDirection: Axis.vertical,
         slivers: [
@@ -38,10 +52,7 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
               shrinkWrap: true,
               itemCount: items.length,
               itemBuilder: (BuildContext context, int index) {
-                return GestureDetector(
-                  onLongPress: () => print("Long press"),
-                  child: items[index],
-                );
+                return items[index];
               },
             ),
             FutureBuilder(
@@ -83,7 +94,8 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
                                 onTap: () => _checkItemsStateAndAddItems(
                                     direction, dataList[index]),
                                 child: carPartBrandSelected
-                                    ? AddCarPartItemContainer(carPart: dataList[index])
+                                    ? AddCarPartItemContainer(
+                                        carPart: dataList[index])
                                     : CarPartBrandItemContainer(
                                         carPartBrand: dataList[index],
                                       )),
@@ -95,6 +107,8 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
                 return CircularProgressIndicator();
               },
             ),
+            SizedBox(height: 40,),
+            getAddButton(addCarPart),
           ]))
         ],
       ),
@@ -108,28 +122,59 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
       if (items.isEmpty) {
         carPartBrandSelected = true;
         direction = DismissDirection.endToStart;
-        Text newItem = Text("CarParBrand: " + item.name);
-        _addItem(newItem, direction);
-        data = apiTest.addCarPartDynamic(carPartBrandSelected, carPartSelected,context);
+        CarPartBrandItemContainer newItem = CarPartBrandItemContainer(
+          carPartBrand: item,
+        );
+        _addItem(newItem, direction, MainAxisAlignment.end);
+        data = apiTest.addCarPartDynamic(
+            carPartBrandSelected, carPartSelected, context);
       } else {
         carPartSelected = true;
         direction = DismissDirection.startToEnd;
         AddCarPartItemContainer newItem = AddCarPartItemContainer(
           carPart: item,
         );
-        _addItem(newItem, direction);
+        _addItem(newItem, direction, MainAxisAlignment.start);
         data = null;
       }
     });
   }
 
   /// Función que añade un widget (marca o pieza) a la lista de seleccionados
-  void _addItem(Widget newItem, DismissDirection direction) {
+  void _addItem(Widget newItem, DismissDirection direction,
+      MainAxisAlignment axisAligment) {
     items.add(
       Dismissible(
           direction: direction,
-          background: Container(
-            color: Colors.red,
+          background: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Colors.redAccent,
+                  borderRadius: BorderRadius.circular(10)),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40),
+                child: Row(
+                  mainAxisAlignment: axisAligment,
+                  children: [
+                    Icon(
+                      Icons.delete,
+                      color: AppColors.white,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "Delete".toUpperCase(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1
+                          .copyWith(color: AppColors.white),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
           onDismissed: (DismissDirection direction) =>
               _checkDismissDirection(direction),
@@ -144,12 +189,33 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
         items.clear();
         carPartBrandSelected = false;
         carPartSelected = false;
-        data = apiTest.addCarPartDynamic(carPartBrandSelected, carPartSelected,context);
+        data = apiTest.addCarPartDynamic(
+            carPartBrandSelected, carPartSelected, context);
       } else {
         items.removeAt(1);
         carPartSelected = false;
-        data = apiTest.addCarPartDynamic(carPartBrandSelected, carPartSelected,context);
+        data = apiTest.addCarPartDynamic(
+            carPartBrandSelected, carPartSelected, context);
       }
     });
+  }
+
+  void addCarPart(){
+    print("Added");
+    Navigator.pop(context);
+  }
+
+  Widget getAddButton(Function function) {
+    if (carPartBrandSelected && carPartSelected) {
+      return SizedBox(
+        height: 40,
+        child: ThemeButton(
+          buttonText: "Añadir",
+          function: function,
+        ),
+      );
+    }else{
+      return Container();
+    }
   }
 }

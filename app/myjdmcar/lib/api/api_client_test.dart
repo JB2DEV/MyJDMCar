@@ -9,16 +9,30 @@ import 'package:myjdmcar/models/car_part_type.dart';
 import 'package:http/http.dart' as http;
 import 'package:myjdmcar/provider/car_parts_type_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiClientTest {
   ApiClientTest();
   final baseUrl = '10.0.2.2';
 
-  Future addCarPartDynamic(bool carPartBrandSelected, bool carPartSelected, BuildContext context) async {
+
+  Future getActualUserName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userName = prefs.getString("userName" ?? null);
+    return userName;
+  }
+  Future getActualUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int userId = prefs.getInt("userId" ?? null);
+    return userId;
+  }
+  Future addCarPartDynamic(bool carPartBrandSelected, bool carPartSelected,
+      BuildContext context) async {
     if (!carPartBrandSelected) return await getCarPartsBrands();
-    if(!carPartSelected) return await getData( Provider.of<CarPartsFilterProvider>(
-                                                  context,
-                                                  listen: false).currentIndex);
+    if (!carPartSelected)
+      return await getData(
+          Provider.of<CarPartsFilterProvider>(context, listen: false)
+              .currentIndex);
     return null;
   }
 
@@ -69,7 +83,8 @@ class ApiClientTest {
   }
 
   Future<List<CarPartModel>> getData(int typeId) async {
-    final result = await rootBundle.loadString('assets/data/' + typeId.toString() + '.json');
+    final result = await rootBundle
+        .loadString('assets/data/' + typeId.toString() + '.json');
     final data = json.decode(result);
     print(data);
     List<CarPartModel> carPartsTypeList;

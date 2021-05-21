@@ -14,7 +14,7 @@ class ThemeButton extends StatelessWidget {
           width: 230,
           child: ElevatedButton(
             onPressed: function,
-            child: Text(buttonText),
+            child: Text(buttonText.toUpperCase()),
           ),
         ),
       ],

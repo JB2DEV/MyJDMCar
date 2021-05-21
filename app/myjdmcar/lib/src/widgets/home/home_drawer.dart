@@ -1,11 +1,11 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:focused_menu/focused_menu.dart';
+import 'package:focused_menu/modals.dart';
 import 'package:myjdmcar/api/api_client_test.dart';
 import 'package:myjdmcar/config/app_colors.dart';
 import 'package:myjdmcar/models/car.dart';
 import 'package:myjdmcar/provider/user_car_provider.dart';
+import 'package:myjdmcar/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 class HomeDrawer extends StatefulWidget {
@@ -18,22 +18,21 @@ class HomeDrawer extends StatefulWidget {
 class _HomeDrawerState extends State<HomeDrawer> {
   Future userCarsData;
   ApiClientTest apiClientTest = ApiClientTest();
-  /*Future getUserCarsData() async {
-    final result = await rootBundle.loadString('assets/data/user_cars.json');
-    print(result);
-    final data = json.decode(result);
-    print("data!!!!" + data.toString());
-    userCarsList =
-        (data['data'] as List).map((i) => new CarModel.fromJson(i)).toList();
-
-    return data;
-  }*/
-
+  String userName;
   @override
   void initState() {
     super.initState();
-    userCarsData = apiClientTest.getUserCarsData(
-        1); //TODO: reemplzar 1 por idUsuario -> shared preferences
+    apiClientTest.getActualUserId().then((value) {
+      setState(() {
+        userCarsData = apiClientTest.getUserCarsData(value);
+      });
+    });
+
+    apiClientTest.getActualUserName().then((value) {
+      setState(() {
+        userName = value;
+      });
+    });
   }
 
   @override
@@ -47,13 +46,14 @@ class _HomeDrawerState extends State<HomeDrawer> {
               color: AppColors.green_jdm_arrow,
             ),
             child: Align(
-              child: Text('Username'),
+              child: Text(capitalize(userName)),
               alignment: Alignment.bottomCenter,
             ),
           ),
           FutureBuilder<List<CarModel>>(
             future: userCarsData,
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+              print(snapshot.error);
               switch (snapshot.connectionState) {
                 case ConnectionState.none:
                   return Text('Input a URL to start');
@@ -81,39 +81,58 @@ class _HomeDrawerState extends State<HomeDrawer> {
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            ListTile(
-                              leading: Icon(
-                                Icons.drive_eta,
-                                color: AppColors.green_jdm_arrow,
-                                size: 35,
+                            FocusedMenuHolder(
+                              menuOffset: 100,
+                              blurSize: 2,
+                              menuWidth: 200,
+                              animateMenuItems: false,
+                              duration: Duration(milliseconds: 200),
+                              menuItems: <FocusedMenuItem>[
+                                FocusedMenuItem(
+                                    title: Text("Open Detail"),
+                                    onPressed: () => Navigator.popAndPushNamed(context, "user_car_detail_page"),
+                                    trailingIcon: Icon(Icons.open_in_new, color: AppColors.green_jdm_arrow,)),
+                                FocusedMenuItem(
+                                    title: Text("Delete", style: TextStyle(color: AppColors.white),),
+                                    onPressed: () => _deleteCar(),
+                                    backgroundColor: Colors.redAccent,
+                                    trailingIcon: Icon(Icons.delete, color: AppColors.white,)),
+                              ],
+                              onPressed: null,
+                              child: ListTile(
+                                leading: Icon(
+                                  Icons.drive_eta,
+                                  color: AppColors.green_jdm_arrow,
+                                  size: 35,
+                                ),
+                                trailing: Icon(
+                                  Icons.arrow_forward_ios_sharp,
+                                  size: 18,
+                                  color: AppColors.green_jdm_arrow,
+                                ),
+                                title: Text(userCarsList[index].carBrand.name,
+                                    textAlign: TextAlign.center),
+                                subtitle: Text(
+                                  userCarsList[index].carModel.name,
+                                  textAlign: TextAlign.center,
+                                ),
+                                onTap: () {
+                                  print(userCarsList[index].id);
+                                  Provider.of<UserCarProvider>(context,
+                                          listen: false)
+                                      .carId = userCarsList[index].id;
+                                  Provider.of<UserCarProvider>(context,
+                                              listen: false)
+                                          .carModel =
+                                      userCarsList[index].carBrand.name +
+                                          " " +
+                                          userCarsList[index].carModel.name;
+                                  print(Provider.of<UserCarProvider>(context,
+                                          listen: false)
+                                      .carModel);
+                                  Navigator.pop(context);
+                                },
                               ),
-                              trailing: Icon(
-                                Icons.arrow_forward_ios_sharp,
-                                size: 18,
-                                color: AppColors.green_jdm_arrow,
-                              ),
-                              title: Text(userCarsList[index].carBrand.name,
-                                  textAlign: TextAlign.center),
-                              subtitle: Text(
-                                userCarsList[index].carModel.name,
-                                textAlign: TextAlign.center,
-                              ),
-                              onTap: () {
-                                print(userCarsList[index].id);
-                                Provider.of<UserCarProvider>(context,
-                                        listen: false)
-                                    .carId = userCarsList[index].id;
-                                Provider.of<UserCarProvider>(context,
-                                            listen: false)
-                                        .carModel =
-                                    userCarsList[index].carBrand.name +
-                                        " " +
-                                        userCarsList[index].carModel.name;
-                                print(Provider.of<UserCarProvider>(context,
-                                        listen: false)
-                                    .carModel);
-                                Navigator.pop(context);
-                              },
                             ),
                           ],
                         );
@@ -185,5 +204,9 @@ class _HomeDrawerState extends State<HomeDrawer> {
         ],
       ),
     );
+  }
+
+  void _deleteCar(){
+    print("Delete car");
   }
 }

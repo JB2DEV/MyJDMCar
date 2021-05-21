@@ -115,10 +115,10 @@ class _SignInPageState extends State<SignInPage> {
     if (_formKey.currentState.validate()) {
       print("validated");
       try {
-        _provider.mySignIn();
+       await _provider.mySignIn();
         Navigator.popAndPushNamed(context, "home_page");
-      } on Exception catch (_) {
-        print("Error: ");
+      } on Exception {
+        print('ERROR');
       }
     } else {
       print("Not validated");
