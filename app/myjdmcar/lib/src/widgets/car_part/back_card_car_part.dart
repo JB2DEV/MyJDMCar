@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myjdmcar/api/api_client.dart';
 import 'package:myjdmcar/config/app_colors.dart';
 import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/models/car_part.dart';
@@ -12,6 +13,7 @@ class BackCardCarPart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ApiClient _apiClient = ApiClient();
     return Container(
         decoration: BoxDecoration(
             color: Colors.redAccent,
@@ -28,7 +30,11 @@ class BackCardCarPart extends StatelessWidget {
                         topLeft: Radius.circular(10),
                         topRight: Radius.circular(10))),
                 height: 210,
-                child: Image.network(carPart.carPartBrand.image),
+                child: Image.network(_apiClient.httpHead +
+                    _apiClient.baseUrl +
+                    _apiClient.imagesUrl +
+                    _apiClient.carPartsBrandsUrl +
+                    carPart.carPartBrand.image),
               ),
             ),
             SizedBox(
@@ -49,7 +55,8 @@ class BackCardCarPart extends StatelessWidget {
                   ),
                   Text(
                     AppLocalizations.of(context)
-                              .translate("homeBackCardItemDelete").toUpperCase(),
+                        .translate("homeBackCardItemDelete")
+                        .toUpperCase(),
                     style: Theme.of(context)
                         .textTheme
                         .bodyText1

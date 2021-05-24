@@ -20,7 +20,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
   ApiClientTest apiClientTest = ApiClientTest();
   String userName;
   @override
-  void initState(){
+  void initState() {
     super.initState();
     apiClientTest.getActualUserId().then((value) {
       setState(() {
@@ -118,8 +118,9 @@ class _HomeDrawerState extends State<HomeDrawer> {
               size: 18,
               color: AppColors.green_jdm_arrow,
             ),
-            title: Text(AppLocalizations.of(context)
-                              .translate("homeDrawerAddCar"), textAlign: TextAlign.center),
+            title: Text(
+                AppLocalizations.of(context).translate("homeDrawerAddCar"),
+                textAlign: TextAlign.center),
             onTap: () {
               print("Navigate to create car");
               Navigator.pushNamed(context, "routeName");
@@ -136,8 +137,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
               color: AppColors.green_jdm_arrow,
             ),
             title: Text(
-              AppLocalizations.of(context)
-                              .translate("homeDrawerSettings"),
+              AppLocalizations.of(context).translate("homeDrawerSettings"),
               textAlign: TextAlign.center,
             ),
             onTap: () {
@@ -155,8 +155,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
               color: AppColors.green_jdm_arrow,
             ),
             title: Text(
-              AppLocalizations.of(context)
-                              .translate("homeDrawerLogout"),
+              AppLocalizations.of(context).translate("homeDrawerLogout"),
               textAlign: TextAlign.center,
             ),
             onTap: () {
@@ -174,6 +173,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
     Provider.of<UserCarProvider>(context, listen: false).carModel =
         carBrandName + " " + carModelName;
     print(Provider.of<UserCarProvider>(context, listen: false).carModel);
+
     Navigator.pop(context);
   }
 }
