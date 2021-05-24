@@ -4,7 +4,7 @@
 
 	$pass = sha1('asdf1234');
 	$t = bin2hex(random_bytes(128));
-	$select = $conn->query("SELECT case when password = '$pass' then 'success' else 'error' END as response, case when password = '$pass' then concat('{\"id\":',id,',\"userName\":\"',username,'\",\"email\":\"mail9@gmail.com\",\"token\":\"', case when token is null then \"null\" else token end,'\"}') else 'null' end as data FROM `usuario` WHERE email = 'mail9@gmail.com'");
+	$select = $conn->query("SELECT case when password = '$pass' then 'success' else 'error' END as response, case when password = '$pass' then concat('{\"id\":',\"id\",',\"userName\":\"',username,'\",\"email\":\"mail9@gmail.com\",\"token\":\"', case when token is null then \"null\" else token end,'\"}') else 'null' end as data FROM `usuario` WHERE email = 'mail9@gmail.com'");
 	if($select){
 		
 		

@@ -1,6 +1,7 @@
 <?php  
 	require('config.php');
-	
+
+
 	$id_usuario = $_POST['id'];
 	
 		//(select nombre from marca_coche where id = c.marca_coche) as carBrand, (select nombre from modelo_coche where id = c.modelo_coche) as carModel

@@ -172,6 +172,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
     Provider.of<UserCarProvider>(context, listen: false).carModel =
         carBrandName + " " + carModelName;
     print(Provider.of<UserCarProvider>(context, listen: false).carModel);
+
     Navigator.pop(context);
   }
 }
