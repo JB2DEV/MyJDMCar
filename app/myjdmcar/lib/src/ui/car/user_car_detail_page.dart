@@ -66,8 +66,9 @@ class _UserCarDetailPageState extends State<UserCarDetailPage> {
                             width: double.infinity,
                             child: Image.network(
                               _apiClient.httpHead +
-                                  _apiClient.baseUrl+
-                                  _apiClient.imagesUrl + _apiClient.carModelsUrl +
+                                  _apiClient.baseUrl +
+                                  _apiClient.imagesUrl +
+                                  _apiClient.carModelsUrl +
                                   carModel.image,
                               fit: BoxFit.cover,
                             ),
@@ -120,7 +121,10 @@ class _UserCarDetailPageState extends State<UserCarDetailPage> {
                                 SizedBox(
                                   height: 20,
                                 ),
-                                Text(carModel.description)
+                                Text(carModel.description, style: Theme.of(context).textTheme.bodyText2,),
+                                SizedBox(
+                                  height: 20,
+                                ),
                               ],
                             ),
                           )
