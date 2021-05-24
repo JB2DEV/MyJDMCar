@@ -86,12 +86,12 @@ class ApiClientTest {
         .loadString('assets/data/' + typeId.toString() + '.json');
     final data = json.decode(result);
     print(data);
-    List<CarPartModel> carPartsTypeList;
-    carPartsTypeList = (data['data'] as List)
+    List<CarPartModel> carPartsList;
+    carPartsList = (data['data'] as List)
         .map((i) => new CarPartModel.fromJson(i))
         .toList();
 
-    return carPartsTypeList;
+    return carPartsList;
   }
 
   Future<List<CarPartBrandModel>> getCarPartsBrands() async {

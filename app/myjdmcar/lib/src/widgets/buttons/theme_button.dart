@@ -3,7 +3,7 @@ class ThemeButton extends StatelessWidget {
 
   final Function function;
   final String buttonText;
-  const ThemeButton({Key key, this.function, this.buttonText}) : super(key: key);
+  const ThemeButton({Key key, @required this.function, @required this.buttonText}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
