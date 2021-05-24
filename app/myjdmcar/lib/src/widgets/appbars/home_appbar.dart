@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myjdmcar/config/app_colors.dart';
+import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/provider/user_car_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +25,7 @@ class HomeSliverAppbar extends StatelessWidget {
         style: Theme.of(context).textTheme.headline6,
       ),
       leading: IconButton(
-        icon: Icon(Icons.person_rounded),
+        icon: Icon(Icons.menu),
         onPressed: () {
           showDrawer();
         },
@@ -33,11 +34,43 @@ class HomeSliverAppbar extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(right: 20),
           child: IconButton(
-            icon: Icon(Icons.drive_eta_rounded),
-            onPressed: () => Navigator.pushNamed(context, "user_car_detail_page"),
-          ),
+              icon: Icon(Icons.directions_car_sharp),
+              onPressed: () => _checkIfUserHaveCars(context)),
         ),
       ],
     );
+  }
+
+  void _checkIfUserHaveCars(BuildContext context) {
+    if (Provider.of<UserCarProvider>(context, listen: false).carId < 0) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              scrollable: true,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(8))),
+              title: Text(AppLocalizations.of(context).translate("homeDialogEmptyCarsTitle"), textAlign: TextAlign.center,),
+              titleTextStyle: Theme.of(context).textTheme.bodyText1,
+              content: Text(AppLocalizations.of(context).translate("homeDialogEmptyCarsContent"),),
+              actions: [
+                TextButton(
+                  child: Text(AppLocalizations.of(context).translate("homeDialogEmptyCarsCancelButton"),),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
+                  child: Text(AppLocalizations.of(context).translate("homeDialogEmptyCarsCreateButton"),),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          });
+    } else {
+      Navigator.pushNamed(context, "user_car_detail_page");
+    }
   }
 }

@@ -22,11 +22,11 @@ class _RegisterFormState extends State<RegisterForm> {
           SizedBox(
             height: 35,
           ),
+          UsernameTextFormField(),
+          SizedBox(height: 35),
           EmailTextFormField(),
           SizedBox(height: 35),
-          PasswordTextFormField(),
-          SizedBox(height: 35),
-          UsernameTextFormField()
+          PasswordTextFormField(),  
         ],
       ),
     );

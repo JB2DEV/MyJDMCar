@@ -16,13 +16,14 @@ class ApiClient {
 
   ApiClient._internal();
 
-  static final baseUrl = '10.0.2.2';
-  final api = "/api";
-  final currentVersion = '/v1';
+  final httpHead = 'http://'; 
+  final baseUrl = '10.0.2.2';
 
   final authUrl = "/auth/";
-  final usersUrl = "/user/";
-  final dataUrl = "data/";
+  final gettersUrl = "/getters/";
+  final imagesUrl = "/img/";
+
+  final carModelsUrl = "modelos_coches/";
 
   factory ApiClient() => _client;
 
@@ -37,7 +38,7 @@ class ApiClient {
       UserModel actualUser =
           UserModel.fromJson(jsonDecode(decodedJson['data']));
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString('userId', actualUser.id.toString());
+      await prefs.setInt('userId', actualUser.id);
       await prefs.setString('accessToken', actualUser.accessToken);
       await prefs.setString('userName', actualUser.userName);
       return actualUser;

@@ -8,7 +8,9 @@ import 'package:myjdmcar/provider/user_car_provider.dart';
 import 'package:myjdmcar/src/ui/auth/sign_in_page.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override

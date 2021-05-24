@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 class UserCarProvider extends ChangeNotifier {
   //TODO - Shared Preference
 
-  int _carId = 1;
+  int _carId = -1;
   String _carModel = "";
 
   get carId => _carId;

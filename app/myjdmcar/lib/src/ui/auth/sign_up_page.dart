@@ -64,9 +64,19 @@ class _SignUpPageState extends State<SignUpPage> {
       print("validated");
       try {
         await _provider.mySignUp();
-        Navigator.pop(context);
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          duration: Duration(seconds: 2),
+          content: Text('Cuenta creada correctamente'),
+        ));
+        Future.delayed(Duration(seconds: 2), () {
+          Navigator.pop(context);
+        });
       } on Exception catch (_) {
         print("Error signup");
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          duration: Duration(seconds: 2),
+          content: Text('Ya existe un usuario con ese email'),
+        ));
       }
     } else {
       print("Not validated");

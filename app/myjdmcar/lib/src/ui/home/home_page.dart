@@ -5,7 +5,9 @@ import 'package:myjdmcar/models/car_part.dart';
 import 'package:myjdmcar/models/car_part_type.dart';
 import 'package:myjdmcar/provider/car_parts_type_provider.dart';
 import 'package:myjdmcar/src/widgets/appbars/home_appbar.dart';
-import 'package:myjdmcar/src/widgets/car_part/home_car_part_item.dart';
+import 'package:myjdmcar/src/widgets/car_part/back_card_car_part.dart';
+import 'package:myjdmcar/src/widgets/car_part/front_card_car_part.dart';
+import 'package:myjdmcar/src/widgets/animations/page_flip_builder.dart';
 import 'package:myjdmcar/src/widgets/home/home_drawer.dart';
 import 'package:myjdmcar/src/widgets/home/home_filter_item.dart';
 import 'package:provider/provider.dart';
@@ -67,14 +69,33 @@ class _HomePageState extends State<HomePage> {
                         );
                       } else {
                         List<CarPartModel> carParts = snapshot.data;
-                        return ListView.builder(
-                          scrollDirection: Axis.vertical,
-                          physics: BouncingScrollPhysics(),
+                        return GridView.builder(
                           shrinkWrap: true,
                           itemCount: carParts.length,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: 10,
+                                  mainAxisExtent: 250),
                           itemBuilder: (BuildContext context, int index) {
-                            return HomeCarPartItem(
-                              carPart: carParts[index],
+                            final pageFlipKey =
+                                GlobalKey<PageFlipBuilderState>();
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: PageFlipBuilder(
+                                key: pageFlipKey,
+                                frontBuilder: (_) => FrontCardCarPart(
+                                  onFlip: () =>
+                                      pageFlipKey.currentState?.flip(),
+                                  carPart: carParts[index],
+                                ),
+                                backBuilder: (_) => BackCardCarPart(
+                                  onFlip: () =>
+                                      pageFlipKey.currentState?.flip(),
+                                  carPart: carParts[index],
+                                ),
+                              ),
                             );
                           },
                         );
@@ -92,11 +113,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  ///Función para mostrar el drawer / menú lateral
-  void showDrawer() {
-    _scaffoldKey.currentState.openDrawer();
-  }
-
   Widget _carPartsTypeFilter() {
     return SliverList(
         delegate: SliverChildListDelegate([
@@ -108,7 +124,6 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: FutureBuilder<List<CarPartTypeModel>>(
                 future: carPartsTypeData,
-                // ignore: missing_return
                 builder: (BuildContext context,
                     AsyncSnapshot<List<CarPartTypeModel>> snapshot) {
                   switch (snapshot.connectionState) {
@@ -138,19 +153,7 @@ class _HomePageState extends State<HomePage> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 10),
                               child: GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      Provider.of<CarPartsFilterProvider>(
-                                              context,
-                                              listen: false)
-                                          .currentIndex = index;
-                                      data = apiTest.getData(
-                                          Provider.of<CarPartsFilterProvider>(
-                                                  context,
-                                                  listen: false)
-                                              .currentIndex);
-                                    });
-                                  },
+                                  onTap: () => _changeFilter(index),
                                   child: HomeFilterItem(
                                     index: index,
                                     item: carPartsTypeList[index],
@@ -166,5 +169,21 @@ class _HomePageState extends State<HomePage> {
         ),
       )
     ]));
+  }
+
+  ///Función para mostrar el drawer / menú lateral
+  void showDrawer() {
+    _scaffoldKey.currentState.openDrawer();
+  }
+
+  ///Función que cambia el tipo de pieza que queremos mostrar
+  void _changeFilter(int index) {
+    setState(() {
+      Provider.of<CarPartsFilterProvider>(context, listen: false).currentIndex =
+          index;
+      data = apiTest.getData(
+          Provider.of<CarPartsFilterProvider>(context, listen: false)
+              .currentIndex);
+    });
   }
 }

@@ -6,14 +6,9 @@
             "image" : "garret.png"
         },
         {
-            "id" : 1,
-            "name" : "Garrett",
-            "image" : "garret.png"
-        },
-        {
-            "id" : 1,
-            "name" : "Garrett",
-            "image" : "garret.png"
+            "id" : 2,
+            "name" : "Driftworks",
+            "image" : "driftworks.png"
         }
     ]
 }
