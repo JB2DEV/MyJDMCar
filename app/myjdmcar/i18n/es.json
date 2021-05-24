@@ -39,5 +39,9 @@
 
     "usernameTextFormFieldLabel"        : "Usuario",
     "usernameTextFormFieldHint"         : "Usuario2392",
-    "usernameTextFormFieldError"        : "Introduce un nombre de usuario"
+    "usernameTextFormFieldError"        : "Introduce un nombre de usuario",
+
+    "carPartBrandTextFormFieldLabel"    : "Marca Pieza",
+    "carPartBrandTextFormFieldHint"     : "Nismo",
+    "carPartBrandTextFormFieldError"    : "Introduce una marca de pieza"
 }

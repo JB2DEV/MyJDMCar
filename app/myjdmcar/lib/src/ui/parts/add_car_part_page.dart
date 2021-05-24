@@ -58,7 +58,9 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
               actions: [
                 Padding(
                   padding: const EdgeInsets.only(right: 20),
-                  child: Icon(Icons.notification_important),
+                  child: IconButton(
+                    onPressed: () => Navigator.pushNamed(context, "car_part_request_page"),
+                    icon: Icon(Icons.notification_important)),
                 )
               ],
             ),

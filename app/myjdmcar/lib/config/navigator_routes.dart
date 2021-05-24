@@ -5,6 +5,7 @@ import 'package:myjdmcar/src/ui/auth/sign_up_page.dart';
 import 'package:myjdmcar/src/ui/car/user_car_detail_page.dart';
 import 'package:myjdmcar/src/ui/home/home_page.dart';
 import 'package:myjdmcar/src/ui/parts/add_car_part_page.dart';
+import 'package:myjdmcar/src/ui/parts/car_part_request_page.dart';
 
 Map <String,WidgetBuilder> getAppRoutes(){ ///Navigation Routes
 
@@ -16,6 +17,7 @@ Map <String,WidgetBuilder> getAppRoutes(){ ///Navigation Routes
     "home_page"                 : (BuildContext context) => HomePage(),
     "user_car_detail_page"      : (BuildContext context) => UserCarDetailPage(),
     "add_car_part_page"         : (BuildContext context) => AddCarPartPage(),
+    "car_part_request_page"     : (BuildContext context) => CarPartRequestPage(),
 
   };
 }
