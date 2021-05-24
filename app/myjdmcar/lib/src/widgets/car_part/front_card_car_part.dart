@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myjdmcar/api/api_client.dart';
 import 'package:myjdmcar/config/app_colors.dart';
 import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/models/car_part.dart';
@@ -6,12 +7,15 @@ import 'package:myjdmcar/models/car_part.dart';
 class FrontCardCarPart extends StatelessWidget {
   final CarPartModel carPart;
   final VoidCallback onFlip;
+
   const FrontCardCarPart(
       {Key key, @required this.carPart, @required this.onFlip})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    ApiClient _apiClient = ApiClient();
+
     return GestureDetector(
       onTap: () => _showDetailItem(context),
       child: Container(
@@ -29,7 +33,11 @@ class FrontCardCarPart extends StatelessWidget {
                         topRight: Radius.circular(8.5)),
                     image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: AssetImage("assets/images/" + carPart.image))),
+                        image: NetworkImage(_apiClient.httpHead +
+                            _apiClient.baseUrl +
+                            _apiClient.imagesUrl +
+                            _apiClient.carPartsUrl +
+                            carPart.image))),
               ),
               Container(
                 decoration: BoxDecoration(
@@ -75,13 +83,14 @@ class FrontCardCarPart extends StatelessWidget {
   }
 
   Widget _checkDealer(BuildContext context) {
-    if (carPart.url != null && carPart.url.contains("www.dna-autoparts.com")  ) {
+    if (carPart.url != null && carPart.url.contains("www.dna-autoparts.com")) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-           AppLocalizations.of(context)
-                              .translate("homeFrontCardDetailDealer").toUpperCase(),
+            AppLocalizations.of(context)
+                .translate("homeFrontCardDetailDealer")
+                .toUpperCase(),
             style: Theme.of(context).textTheme.bodyText1,
           ),
           SizedBox(

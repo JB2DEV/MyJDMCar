@@ -16,12 +16,14 @@ class ApiClient {
 
   ApiClient._internal();
 
-  final httpHead = 'http://'; 
+  final httpHead = 'http://';
   final baseUrl = '10.0.2.2';
 
   final authUrl = "/auth/";
   final gettersUrl = "/getters/";
   final imagesUrl = "/img/";
+  final carPartsUrl = "piezas";
+  final carPartsBrandsUrl = "marcas_piezas/";
 
   final carModelsUrl = "modelos_coches/";
 
@@ -41,6 +43,8 @@ class ApiClient {
       await prefs.setInt('userId', actualUser.id);
       await prefs.setString('accessToken', actualUser.accessToken);
       await prefs.setString('userName', actualUser.userName);
+//      print(actualUser.toJson());
+
       return actualUser;
     } else {
       throw Exception("Login fail");
