@@ -68,6 +68,7 @@ class ApiClientTest {
     return carPartsTypeList;
   }
 
+<<<<<<< Updated upstream
   Future<List<CarPartModel>> getData(int typeId) async {
     final result = await rootBundle.loadString('assets/data/' + typeId.toString() + '.json');
     final data = json.decode(result);
@@ -76,10 +77,29 @@ class ApiClientTest {
     carPartsTypeList = (data['data'] as List)
         .map((i) => new CarPartModel.fromJson(i))
         .toList();
+=======
+  //Datos en base a filtro
+  Future<List<CarPartModel>> getPartsData(int typeId) async {
+    Map<String, dynamic> toJson() => {"id": (typeId + 1).toString()};
+    final response = await http
+        .post(Uri.http(baseUrl, "/getters/getPartsData.php"), body: toJson());
+
+    List<dynamic> data = json.decode(response.body);
+    /*//CHECK DATATYPE
+    print(data.runtimeType.toString() + " " + data.toString());
+    data.forEach((element) {
+      print(element.runtimeType.toString() + " " + element.toString());
+    });*/
+
+    List<CarPartModel> carPartsTypeList =
+        data.map((i) => CarPartModel.fromJson(json.decode(i))).toList();
+    print(carPartsTypeList[0].carPartType.name);
+>>>>>>> Stashed changes
 
     return carPartsTypeList;
   }
 
+<<<<<<< Updated upstream
   Future<List<CarPartBrandModel>> getCarPartsBrands() async {
     final result =
         await rootBundle.loadString('assets/data/car_parts_brands.json');
@@ -94,6 +114,9 @@ class ApiClientTest {
     return carPartsBrandsList;
   }
 
+=======
+  //Lista filtros
+>>>>>>> Stashed changes
   Future<List<CarPartTypeModel>> getCarPartsTypeData() async {
     final result =
         await rootBundle.loadString('assets/data/car_parts_type.json');

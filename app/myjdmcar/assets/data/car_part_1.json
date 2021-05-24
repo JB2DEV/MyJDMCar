@@ -1,11 +1,11 @@
 {
-    "id": 1,
+    "id": "1",
     "name": "TURBO GARRETT GT2560R",
     "description" : "Turbo Garret GT2560R description....",
     "image": "GT2560R.jpg",
     "url" : "https://www.dna-autoparts.com/accesorios-nissan-200sx-s14-motor-y-preparacion/2864-turbo-garrett-gt2560r-466541-5004s-s15.html?search_query=turbo&results=185",
     "carPartBrand": {
-        "id" : 1,
+        "id" : "1",
         "name": "Garrett",
         "image" : "garret.png"
     }

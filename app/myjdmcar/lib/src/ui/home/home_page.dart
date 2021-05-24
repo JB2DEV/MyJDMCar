@@ -23,12 +23,20 @@ class _HomePageState extends State<HomePage> {
   Future data;
   Future carPartsTypeData;
   ApiClientTest apiTest = ApiClientTest();
+<<<<<<< Updated upstream
+=======
+  int tipoId = 1;
+>>>>>>> Stashed changes
 
   @override
   void initState() {
     super.initState();
     carPartsTypeData = apiTest.getCarPartsTypeData();
+<<<<<<< Updated upstream
     data = apiTest.getData(0);
+=======
+    data = apiTest.getPartsData(tipoId);
+>>>>>>> Stashed changes
   }
 
   @override
@@ -49,7 +57,6 @@ class _HomePageState extends State<HomePage> {
                 future: data,
                 builder: (BuildContext context,
                     AsyncSnapshot<List<CarPartModel>> snapshot) {
-     
                   switch (snapshot.connectionState) {
                     case ConnectionState.none:
                       return Text('Input a URL to start');
@@ -74,7 +81,9 @@ class _HomePageState extends State<HomePage> {
                           shrinkWrap: true,
                           itemCount: carParts.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return HomeCarPartItem(carPart: carParts[index],);
+                            return HomeCarPartItem(
+                              carPart: carParts[index],
+                            );
                           },
                         );
                       }
@@ -85,7 +94,11 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
+<<<<<<< Updated upstream
         onPressed: () => Navigator.pushNamed(context, "add_car_part_page"),
+=======
+        onPressed: () {},
+>>>>>>> Stashed changes
         child: Icon(Icons.add),
       ),
     );
@@ -143,13 +156,27 @@ class _HomePageState extends State<HomePage> {
                                               context,
                                               listen: false)
                                           .currentIndex = index;
+<<<<<<< Updated upstream
                                       data = apiTest.getData(
                                            Provider.of<CarPartsFilterProvider>(
                                                   context,
                                                   listen: false).currentIndex);
+=======
+                                      Provider.of<CarPartsFilterProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .carPartType =
+                                          carPartsTypeList[index].name;
+
+                                      data = apiTest.getPartsData(
+                                          carPartsTypeList[index].id);
+>>>>>>> Stashed changes
                                     });
                                   },
-                                  child: HomeFilterItem(index: index, item: carPartsTypeList[index] ,)),
+                                  child: HomeFilterItem(
+                                    index: index,
+                                    item: carPartsTypeList[index],
+                                  )),
                             );
                           },
                         );
