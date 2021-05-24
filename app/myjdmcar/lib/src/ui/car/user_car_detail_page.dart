@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:myjdmcar/api/api_client.dart';
 import 'package:myjdmcar/api/api_client_test.dart';
 import 'package:myjdmcar/config/app_colors.dart';
+import 'package:myjdmcar/config/icons_routes.dart';
+import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/models/car_model.dart';
 import 'package:myjdmcar/provider/user_car_provider.dart';
 import 'package:myjdmcar/src/widgets/car/car_data_container.dart';
@@ -18,6 +20,7 @@ class _UserCarDetailPageState extends State<UserCarDetailPage> {
   ApiClientTest apiTest = ApiClientTest();
   UserCarProvider provider;
   Future data;
+  ApiClient _apiClient = ApiClient();
 
   @override
   void initState() {
@@ -62,9 +65,9 @@ class _UserCarDetailPageState extends State<UserCarDetailPage> {
                             height: 200,
                             width: double.infinity,
                             child: Image.network(
-                              "http://" +
-                                  ApiClient.baseUrl +
-                                  "/img/modelos_coches/" +
+                              _apiClient.httpHead +
+                                  _apiClient.baseUrl+
+                                  _apiClient.imagesUrl + _apiClient.carModelsUrl +
                                   carModel.image,
                               fit: BoxFit.cover,
                             ),
@@ -85,17 +88,17 @@ class _UserCarDetailPageState extends State<UserCarDetailPage> {
                             children: [
                               Expanded(child: SizedBox()),
                               CarDataContainer(
-                                icon: "assets/icons/car-engine.svg",
+                                icon: appIcons['car_engine'],
                                 text: carModel.engine,
                               ),
                               Expanded(child: SizedBox()),
                               CarDataContainer(
-                                icon: "assets/icons/hp.svg",
+                                icon: appIcons['car_power'],
                                 text: carModel.power + " HP",
                               ),
                               Expanded(child: SizedBox()),
                               CarDataContainer(
-                                icon: "assets/icons/gearshift.svg",
+                                icon: appIcons['car_gearshift'],
                                 text: carModel.transmission,
                               ),
                               Expanded(child: SizedBox()),
@@ -110,7 +113,8 @@ class _UserCarDetailPageState extends State<UserCarDetailPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Descripción",
+                                  AppLocalizations.of(context).translate(
+                                      "userCarDetailPageDescription"),
                                   style: Theme.of(context).textTheme.bodyText1,
                                 ),
                                 SizedBox(

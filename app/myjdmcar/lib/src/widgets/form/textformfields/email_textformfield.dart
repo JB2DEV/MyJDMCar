@@ -12,6 +12,12 @@ class _EmailTextFormFieldState extends State<EmailTextFormField> {
   final TextEditingController emailController = TextEditingController();
 
   @override
+  void dispose() { 
+    emailController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return TextFormField(
         validator: validateEmail,

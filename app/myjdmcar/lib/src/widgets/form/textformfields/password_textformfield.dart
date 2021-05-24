@@ -13,6 +13,12 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
   bool _passwordVisible = false;
 
   @override
+  void dispose() {
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return TextFormField(
         validator: validatePassword,

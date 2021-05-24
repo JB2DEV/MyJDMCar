@@ -13,7 +13,21 @@
     "signUpPageTitle"                   : "Regístrate en MyJDMCar",
     "signUpPageButtonText"              : "Registrarse",
 
+    "homeDrawerAddCar"                  : "Añadir coche",
+    "homeDrawerSettings"                : "Ajustes",
+    "homeDrawerLogout"                  : "Salir",
 
+    "userCarDetailPageDescription"      : "Descripción",
+
+    "homeBackCardItemDelete"            : "Eliminar",
+    "homeFrontCardDetailDealer"         : "Distribuidor",
+    
+    "homeDialogEmptyCarsTitle"          : "No tienes ningún vehículo",
+    "homeDialogEmptyCarsContent"        : "Toca el botón de crear para crear uno!",
+    "homeDialogEmptyCarsCancelButton"   : "Cancelar",
+    "homeDialogEmptyCarsCreateButton"   : "Crear",
+
+    "addCarPartPageTitle"               : "Añadir pieza",
 
     "emailTextFormFieldLabel"           : "Email",
     "emailTextFormFieldHint"            : "email@ejemplo.com",

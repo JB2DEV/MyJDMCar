@@ -65,7 +65,6 @@ class ApiClientTest {
 
     List<CarModel> userCarsList =
         data.map((i) => CarModel.fromJson(json.decode(i))).toList();
-    print(userCarsList[0].carBrand.name);
     return userCarsList;
   }
 

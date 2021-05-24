@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myjdmcar/config/app_colors.dart';
+import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/models/car_part.dart';
 
 class FrontCardCarPart extends StatelessWidget {
@@ -79,7 +80,8 @@ class FrontCardCarPart extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Distribuidor".toUpperCase(),
+           AppLocalizations.of(context)
+                              .translate("homeFrontCardDetailDealer").toUpperCase(),
             style: Theme.of(context).textTheme.bodyText1,
           ),
           SizedBox(

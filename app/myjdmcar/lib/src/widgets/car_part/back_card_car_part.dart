@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:focused_menu/focused_menu.dart';
-import 'package:focused_menu/modals.dart';
 import 'package:myjdmcar/config/app_colors.dart';
+import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/models/car_part.dart';
 
 class BackCardCarPart extends StatelessWidget {
@@ -49,7 +48,8 @@ class BackCardCarPart extends StatelessWidget {
                     width: 10,
                   ),
                   Text(
-                    "Delete".toUpperCase(),
+                    AppLocalizations.of(context)
+                              .translate("homeBackCardItemDelete").toUpperCase(),
                     style: Theme.of(context)
                         .textTheme
                         .bodyText1

@@ -10,7 +10,7 @@ class AddCarPartItemContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical:20),
       child: Container(
           width: double.infinity,
           height: 150,
@@ -34,7 +34,7 @@ class AddCarPartItemContainer extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        carPart.name,
+                        carPart.name, style: Theme.of(context).textTheme.bodyText1,
                         overflow: TextOverflow.fade,
                         textAlign: TextAlign.center,
                       ),

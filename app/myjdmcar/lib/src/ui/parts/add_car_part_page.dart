@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myjdmcar/api/api_client_test.dart';
 import 'package:myjdmcar/config/app_colors.dart';
+import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/src/widgets/buttons/theme_button.dart';
 import 'package:myjdmcar/src/widgets/car_part/add_car_part_item.dart';
 import 'package:myjdmcar/src/widgets/part_brand/part_brand_item_container.dart';
@@ -14,15 +15,21 @@ class AddCarPartPage extends StatefulWidget {
 
 class _AddCarPartPageState extends State<AddCarPartPage> {
   List<Widget> items = [];
+  List<dynamic> dataList;
+  List<dynamic> visibleItems;
   Future data;
   ApiClientTest apiTest = ApiClientTest();
   bool carPartBrandSelected = false;
   bool carPartSelected = false;
   DismissDirection direction;
+  final TextEditingController _textController = TextEditingController();
+  bool focus = false;
 
   @override
   void initState() {
     super.initState();
+    dataList = [];
+    visibleItems = [];
     data = apiTest.addCarPartDynamic(
         carPartBrandSelected, carPartSelected, context);
   }
@@ -30,87 +37,105 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Añadir pieza",
-          style: Theme.of(context).textTheme.headline6,
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: Icon(Icons.notification_important),
-          )
-        ],
-      ),
-      body: CustomScrollView(
-        scrollDirection: Axis.vertical,
-        slivers: [
-          SliverList(
-              delegate: SliverChildListDelegate([
-            ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: items.length,
-              itemBuilder: (BuildContext context, int index) {
-                return items[index];
-              },
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: CustomScrollView(
+          scrollDirection: Axis.vertical,
+          slivers: [
+            SliverAppBar(
+              backgroundColor: AppColors.green_jdm_arrow,
+              floating: true,
+              pinned: false,
+              snap: false,
+              elevation: 0,
+              centerTitle: true,
+              title: Text(
+                AppLocalizations.of(context).translate("addCarPartPageTitle"),
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Icon(Icons.notification_important),
+                )
+              ],
             ),
-            FutureBuilder(
-              future: data,
-              builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.none:
-                    return Container();
-                  case ConnectionState.waiting:
-                    print("waiting");
-                    return Center(
-                        child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircularProgressIndicator(),
-                      ],
-                    ));
-                  case ConnectionState.active:
-                    print("active");
-                    return Text('active');
-                  case ConnectionState.done:
-                    if (snapshot.hasError) {
-                      print("has Error");
-                      return Text(
-                        '${snapshot.error}',
-                        style: TextStyle(color: Colors.red),
-                      );
-                    } else {
-                      List<dynamic> dataList = snapshot.data;
-                      return ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        physics: BouncingScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: dataList.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: GestureDetector(
+            SliverList(
+                delegate: SliverChildListDelegate([
+              _searchDelegate(),
+              ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: items.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return items[index];
+                },
+              ),
+              FutureBuilder(
+                future: data,
+                builder:
+                    (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.none:
+                      return Container();
+                    case ConnectionState.waiting:
+                      print("waiting");
+                      return Center(
+                          child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CircularProgressIndicator(),
+                        ],
+                      ));
+                    case ConnectionState.active:
+                      print("active");
+                      return Text('active');
+                    case ConnectionState.done:
+                      if (snapshot.hasError) {
+                        print("has Error");
+                        return Text(
+                          '${snapshot.error}',
+                          style: TextStyle(color: Colors.red),
+                        );
+                      } else {
+                        dataList = snapshot.data;
+                        return ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          physics: BouncingScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: visibleItems.isEmpty
+                              ? dataList.length
+                              : visibleItems.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return GestureDetector(
                                 onTap: () => _checkItemsStateAndAddItems(
                                     direction, dataList[index]),
                                 child: carPartBrandSelected
                                     ? AddCarPartItemContainer(
-                                        carPart: dataList[index])
+                                        carPart: visibleItems.isEmpty
+                                            ? dataList[index]
+                                            : visibleItems[index])
                                     : CarPartBrandItemContainer(
-                                        carPartBrand: dataList[index],
-                                      )),
-                          );
-                        },
-                      );
-                    }
-                }
-                return CircularProgressIndicator();
-              },
-            ),
-            SizedBox(height: 40,),
-            getAddButton(addCarPart),
-          ]))
-        ],
+                                        carPartBrand: visibleItems.isEmpty
+                                            ? dataList[index]
+                                            : visibleItems[index],
+                                      ));
+                          },
+                        );
+                      }
+                  }
+                  return CircularProgressIndicator();
+                },
+              ),
+              SizedBox(
+                height: 40,
+              ),
+              getAddButton(addCarPart),
+            ]))
+          ],
+        ),
       ),
     );
   }
@@ -181,8 +206,11 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
           key: Key(newItem.toString()),
           child: newItem),
     );
+    FocusScope.of(context).unfocus();
   }
 
+  ///Función que obtiene las marcas de las piezas o las piezas según
+  ///la dirección de borrado
   void _checkDismissDirection(DismissDirection direction) {
     setState(() {
       if (direction == DismissDirection.endToStart) {
@@ -200,11 +228,14 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
     });
   }
 
-  void addCarPart(){
+  ///Función que añade la pieza al coche actualdel usuario
+  void addCarPart() {
     print("Added");
     Navigator.pop(context);
   }
 
+  ///Método que devuelve el botón para añadir si se ha seleccionado
+  ///la marca y la pieza
   Widget getAddButton(Function function) {
     if (carPartBrandSelected && carPartSelected) {
       return SizedBox(
@@ -214,8 +245,70 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
           function: function,
         ),
       );
-    }else{
+    } else {
       return Container();
     }
+  }
+
+  Widget _searchDelegate() {
+    return Container(
+      height: 50,
+      color: AppColors.green_jdm_arrow,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          height: 40,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20), color: Colors.white),
+          child: TextField(
+            controller: _textController,
+            textAlign: TextAlign.center,
+            textAlignVertical: TextAlignVertical.bottom,
+            cursorColor: Colors.grey,
+            cursorWidth: 1,
+            decoration: InputDecoration(
+                fillColor: Colors.grey[200],
+                hintText: "Search",
+                hintStyle: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 16,
+                ),
+                focusColor: Colors.grey,
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      width: 1.5,
+                      color: Colors.grey,
+                    ),
+                    borderRadius: BorderRadius.circular(20)),
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      width: 1.5,
+                      color: Colors.grey,
+                    ),
+                    borderRadius: BorderRadius.circular(20)),
+                prefixIcon: Icon(
+                  Icons.search,
+                  color: Colors.grey,
+                )),
+            onChanged: (value) {
+              print(_textController.text);
+              setState(() {
+                print(value);
+                if (value.isEmpty) {
+                  visibleItems = [];
+                } else {
+                  visibleItems = dataList
+                      .where((item) => item.name
+                          .toString()
+                          .toLowerCase()
+                          .contains(value.toLowerCase()))
+                      .toList();
+                }
+              });
+            },
+          ),
+        ),
+      ),
+    );
   }
 }

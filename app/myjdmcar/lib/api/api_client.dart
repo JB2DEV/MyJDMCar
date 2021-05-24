@@ -16,13 +16,14 @@ class ApiClient {
 
   ApiClient._internal();
 
-  static final baseUrl = '10.0.2.2';
-  final api = "/api";
-  final currentVersion = '/v1';
+  final httpHead = 'http://'; 
+  final baseUrl = '10.0.2.2';
 
   final authUrl = "/auth/";
-  final usersUrl = "/user/";
-  final dataUrl = "data/";
+  final gettersUrl = "/getters/";
+  final imagesUrl = "/img/";
+
+  final carModelsUrl = "modelos_coches/";
 
   factory ApiClient() => _client;
 

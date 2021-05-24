@@ -11,7 +11,7 @@ class AppColors {
   static Color blueLight = Color(0xFFEBF3FF);
   static Color red = Color(0xFFBC3B3B);
 
-  static Color yellow_jdm_arrow = Color(0xFFfbf205);
+  static Color yellow_jdm_arrow = Color(0xFFFFFC60);
   static Color green_jdm_arrow = Color(0xFF04bb53);
 
 }
