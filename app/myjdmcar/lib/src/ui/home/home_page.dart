@@ -1,3 +1,23 @@
+/*
+ *  Security Pig is watching your horrible code
+ *        _
+ *        ((`)_.._     ,'-. _..._ _._
+ *          \,'    '-._.-\  '     ` .-'
+ *         .'            /         (
+ *        /             |     _   _ \
+ *       |              \     a   a  |
+ *       ;                     .-.   /
+ *        ;       ',       '-.( '')-'
+ *         '.      |           ;-'
+ *           \    /           /
+ *           /   /-._  __,  7 |
+ *           \  `\  \``  |  | |
+ *            \   \_,\   |  |_,\
+ *             '-`'      \_,\
+ * 
+ *  Please, fix it before it gets angry.
+ */
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -92,7 +112,6 @@ class _HomePageState extends State<HomePage> {
                           style: TextStyle(color: Colors.red),
                         );
                       } else {
-                        print(snapshot.data.toString());
                         List<CarPartModel> carParts = snapshot.data;
                         return GridView.builder(
                           shrinkWrap: true,
