@@ -136,7 +136,7 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
               SizedBox(
                 height: 40,
               ),
-              getAddButton(addCarPart(idPieza)),
+              getAddButton(addCarPart),
             ]))
           ],
         ),
