@@ -78,7 +78,6 @@ class _HomeDrawerState extends State<HomeDrawer> {
                       itemCount: snapshot.data.length,
                       itemBuilder: (BuildContext context, int index) {
                         List<CarModel> userCarsList = snapshot.data;
-
                         return ListTile(
                           leading: Icon(
                             Icons.drive_eta,

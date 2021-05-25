@@ -28,6 +28,10 @@
     "homeDialogEmptyCarsCreateButton"   : "Crear",
 
     "addCarPartPageTitle"               : "Añadir pieza",
+    "addCarPartPageSearchHint"          : "Busca la marca/pieza",
+
+    "carPartRequestPageTitle"           : "Solicitar pieza",
+    "carPartRequestPageButtonText"      : "Enviar solicitud",
 
     "emailTextFormFieldLabel"           : "Email",
     "emailTextFormFieldHint"            : "email@ejemplo.com",
@@ -42,6 +46,13 @@
     "usernameTextFormFieldError"        : "Introduce un nombre de usuario",
 
     "carPartBrandTextFormFieldLabel"    : "Marca Pieza",
-    "carPartBrandTextFormFieldHint"     : "Nismo",
-    "carPartBrandTextFormFieldError"    : "Introduce una marca de pieza"
+    "carPartBrandTextFormFieldHint"     : "Garret",
+    "carPartBrandTextFormFieldError"    : "Introduce una marca de pieza",
+
+    "carPartTextFormFieldLabel"         : "Pieza",
+    "carPartTextFormFieldHint"          : "Turbo GT2560R",
+    "carPartTextFormFieldError"         : "Introduce una pieza",
+
+    "otherInfoTextFormFieldLabel"       : "Otra información",
+    "otherInfoTextFormFieldHint"        : "Escríbenos cualquier otra información aquí..."
 }
