@@ -171,7 +171,7 @@ class ApiClientTest {
     return carPartList;
   }
 
-  Future addCarPart(BuildContext context, int idPieza) async {
+  Future<bool> addCarPart(BuildContext context, int idPieza) async {
     int carId =
         await Provider.of<UserCarProvider>(context, listen: false).carId;
 
@@ -180,13 +180,23 @@ class ApiClientTest {
     final response = await http
         .post(Uri.http(baseUrl, "/setters/addCarPart.php"), body: toJson());
 
-    print(response.statusCode);
+    Map<String, dynamic> data = json.decode(json.decode(response.body)['data']);
+    print(data['insert']);
+    return data['insert'];
+  }
 
-    return response.statusCode == 200;
-    /*  //CHECK DATATYPE
-    print(data.runtimeType.toString() + " " + data.toString());
-    data.forEach((element) {
-      print(element.runtimeType.toString() + " " + element.toString());
-    });*/
+  Future<bool> deleteCarPartFromCar(BuildContext context, int idPieza) async {
+    int carId =
+        await Provider.of<UserCarProvider>(context, listen: false).carId;
+
+    Map<String, dynamic> toJson() =>
+        {"coche": carId.toString(), "pieza": idPieza.toString()};
+    final response = await http.post(
+        Uri.http(baseUrl, "/updates/deleteCarPartFromCar.php"),
+        body: toJson());
+
+    Map<String, dynamic> data = json.decode(json.decode(response.body)['data']);
+    print(data['delete']);
+    return data['delete'];
   }
 }

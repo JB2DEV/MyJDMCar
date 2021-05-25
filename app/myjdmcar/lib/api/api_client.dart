@@ -1,8 +1,17 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:myjdmcar/config/globals.dart';
+import 'package:myjdmcar/models/car.dart';
+import 'package:myjdmcar/models/car_model.dart';
+import 'package:myjdmcar/models/car_part.dart';
+import 'package:myjdmcar/models/car_part_brand.dart';
+import 'package:myjdmcar/models/car_part_type.dart';
 import 'package:myjdmcar/models/user.dart';
+import 'package:myjdmcar/provider/user_car_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -65,268 +74,187 @@ class ApiClient {
     }
   }
 
-/*
-  Future<User> signUp(String email, String password) async {
-    Map<String, dynamic> params = {
-      "email": email,
-      "password": password,
-    };
-
-    var url = Uri.http(baseUrl, '$api${routes["signup"]}');
-
-    var response = await apiPOSTRequest(url, jsonEncode(params));
-    var rc = response["rc"];
-
-    switch (rc) {
-      case 0:
-        final prefs = await SharedPreferences.getInstance();
-        User user = User.fromJson(response["data"]["user"]);
-
-        prefs.setString('user', json.encode(response["data"]["user"]));
-        prefs.setString('accessToken', response["data"]["access_token"]);
-
-        /*print("accessToken");
-        print(response['data']['access_token']);*/
-
-        //user.accessToken = response["data"]["access_token"];
-
-        return user;
-        break;
-      default:
-        // KO
-        throw ApiException(getRCMessage(rc), rc);
-        break;
-    }
+  Future getActualUserName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userName = prefs.getString("userName" ?? null);
+    return userName;
   }
 
-  Future<User> signIn(String email, String password) async {
-    Map<String, dynamic> params = {
-      "email": email,
-      "password": password,
-    };
+  Future getActualUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int userId = prefs.getInt("userId") ?? null;
 
-    var url = Uri.http(baseUrl, '$api${routes["login"]}');
-
-    var response = await apiPOSTRequest(url, jsonEncode(params));
-    var rc = response["rc"];
-
-    switch (rc) {
-      case 0:
-        // LOGIN OK
-        final prefs = await SharedPreferences.getInstance();
-        User user = User.fromJson(response["data"]["user"]);
-
-        prefs.setString('user', json.encode(response["data"]["user"]));
-        prefs.setString('accessToken', response["data"]["access_token"]);
-
-        return user;
-        break;
-      default:
-        // ERROR
-        throw ApiException(getRCMessage(rc), rc);
-        break;
-    }
+    return userId;
   }
 
-  Future<dynamic> forget(String email) async {
-    Map<String, dynamic> params = {"email": email};
-
-    var url = Uri.http(baseUrl, '$api${routes["forget"]}');
-
-    var response = await apiPOSTRequest(url, jsonEncode(params));
-    var rc = response["rc"];
-
-    switch (rc) {
-      case 0:
-        // OK
-        return response["data"];
-        break;
-      default:
-        // ERROR
-        throw ApiException(getRCMessage(rc), rc);
-        break;
-    }
+  Future listCarPartDynamic(bool carPartBrandSelected, bool carPartSelected,
+      BuildContext context, int idBrand) async {
+    if (!carPartBrandSelected) return await getCarPartsBrands(context);
+    if (!carPartSelected)
+      return await getCarPartsListFilteredByBrand(context, idBrand);
+    return null;
   }
 
-  Future<dynamic> editUser(String email, String accessToken) async {
-    Map<String, dynamic> params = {
-      "email": email,
-    };
+  Future<CarModelModel> getUserCarModelData(int carId) async {
+    //final result = await rootBundle.loadString("assets/data/user_car_model_" + carId.toString() + ".json");
 
-    var url = Uri.http(baseUrl, '$api$authUrl${routes["edit"]}');
-    print(url);
-
-    var response =
-        await apiGETAuthRequest(url, jsonEncode(params), accessToken);
-    var rc = response["rc"];
-
-    switch (rc) {
-      case 0:
-        final prefs = await SharedPreferences.getInstance();
-        User user = User.fromJson(response["data"]);
-
-        prefs.setString('user', json.encode(response["data"]));
-
-        return user;
-      default:
-        throw ApiException(getRCMessage(rc), rc);
-        break;
-    }
+    Map<String, dynamic> toJson() => {'id': carId.toString()};
+    final response = await http.post(
+        Uri.http(baseUrl, "/getters/getUserCarModelData.php"),
+        body: toJson());
+    final data = json.decode(response.body);
+    print("data");
+    CarModelModel car = CarModelModel.fromJson(data);
+    print(car.toJson());
+    return car;
   }
 
-  Future<dynamic> changePassword(String password, String accessToken) async {
-    Map<String, dynamic> params = {
-      "password": password,
-    };
+  Future<List<CarModel>> getUserCarsData(int userId) async {
+    Map<String, dynamic> toJson() => {"id": userId.toString()};
+    final response = await http.post(
+        Uri.http(baseUrl, "/getters/getUserCarsData.php"),
+        body: toJson());
 
-    var url = Uri.http(baseUrl, '$api$authUrl${routes["changePassword"]}');
+    List<dynamic> data = json.decode(response.body);
+    /*//CHECK DATATYPE
+    print(data.runtimeType.toString() + " " + data.toString());
+    data.forEach((element) {
+      print(element.runtimeType.toString() + " " + element.toString());
+    });*/
 
-    var response =
-        await apiPOSTAuthRequest(url, jsonEncode(params), accessToken);
-    var rc = response["rc"];
-
-    switch (rc) {
-      case 0:
-        return response["data"];
-      default:
-        throw ApiException(getRCMessage(rc), rc);
-        break;
-    }
+    List<CarModel> userCarsList =
+        data.map((i) => CarModel.fromJson(json.decode(i))).toList();
+    return userCarsList;
   }
 
-  Future<dynamic> apiGETRequest(
-      Uri uri, Map<String, String> queryParams) async {
-    final response =
-        await http.get(uri, headers: {HttpHeaders.authorizationHeader: null});
-    final decodedJson = await json.decode(response.body);
-    return response;
+  Future<List<CarPartModel>> getData(int typeId, int carId) async {
+    /*final result = await rootBundle
+        .loadString('assets/data/' + typeId.toString() + '.json');
+    final data = json.decode(result);
+    print(data);*/
+
+    Map<String, dynamic> toJson() =>
+        {"typeId": typeId.toString(), "id": carId.toString()};
+    final response = await http
+        .post(Uri.http(baseUrl, "/getters/getCarPartData.php"), body: toJson());
+    List<dynamic> data = json.decode(response.body);
+    /*//CHECK DATATYPE
+    print(data.runtimeType.toString() + " " + data.toString());
+    data.forEach((element) {
+      print(element.runtimeType.toString() + " " + element.toString());
+    });*/
+
+    List<CarPartModel> carPartsList =
+        data.map((i) => CarPartModel.fromJson(json.decode(i))).toList();
+    print(carPartsList.toString());
+    return carPartsList;
   }
 
-  ///
-  Future<dynamic> apiGETAuthRequest(
-      Uri uri, String params, String accessToken) async {
-    try {
-      print("URL: " + uri.toString());
-      print("Params: " + params.toString());
+  Future<List<CarPartBrandModel>> getCarPartsBrands(
+      BuildContext context) async {
+    /*final result =
+        await rootBundle.loadString('assets/data/car_parts_brands.json');
+    print(result);*/
+    int carId =
+        await Provider.of<UserCarProvider>(context, listen: false).carId;
 
-      HttpClient http = HttpClient();
-      HttpClientRequest request = await http.getUrl(uri);
+    Map<String, dynamic> toJson() => {"id": carId.toString()};
+    final response = await http.post(
+        Uri.http(baseUrl, "/getters/getCarPartsBrands.php"),
+        body: toJson());
 
-      // Indiquem headers
-      request.headers
-          .set(HttpHeaders.authorizationHeader, 'Bearer $accessToken');
-      request.headers.set(HttpHeaders.contentTypeHeader, "application/json");
+    List<dynamic> data = json.decode(response.body);
+    /*  //CHECK DATATYPE
+    print(data.runtimeType.toString() + " " + data.toString());
+    data.forEach((element) {
+      print(element.runtimeType.toString() + " " + element.toString());
+    });*/
 
-      // Afegim paràmetres
-      if (params != null) {
-        request.headers.contentLength = utf8.encode(params).length;
-        request.add(utf8.encode(params));
-      }
+    List<CarPartBrandModel> carPartsBrandsList =
+        data.map((i) => CarPartBrandModel.fromJson(json.decode(i))).toList();
 
-      var response = await request.close();
-
-      print("RESPONSE: " + response.statusCode.toString());
-      print("RESPONSE reason phrase: " + response.reasonPhrase);
-
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        var decodedResponse = await response.transform(utf8.decoder).join();
-        print(decodedResponse);
-        return json.decode(decodedResponse);
-      } else if (response.statusCode >= 400 && response.statusCode <= 599) {
-        throw ApiException("Client error", response.statusCode);
-      }
-    } catch (e) {
-      print("ELOL " + e.toString());
-      print(e);
-      throw ApiException(getRCMessage(1), 1);
-      //throw ApiException("Ha ocurrido un error, inténtalo más tarde", -1);
-    }
+    return carPartsBrandsList;
   }
 
-  /// Request per mètode POST
-  Future<dynamic> apiPOSTRequest(Uri uri, String params) async {
-    try {
-      print("URL: " + uri.toString());
-      print("Params: " + params);
+  Future<List<CarPartTypeModel>> getCarPartsTypeData() async {
+    final result =
+        await rootBundle.loadString('assets/data/car_parts_type.json');
+    //print(result);
+    final data = json.decode(result);
+    // print(data);
+    List<CarPartTypeModel> carPartsTypeList;
+    carPartsTypeList = (data['data'] as List)
+        .map((i) => new CarPartTypeModel.fromJson(i))
+        .toList();
 
-      HttpClient http = HttpClient();
-
-      HttpClientRequest request = await http.postUrl(uri);
-
-      // Indiquem headers
-      request.headers.set("content-type", "application/json");
-
-      // Afegim paràmetres
-      request.add(utf8.encode(params));
-
-      var response = await request.close();
-      //var response = await (await http.postUrl(uri)).close();
-
-      print("RESPONSE: " + response.statusCode.toString());
-      print("RESPONSE reason phrase: " + response.reasonPhrase);
-
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        var decodedResponse = await response.transform(utf8.decoder).join();
-        print(decodedResponse);
-        return json.decode(decodedResponse);
-      } else if (response.statusCode >= 400 && response.statusCode <= 599) {
-        throw ApiException("Client error", response.statusCode);
-      }
-    } catch (e) {
-      print("ERRRR:$e");
-      throw ApiException(getRCMessage(1), 1);
-      //throw ApiException("Ha ocurrido un error, inténtalo más tarde", -1);
-    }
+    return carPartsTypeList;
   }
 
-  /// Request per mètode POST amb Authentication
-  /// es fa servir el access token de l'usuari
-  Future<dynamic> apiPOSTAuthRequest(
-      Uri uri, String params, String accessToken) async {
-    try {
-      print("URL: $uri");
-      print("Params: $params");
+  Future getFirstCarData() async {
+    int userId = await getActualUserId() as int;
+    Map<String, dynamic> toJson() => {"id": userId.toString()};
 
-      HttpClient http = HttpClient();
+    final response = await http.post(
+        Uri.http(baseUrl, "/getters/getUserFirstCarData.php"),
+        body: toJson());
+    //final decodedJson = await json.decode(response.body);
+    Map<String, dynamic> decodedJson = jsonDecode(response.body);
+    //print(decodedJson);
+    CarModel car = CarModel.fromJson(jsonDecode(decodedJson['data']));
 
-      HttpClientRequest request = await http.postUrl(uri);
-
-      // Indiquem headers
-      request.headers
-          .set(HttpHeaders.authorizationHeader, 'Bearer $accessToken');
-      request.headers.set(HttpHeaders.contentTypeHeader, "application/json");
-
-      // Afegim paràmetres
-      if (params != null) request.add(utf8.encode(params));
-
-      var response = await request.close();
-      //var response = await (await http.postUrl(uri)).close();
-
-      print("RESPONSE: " + response.statusCode.toString());
-      print("RESPONSE reason phrase: " + response.reasonPhrase);
-      print("RESPONSE reason headers: ");
-      print(response.headers);
-
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        var decodedResponse = await response.transform(utf8.decoder).join();
-        print(decodedResponse);
-        return json.decode(decodedResponse);
-      } else if (response.statusCode >= 400 && response.statusCode <= 599) {
-        throw ApiException("Client error", response.statusCode);
-      }
-    } catch (e) {
-      throw ApiException(getRCMessage(1), 1);
-    }
+    return car;
   }
 
-  String getRCMessage(int rc) {
-    // Agafem string traduccions
-    String returnMesgage = returnCodes[rc];
+  Future<List<CarPartModel>> getCarPartsListFilteredByBrand(
+      BuildContext context, int idBrand) async {
+    int carId =
+        await Provider.of<UserCarProvider>(context, listen: false).carId;
 
-    if (returnMesgage != null) {
-      return returnMesgage;
-    } else {
-      return returnCodes[1];
-    }
-  }*/
+    Map<String, dynamic> toJson() =>
+        {"id": carId.toString(), "marca": idBrand.toString()};
+    final response = await http.post(
+        Uri.http(baseUrl, "/getters/getCarPartsListFilteredByBrand.php"),
+        body: toJson());
+
+    List<dynamic> data = json.decode(response.body);
+    /*  //CHECK DATATYPE
+    print(data.runtimeType.toString() + " " + data.toString());
+    data.forEach((element) {
+      print(element.runtimeType.toString() + " " + element.toString());
+    });*/
+
+    List<CarPartModel> carPartList =
+        data.map((i) => CarPartModel.fromJson(json.decode(i))).toList();
+
+    return carPartList;
+  }
+
+  Future<bool> addCarPart(BuildContext context, int idPieza) async {
+    int carId =
+        await Provider.of<UserCarProvider>(context, listen: false).carId;
+
+    Map<String, dynamic> toJson() =>
+        {"coche": carId.toString(), "pieza": idPieza.toString()};
+    final response = await http
+        .post(Uri.http(baseUrl, "/setters/addCarPart.php"), body: toJson());
+
+    Map<String, dynamic> data = json.decode(json.decode(response.body)['data']);
+    print(data['insert']);
+    return data['insert'];
+  }
+
+  Future<bool> deleteCarPartFromCar(BuildContext context, int idPieza) async {
+    int carId =
+        await Provider.of<UserCarProvider>(context, listen: false).carId;
+
+    Map<String, dynamic> toJson() =>
+        {"coche": carId.toString(), "pieza": idPieza.toString()};
+    final response = await http.post(
+        Uri.http(baseUrl, "/updates/deleteCarPartFromCar.php"),
+        body: toJson());
+
+    Map<String, dynamic> data = json.decode(json.decode(response.body)['data']);
+    print(data['delete']);
+    return data['delete'];
+  }
 }
