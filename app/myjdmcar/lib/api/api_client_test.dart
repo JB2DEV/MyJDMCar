@@ -33,13 +33,7 @@ class ApiClientTest {
       BuildContext context, int idBrand) async {
     if (!carPartBrandSelected) return await getCarPartsBrands(context);
     if (!carPartSelected)
-<<<<<<< HEAD
-      return await getData(
-          0,
-          Provider.of<UserCarProvider>(context, listen: false).carId);
-=======
       return await getCarPartsListFilteredByBrand(context, idBrand);
->>>>>>> master
     return null;
   }
 
