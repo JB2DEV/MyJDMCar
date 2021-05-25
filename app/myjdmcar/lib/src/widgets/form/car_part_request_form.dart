@@ -3,6 +3,7 @@ import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/src/widgets/buttons/theme_button.dart';
 import 'package:myjdmcar/src/widgets/form/textformfields/car_part_brand_textformfield.dart';
 import 'package:myjdmcar/src/widgets/form/textformfields/car_part_textformfield.dart';
+import 'package:myjdmcar/src/widgets/form/textformfields/other_info_textformfield.dart';
 
 class CarPartRequestForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
@@ -27,6 +28,10 @@ class _CarPartRequestFormState extends State<CarPartRequestForm> {
             height: 30,
           ),
           CarPartTextFormField(),
+          SizedBox(
+            height: 30,
+          ),
+          OtherInfoTextFormField(),
         ],
       ),
     );

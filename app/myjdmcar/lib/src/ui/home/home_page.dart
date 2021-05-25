@@ -32,25 +32,28 @@ class _HomePageState extends State<HomePage> {
   Future carPartsTypeData;
   Future userCarsData;
   ApiClientTest apiClientTest = ApiClientTest();
-  String userName;
+  String userName = "";
 
   @override
   void initState() {
     super.initState();
     carPartsTypeData = apiClientTest.getCarPartsTypeData();
-    apiClientTest.getActualUserId().then((value) {
+    getUserData();
+    data = apiClientTest.getData(
+        0, Provider.of<UserCarProvider>(context, listen: false).carId);
+  }
+
+  Future getUserData() async {
+    await apiClientTest.getActualUserId().then((value) {
       setState(() {
         userCarsData = apiClientTest.getUserCarsData(value);
       });
     });
-
-    apiClientTest.getActualUserName().then((value) {
+    await apiClientTest.getActualUserName().then((value) {
       setState(() {
         userName = value;
       });
     });
-    data = apiClientTest.getData(
-        0, Provider.of<UserCarProvider>(context, listen: false).carId);
   }
 
   @override
@@ -96,6 +99,7 @@ class _HomePageState extends State<HomePage> {
                           itemCount: carParts.length,
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
+                                  mainAxisSpacing: 30,
                                   crossAxisCount: 2,
                                   crossAxisSpacing: 10,
                                   mainAxisExtent: 250),
@@ -145,15 +149,13 @@ class _HomePageState extends State<HomePage> {
               color: AppColors.green_jdm_arrow,
             ),
             child: Align(
-              child: Text(capitalize(userName)),
+              child: Text(userName),
               alignment: Alignment.bottomCenter,
             ),
           ),
           FutureBuilder<List<CarModel>>(
             future: userCarsData,
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-              print("SNAPSHOT ERROR");
-              print(snapshot.error);
               switch (snapshot.connectionState) {
                 case ConnectionState.none:
                   return Text('Input a URL to start');
@@ -347,8 +349,10 @@ class _HomePageState extends State<HomePage> {
     Provider.of<UserCarProvider>(context, listen: false).carModel =
         carBrandName + " " + carModelName;
     print(Provider.of<UserCarProvider>(context, listen: false).carModel);
-    data = apiClientTest.getData(
-        0, Provider.of<UserCarProvider>(context, listen: false).carId);
+    setState(() {
+      data = apiClientTest.getData(
+          0, Provider.of<UserCarProvider>(context, listen: false).carId);
+    });
 
     Navigator.pop(context);
   }

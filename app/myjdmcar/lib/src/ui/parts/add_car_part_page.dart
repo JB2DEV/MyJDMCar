@@ -45,11 +45,11 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
           scrollDirection: Axis.vertical,
           slivers: [
             SliverAppBar(
+              expandedHeight: 110,
               backgroundColor: AppColors.green_jdm_arrow,
               floating: true,
               pinned: false,
               snap: false,
-              elevation: 0,
               centerTitle: true,
               title: Text(
                 AppLocalizations.of(context).translate("addCarPartPageTitle"),
@@ -63,11 +63,15 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
                     icon: Icon(Icons.notification_important)),
                 )
               ],
+              flexibleSpace: Padding(
+                padding: const EdgeInsets.only(top: 70),
+                child: _searchDelegate(),
+              ),
             ),
             SliverList(
                 delegate: SliverChildListDelegate([
-              _searchDelegate(),
               ListView.builder(
+                padding: EdgeInsets.only(top: 10),
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: items.length,
@@ -104,6 +108,7 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
                       } else {
                         dataList = snapshot.data;
                         return ListView.builder(
+                          padding: EdgeInsets.zero,
                           scrollDirection: Axis.vertical,
                           physics: BouncingScrollPhysics(),
                           shrinkWrap: true,
@@ -257,7 +262,7 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
       height: 50,
       color: AppColors.green_jdm_arrow,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
         child: Container(
           height: 40,
           decoration: BoxDecoration(
@@ -270,7 +275,7 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
             cursorWidth: 1,
             decoration: InputDecoration(
                 fillColor: Colors.grey[200],
-                hintText: "Search",
+                hintText: AppLocalizations.of(context).translate("addCarPartPageSearchHint"),
                 hintStyle: TextStyle(
                   color: Colors.grey,
                   fontSize: 16,

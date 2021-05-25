@@ -34,8 +34,7 @@ class ApiClientTest {
     if (!carPartBrandSelected) return await getCarPartsBrands();
     if (!carPartSelected)
       return await getData(
-          Provider.of<CarPartsFilterProvider>(context, listen: false)
-              .currentIndex,
+          0,
           Provider.of<UserCarProvider>(context, listen: false).carId);
     return null;
   }

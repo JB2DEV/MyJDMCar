@@ -28,6 +28,7 @@
     "homeDialogEmptyCarsCreateButton"   : "Crear",
 
     "addCarPartPageTitle"               : "Añadir pieza",
+    "addCarPartPageSearchHint"          : "Busca la marca/pieza",
 
     "carPartRequestPageTitle"           : "Solicitar pieza",
     "carPartRequestPageButtonText"      : "Enviar solicitud",
@@ -50,5 +51,8 @@
 
     "carPartTextFormFieldLabel"         : "Pieza",
     "carPartTextFormFieldHint"          : "Turbo GT2560R",
-    "carPartTextFormFieldError"         : "Introduce una pieza"
+    "carPartTextFormFieldError"         : "Introduce una pieza",
+
+    "otherInfoTextFormFieldLabel"       : "Otra información",
+    "otherInfoTextFormFieldHint"        : "Escríbenos cualquier otra información aquí..."
 }

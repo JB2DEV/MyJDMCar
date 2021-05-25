@@ -47,7 +47,7 @@ double parseCommaDecimal(String value) {
 }
 
 String capitalize(String value) {
-  if (value.isNotEmpty) return "${value[0].toUpperCase()}${value.substring(1)}";
+  if (value.isNotEmpty || value.length != 0) return "${value[0].toUpperCase()}${value.substring(1)}";
   return null;
 }
 

@@ -26,22 +26,25 @@ class _CarPartRequestPageState extends State<CarPartRequestPage> {
         onTap: () {
           FocusScope.of(context).unfocus();
         },
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            children: [
-              CarPartRequestForm(
-                formKey: _formKey,
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              ThemeButton(
-                buttonText: AppLocalizations.of(context)
-                    .translate("carPartRequestPageButtonText"),
-                function: _sendCarPartRequest,
-              )
-            ],
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                CarPartRequestForm(
+                  formKey: _formKey,
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                ThemeButton(
+                  buttonText: AppLocalizations.of(context)
+                      .translate("carPartRequestPageButtonText"),
+                  function: _sendCarPartRequest,
+                )
+              ],
+            ),
           ),
         ),
       ),
