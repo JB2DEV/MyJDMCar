@@ -136,7 +136,7 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
               SizedBox(
                 height: 40,
               ),
-              getAddButton(addCarPart(idPieza)),
+              getAddButton(addCarPart),
             ]))
           ],
         ),
@@ -235,7 +235,7 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
   }
 
   ///Función que añade la pieza al coche actualdel usuario
-  void addCarPart(int idPieza) {
+  void addCarPart() {
     print("Added");
     apiTest.addCarPart(context, idPieza);
     Navigator.pop(context);

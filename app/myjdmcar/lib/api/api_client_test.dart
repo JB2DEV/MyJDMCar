@@ -180,7 +180,9 @@ class ApiClientTest {
     final response = await http
         .post(Uri.http(baseUrl, "/setters/addCarPart.php"), body: toJson());
 
-    List<dynamic> data = json.decode(response.body);
+    print(response.statusCode);
+
+    return response.statusCode == 200;
     /*  //CHECK DATATYPE
     print(data.runtimeType.toString() + " " + data.toString());
     data.forEach((element) {
