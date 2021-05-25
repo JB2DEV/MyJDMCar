@@ -24,14 +24,15 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
   DismissDirection direction;
   final TextEditingController _textController = TextEditingController();
   bool focus = false;
+  int idPieza = -1;
 
   @override
   void initState() {
     super.initState();
     dataList = [];
     visibleItems = [];
-    data = apiTest.addCarPartDynamic(
-        carPartBrandSelected, carPartSelected, context);
+    data = apiTest.listCarPartDynamic(
+        carPartBrandSelected, carPartSelected, context, 0);
   }
 
   @override
@@ -59,8 +60,9 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
                 Padding(
                   padding: const EdgeInsets.only(right: 20),
                   child: IconButton(
-                    onPressed: () => Navigator.pushNamed(context, "car_part_request_page"),
-                    icon: Icon(Icons.notification_important)),
+                      onPressed: () =>
+                          Navigator.pushNamed(context, "car_part_request_page"),
+                      icon: Icon(Icons.notification_important)),
                 )
               ],
             ),
@@ -134,7 +136,7 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
               SizedBox(
                 height: 40,
               ),
-              getAddButton(addCarPart),
+              getAddButton(addCarPart(idPieza)),
             ]))
           ],
         ),
@@ -152,24 +154,26 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
         CarPartBrandItemContainer newItem = CarPartBrandItemContainer(
           carPartBrand: item,
         );
-        _addItem(newItem, direction, MainAxisAlignment.end);
-        data = apiTest.addCarPartDynamic(
-            carPartBrandSelected, carPartSelected, context);
+        _addItem(
+            newItem, direction, MainAxisAlignment.end, newItem.carPartBrand.id);
+        data = apiTest.listCarPartDynamic(carPartBrandSelected, carPartSelected,
+            context, newItem.carPartBrand.id);
       } else {
         carPartSelected = true;
         direction = DismissDirection.startToEnd;
         AddCarPartItemContainer newItem = AddCarPartItemContainer(
           carPart: item,
         );
-        _addItem(newItem, direction, MainAxisAlignment.start);
+        _addItem(newItem, direction, MainAxisAlignment.start, 0);
         data = null;
+        idPieza = newItem.carPart.id;
       }
     });
   }
 
   /// Función que añade un widget (marca o pieza) a la lista de seleccionados
   void _addItem(Widget newItem, DismissDirection direction,
-      MainAxisAlignment axisAligment) {
+      MainAxisAlignment axisAligment, int brandId) {
     items.add(
       Dismissible(
           direction: direction,
@@ -204,7 +208,7 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
             ),
           ),
           onDismissed: (DismissDirection direction) =>
-              _checkDismissDirection(direction),
+              _checkDismissDirection(direction, brandId),
           key: Key(newItem.toString()),
           child: newItem),
     );
@@ -213,26 +217,27 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
 
   ///Función que obtiene las marcas de las piezas o las piezas según
   ///la dirección de borrado
-  void _checkDismissDirection(DismissDirection direction) {
+  void _checkDismissDirection(DismissDirection direction, int brandId) {
     setState(() {
       if (direction == DismissDirection.endToStart) {
         items.clear();
         carPartBrandSelected = false;
         carPartSelected = false;
-        data = apiTest.addCarPartDynamic(
-            carPartBrandSelected, carPartSelected, context);
+        data = apiTest.listCarPartDynamic(
+            carPartBrandSelected, carPartSelected, context, 0);
       } else {
         items.removeAt(1);
         carPartSelected = false;
-        data = apiTest.addCarPartDynamic(
-            carPartBrandSelected, carPartSelected, context);
+        data = apiTest.listCarPartDynamic(
+            carPartBrandSelected, carPartSelected, context, brandId);
       }
     });
   }
 
   ///Función que añade la pieza al coche actualdel usuario
-  void addCarPart() {
+  void addCarPart(int idPieza) {
     print("Added");
+    apiTest.addCarPart(context, idPieza);
     Navigator.pop(context);
   }
 
