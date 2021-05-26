@@ -21,10 +21,10 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
   ApiClientTest apiTest = ApiClientTest();
   bool carPartBrandSelected = false;
   bool carPartSelected = false;
-  DismissDirection direction;
   final TextEditingController _textController = TextEditingController();
-  bool focus = false;
-  int idPieza = -1;
+  bool search = false;
+  int idCarPart = 0;
+  int idCarPartBrand = 0;
 
   @override
   void initState() {
@@ -32,7 +32,7 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
     dataList = [];
     visibleItems = [];
     data = apiTest.listCarPartDynamic(
-        carPartBrandSelected, carPartSelected, context, 0);
+        carPartBrandSelected, carPartSelected, context, idCarPartBrand);
   }
 
   @override
@@ -46,7 +46,7 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
           scrollDirection: Axis.vertical,
           slivers: [
             SliverAppBar(
-              expandedHeight: 110,
+              expandedHeight: 60,
               backgroundColor: AppColors.green_jdm_arrow,
               floating: true,
               pinned: false,
@@ -65,13 +65,11 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
                       icon: Icon(Icons.notification_important)),
                 )
               ],
-              flexibleSpace: Padding(
-                padding: const EdgeInsets.only(top: 70),
-                child: _searchDelegate(),
-              ),
+
             ),
             SliverList(
                 delegate: SliverChildListDelegate([
+                  _searchDelegate(),
               ListView.builder(
                 padding: EdgeInsets.only(top: 10),
                 physics: NeverScrollableScrollPhysics(),
@@ -114,23 +112,17 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
                           scrollDirection: Axis.vertical,
                           physics: BouncingScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: visibleItems.isEmpty
-                              ? dataList.length
-                              : visibleItems.length,
+                          itemCount:
+                              search ? visibleItems.length : dataList.length,
                           itemBuilder: (BuildContext context, int index) {
                             return GestureDetector(
                                 onTap: () => _checkItemsStateAndAddItems(
-                                    direction, dataList[index]),
+                                    dataList[index]),
                                 child: carPartBrandSelected
                                     ? AddCarPartItemContainer(
-                                        carPart: visibleItems.isEmpty
-                                            ? dataList[index]
-                                            : visibleItems[index])
+                                        carPart: visibleItems.isNotEmpty ? visibleItems[index] : dataList[index])
                                     : CarPartBrandItemContainer(
-                                        carPartBrand: visibleItems.isEmpty
-                                            ? dataList[index]
-                                            : visibleItems[index],
-                                      ));
+                                        carPartBrand: visibleItems.isNotEmpty ? visibleItems[index] : dataList[index]));
                           },
                         );
                       }
@@ -151,27 +143,33 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
 
   ///Función que carga los datos de las marcas o las piezas según el estado de la lista de seleccionados y
   ///añade la marca o la pieza a esta lista
-  void _checkItemsStateAndAddItems(DismissDirection direction, dynamic item) {
+  void _checkItemsStateAndAddItems(dynamic item) {
+  
     setState(() {
+      
       if (items.isEmpty) {
         carPartBrandSelected = true;
-        direction = DismissDirection.endToStart;
+        DismissDirection direction = DismissDirection.endToStart;
         CarPartBrandItemContainer newItem = CarPartBrandItemContainer(
           carPartBrand: item,
         );
+        idCarPartBrand = newItem.carPartBrand.id;
         _addItem(
             newItem, direction, MainAxisAlignment.end, newItem.carPartBrand.id);
         data = apiTest.listCarPartDynamic(carPartBrandSelected, carPartSelected,
             context, newItem.carPartBrand.id);
+        _textController.clear();
+        search = false;
+        visibleItems.clear();
       } else {
         carPartSelected = true;
-        direction = DismissDirection.startToEnd;
+        DismissDirection direction = DismissDirection.startToEnd;
         AddCarPartItemContainer newItem = AddCarPartItemContainer(
           carPart: item,
         );
-        _addItem(newItem, direction, MainAxisAlignment.start, 0);
+        _addItem(newItem, direction, MainAxisAlignment.start, idCarPartBrand);
         data = null;
-        idPieza = newItem.carPart.id;
+        idCarPart = newItem.carPart.id;
       }
     });
   }
@@ -229,7 +227,7 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
         carPartBrandSelected = false;
         carPartSelected = false;
         data = apiTest.listCarPartDynamic(
-            carPartBrandSelected, carPartSelected, context, 0);
+            carPartBrandSelected, carPartSelected, context, brandId);
       } else {
         items.removeAt(1);
         carPartSelected = false;
@@ -241,7 +239,7 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
 
   ///Función que añade la pieza al coche actualdel usuario
   void addCarPart() async {
-    bool insert = await apiTest.addCarPart(context, idPieza);
+    bool insert = await apiTest.addCarPart(context, idCarPart);
     if (insert) Navigator.of(context).popAndPushNamed("home_page");
   }
 
@@ -303,17 +301,17 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
                   color: Colors.grey,
                 )),
             onChanged: (value) {
+              search = true;
               print(_textController.text);
               setState(() {
                 print(value);
                 if (value.isEmpty) {
                   visibleItems = [];
+                  search = false;
                 } else {
                   visibleItems = dataList
-                      .where((item) => item.name
-                          .toString()
-                          .toLowerCase()
-                          .contains(value.toLowerCase()))
+                      .where((item) =>
+                          item.name.toLowerCase().contains(value.toLowerCase()))
                       .toList();
                 }
               });

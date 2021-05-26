@@ -362,11 +362,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _changeUserCar({int id, String carBrandName, String carModelName}) {
-    print(id);
     Provider.of<UserCarProvider>(context, listen: false).carId = id;
     Provider.of<UserCarProvider>(context, listen: false).carModel =
         carBrandName + " " + carModelName;
-    print(Provider.of<UserCarProvider>(context, listen: false).carModel);
     setState(() {
       data = apiClientTest.getData(
           0, Provider.of<UserCarProvider>(context, listen: false).carId);
