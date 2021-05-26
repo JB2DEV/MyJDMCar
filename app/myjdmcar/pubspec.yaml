@@ -61,7 +61,6 @@ flutter:
     - assets/images/
     - fonts/
     - assets/icons/
-    - assets/data/car_parts_type.json
     - assets/data/user_cars.json
     - assets/data/0.json
     - assets/data/1.json

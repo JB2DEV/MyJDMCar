@@ -20,10 +20,11 @@ class ApiClientTest {
   Future<UserModel> getLoggedUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int userId = prefs.getInt("userId") ?? null;
-     String email = prefs.getString("email" ?? null);
+    String email = prefs.getString("email" ?? null);
     String userName = prefs.getString("userName" ?? null);
     String token = prefs.getString("accessToken" ?? null);
-    return UserModel(id: userId, email: email, userName: userName, accessToken: token);
+    return UserModel(
+        id: userId, email: email, userName: userName, accessToken: token);
   }
 
   Future getActualUserName() async {
@@ -129,15 +130,18 @@ class ApiClientTest {
   }
 
   Future<List<CarPartTypeModel>> getCarPartsTypeData() async {
-    final result =
-        await rootBundle.loadString('assets/data/car_parts_type.json');
-    //print(result);
-    final data = json.decode(result);
-    // print(data);
-    List<CarPartTypeModel> carPartsTypeList;
-    carPartsTypeList = (data['data'] as List)
-        .map((i) => new CarPartTypeModel.fromJson(i))
-        .toList();
+    final response =
+        await http.post(Uri.http(baseUrl, "/getters/getCarPartsTypeList.php"));
+
+    List<dynamic> data = json.decode(response.body);
+    /*  //CHECK DATATYPE
+    print(data.runtimeType.toString() + " " + data.toString());
+    data.forEach((element) {
+      print(element.runtimeType.toString() + " " + element.toString());
+    });*/
+
+    List<CarPartTypeModel> carPartsTypeList =
+        data.map((i) => CarPartTypeModel.fromJson(json.decode(i))).toList();
 
     return carPartsTypeList;
   }

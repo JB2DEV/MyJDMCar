@@ -39,10 +39,9 @@ class _AppButtons extends State<AppButtons> {
 
   void addCar() async {
     ApiClient _apiClient = ApiClient();
-    bool insert = await _apiClient.addCar(1, 1);
+    bool insert = await _apiClient.addCar(context, 1, 1);
 
     if (insert) {
-      _apiClient.getFirstCarData();
       Navigator.of(context).popAndPushNamed("home_page");
     }
   }
@@ -53,6 +52,14 @@ class _AppButtons extends State<AppButtons> {
         await Provider.of<UserCarProvider>(context, listen: false).carId;
     bool insert = await _apiClient.deleteCar(carId);
 
-    if (insert) Navigator.of(context).popAndPushNamed("home_page");
+    if (insert) {
+      await _apiClient.getFirstCarData().then((car) {
+        Provider.of<UserCarProvider>(context, listen: false).carId = car.id;
+        Provider.of<UserCarProvider>(context, listen: false).carModel =
+            car.carBrand.name + ' ' + car.carModel.name;
+      });
+
+      Navigator.of(context).popAndPushNamed("home_page");
+    }
   }
 }
