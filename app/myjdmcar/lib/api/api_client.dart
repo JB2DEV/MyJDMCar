@@ -257,4 +257,31 @@ class ApiClient {
     print(data['delete']);
     return data['delete'];
   }
+
+  Future<bool> addCar(int idMarca, int idModelo) async {
+    int idUser = await getActualUserId();
+    Map<String, dynamic> toJson() => {
+          "marca": idMarca.toString(),
+          "modelo": idModelo.toString(),
+          "user": idUser.toString()
+        };
+    final response = await http.post(Uri.http(baseUrl, "/setters/addCar.php"),
+        body: toJson());
+
+    Map<String, dynamic> data = json.decode(json.decode(response.body)['data']);
+    print(data['insert']);
+    return data['insert'];
+  }
+
+  Future<bool> deleteCar(int idCoche) async {
+    Map<String, dynamic> toJson() => {
+          "coche": idCoche.toString(),
+        };
+    final response = await http
+        .post(Uri.http(baseUrl, "/updates/deleteCar.php"), body: toJson());
+
+    Map<String, dynamic> data = json.decode(json.decode(response.body)['data']);
+    print(data['delete']);
+    return data['delete'];
+  }
 }

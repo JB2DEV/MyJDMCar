@@ -122,11 +122,9 @@ class _BackCardCarPartState extends State<BackCardCarPart> {
  *  Please, fix it before it gets angry.
  */
 
-  void _deleteCarPart(BuildContext context, ApiClient _apiClientTest) async {
+  void _deleteCarPart(BuildContext context, ApiClient _apiClient) async {
     print("Delete carPart with ID: ${widget.carPart.id}");
-    _apiClientTest
-        .deleteCarPartFromCar(context, widget.carPart.id)
-        .then((value) {
+    _apiClient.deleteCarPartFromCar(context, widget.carPart.id).then((value) {
       Navigator.of(context).popAndPushNamed("home_page");
     });
   }

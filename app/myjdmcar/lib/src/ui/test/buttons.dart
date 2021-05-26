@@ -1,38 +1,34 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:myjdmcar/api/api_client.dart';
 import 'package:myjdmcar/config/app_colors.dart';
 import 'dart:math';
 import 'package:http/http.dart' as http;
 import 'package:myjdmcar/config/globals.dart';
+import 'package:myjdmcar/provider/user_car_provider.dart';
 import 'package:myjdmcar/src/widgets/form/textformfields/email_textformfield.dart';
 import 'package:myjdmcar/src/widgets/form/textformfields/password_textformfield.dart';
+import 'package:provider/provider.dart';
 
-class AppButtons extends StatelessWidget {
+class AppButtons extends StatefulWidget {
   const AppButtons({Key key}) : super(key: key);
 
   @override
+  State<StatefulWidget> createState() => _AppButtons();
+}
+
+class _AppButtons extends State<AppButtons> {
+  @override
   Widget build(BuildContext context) {
-    var data;
     return Scaffold(
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
-              ElevatedButton(onPressed: selectAll, child: Text("testSelect")),
-              ElevatedButton(onPressed: insertOne, child: Text("testInsert")),
-              ElevatedButton(
-                  onPressed: selectOne, child: Text("testSelectOne")),
-              ElevatedButton(onPressed: login, child: Text("testLo")),
-              SizedBox(
-                height: 20,
-              ),
-              EmailTextFormField(),
-              SizedBox(
-                height: 20,
-              ),
-              PasswordTextFormField()
+              ElevatedButton(onPressed: addCar, child: Text("INSERT")),
+              ElevatedButton(onPressed: deleteCar, child: Text("DELETE")),
             ],
             mainAxisAlignment: MainAxisAlignment.center,
           ),
@@ -41,40 +37,22 @@ class AppButtons extends StatelessWidget {
     );
   }
 
-  void selectAll() async {
-    var url = '10.0.2.2:80';
-    var test = '/test/usuario.php';
-    final response = await http.post(Uri.http(url, test));
-    final decodedJson = await json.decode(response.body);
-    print(decodedJson);
+  void addCar() async {
+    ApiClient _apiClient = ApiClient();
+    bool insert = await _apiClient.addCar(1, 1);
+
+    if (insert) {
+      _apiClient.getFirstCarData();
+      Navigator.of(context).popAndPushNamed("home_page");
+    }
   }
 
-  void insertOne() async {
-    var url = '10.0.2.2:80';
-    var test = '/test/insert.php';
-    Map<String, dynamic> toJson() =>
-        {'user': variable1, 'email': variable1, 'pass': variable2};
-    print(toJson());
-    final response = await http.post(Uri.http(url, test), body: toJson());
-    final decodedJson = await json.decode(response.body);
-    print(decodedJson);
-  }
+  void deleteCar() async {
+    ApiClient _apiClient = ApiClient();
+    int carId =
+        await Provider.of<UserCarProvider>(context, listen: false).carId;
+    bool insert = await _apiClient.deleteCar(carId);
 
-  void selectOne() async {
-    var url = '10.0.2.2:80';
-    var test = '/test/getOne.php';
-    Map<String, dynamic> toJson() => {'user': variable1};
-    final response = await http.post(Uri.http(url, test), body: toJson());
-    final decodedJson = await json.decode(response.body);
-    print(decodedJson);
-  }
-
-  void login() async {
-    var url = '10.0.2.2:80';
-    var test = '/auth/login.php';
-    Map<String, dynamic> toJson() => {'user': variable1, 'pass': variable2};
-    final response = await http.post(Uri.http(url, test), body: toJson());
-    final decodedJson = await json.decode(response.body);
-    print(decodedJson);
+    if (insert) Navigator.of(context).popAndPushNamed("home_page");
   }
 }

@@ -25,6 +25,7 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
   final TextEditingController _textController = TextEditingController();
   bool focus = false;
   int idPieza = -1;
+  bool search = false;
 
   @override
   void initState() {
@@ -109,14 +110,14 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
                         );
                       } else {
                         dataList = snapshot.data;
+
                         return ListView.builder(
                           padding: EdgeInsets.zero,
                           scrollDirection: Axis.vertical,
                           physics: BouncingScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: visibleItems.isEmpty
-                              ? dataList.length
-                              : visibleItems.length,
+                          itemCount:
+                              search ? visibleItems.length : dataList.length,
                           itemBuilder: (BuildContext context, int index) {
                             return GestureDetector(
                                 onTap: () => _checkItemsStateAndAddItems(
@@ -303,11 +304,13 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
                   color: Colors.grey,
                 )),
             onChanged: (value) {
+              search = true;
               print(_textController.text);
               setState(() {
                 print(value);
                 if (value.isEmpty) {
                   visibleItems = [];
+                  search = false;
                 } else {
                   visibleItems = dataList
                       .where((item) => item.name
