@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:myjdmcar/api/api_client.dart';
+import 'package:myjdmcar/api/api_client_test.dart';
 import 'package:myjdmcar/config/app_colors.dart';
 import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/models/car_part.dart';
 
-class BackCardCarPart extends StatelessWidget {
+class BackCardCarPart extends StatefulWidget {
   final CarPartModel carPart;
   final VoidCallback onFlip;
   const BackCardCarPart(
       {Key key, @required this.carPart, @required this.onFlip})
       : super(key: key);
 
+  @override
+  _BackCardCarPartState createState() => _BackCardCarPartState();
+}
+
+class _BackCardCarPartState extends State<BackCardCarPart> {
   @override
   Widget build(BuildContext context) {
     ApiClient _apiClient = ApiClient();
@@ -34,14 +40,14 @@ class BackCardCarPart extends StatelessWidget {
                     _apiClient.baseUrl +
                     _apiClient.imagesUrl +
                     _apiClient.carPartsBrandsUrl +
-                    carPart.carPartBrand.image),
+                    widget.carPart.carPartBrand.image),
               ),
             ),
             SizedBox(
               height: 5,
             ),
             GestureDetector(
-              onTap: () => _deleteCarPart(),
+              onTap: () => _deleteCarPart(context, _apiClient),
               child: Container(
                   child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -78,7 +84,7 @@ class BackCardCarPart extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(8))),
               title: Text(
-                carPart.carPartBrand.name.toUpperCase(),
+                widget.carPart.carPartBrand.name.toUpperCase(),
                 style: Theme.of(context).textTheme.bodyText1,
                 textAlign: TextAlign.center,
               ),
@@ -86,7 +92,7 @@ class BackCardCarPart extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    carPart.carPartBrand.description,
+                    widget.carPart.carPartBrand.description,
                   ),
                   SizedBox(
                     height: 20,
@@ -96,7 +102,52 @@ class BackCardCarPart extends StatelessWidget {
         });
   }
 
-  void _deleteCarPart() {
-    print("Delete carPart with ID: ${carPart.id}");
+/*
+ *  Security Pig is watching your horrible code
+ *        _
+ *        ((`)_.._     ,'-. _..._ _._
+ *          \,'    '-._.-\  '     ` .-'
+ *         .'            /         (
+ *        /             |     _   _ \
+ *       |              \     a   a  |
+ *       ;                     .-.   /
+ *        ;       ',       '-.( '')-'
+ *         '.      |           ;-'
+ *           \    /           /
+ *           /   /-._  __,  7 |
+ *           \  `\  \``  |  | |
+ *            \   \_,\   |  |_,\
+ *             '-`'      \_,\
+ * 
+ *  Please, fix it before it gets angry.
+ */
+
+  void _deleteCarPart(BuildContext context, ApiClient _apiClientTest) async {
+    print("Delete carPart with ID: ${widget.carPart.id}");
+    _apiClientTest
+        .deleteCarPartFromCar(context, widget.carPart.id)
+        .then((value) {
+      Navigator.of(context).popAndPushNamed("home_page");
+    });
   }
+  /*
+ *  Security Pig is watching your horrible code
+ *        _
+ *        ((`)_.._     ,'-. _..._ _._
+ *          \,'    '-._.-\  '     ` .-'
+ *         .'            /         (
+ *        /             |     _   _ \
+ *       |              \     a   a  |
+ *       ;                     .-.   /
+ *        ;       ',       '-.( '')-'
+ *         '.      |           ;-'
+ *           \    /           /
+ *           /   /-._  __,  7 |
+ *           \  `\  \``  |  | |
+ *            \   \_,\   |  |_,\
+ *             '-`'      \_,\
+ * 
+ *  Please, fix it before it gets angry.
+ */
+
 }

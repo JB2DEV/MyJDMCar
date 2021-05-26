@@ -240,10 +240,9 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
   }
 
   ///Función que añade la pieza al coche actualdel usuario
-  void addCarPart(int idPieza) {
-    print("Added");
-    apiTest.addCarPart(context, idPieza);
-    Navigator.pop(context);
+  void addCarPart() async {
+    bool insert = await apiTest.addCarPart(context, idPieza);
+    if (insert) Navigator.of(context).popAndPushNamed("home_page");
   }
 
   ///Método que devuelve el botón para añadir si se ha seleccionado
@@ -280,7 +279,8 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
             cursorWidth: 1,
             decoration: InputDecoration(
                 fillColor: Colors.grey[200],
-                hintText: AppLocalizations.of(context).translate("addCarPartPageSearchHint"),
+                hintText: AppLocalizations.of(context)
+                    .translate("addCarPartPageSearchHint"),
                 hintStyle: TextStyle(
                   color: Colors.grey,
                   fontSize: 16,
