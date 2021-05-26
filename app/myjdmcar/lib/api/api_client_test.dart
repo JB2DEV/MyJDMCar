@@ -7,6 +7,7 @@ import 'package:myjdmcar/models/car_part.dart';
 import 'package:myjdmcar/models/car_part_brand.dart';
 import 'package:myjdmcar/models/car_part_type.dart';
 import 'package:http/http.dart' as http;
+import 'package:myjdmcar/models/user.dart';
 import 'package:myjdmcar/provider/car_parts_type_provider.dart';
 import 'package:myjdmcar/provider/user_car_provider.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +16,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ApiClientTest {
   ApiClientTest();
   final baseUrl = '10.0.2.2';
+
+  Future<UserModel> getLoggedUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int userId = prefs.getInt("userId") ?? null;
+     String email = prefs.getString("email" ?? null);
+    String userName = prefs.getString("userName" ?? null);
+    String token = prefs.getString("accessToken" ?? null);
+    return UserModel(id: userId, email: email, userName: userName, accessToken: token);
+  }
 
   Future getActualUserName() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
