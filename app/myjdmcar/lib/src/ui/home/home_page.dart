@@ -33,10 +33,9 @@ import 'package:myjdmcar/src/widgets/appbars/home_appbar.dart';
 import 'package:myjdmcar/src/widgets/car_part/back_card_car_part.dart';
 import 'package:myjdmcar/src/widgets/car_part/front_card_car_part.dart';
 import 'package:myjdmcar/src/widgets/animations/page_flip_builder.dart';
-import 'package:myjdmcar/src/widgets/home/home_drawer.dart';
 import 'package:myjdmcar/src/widgets/home/home_filter_item.dart';
-import 'package:myjdmcar/utils/utils.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -279,7 +278,7 @@ class _HomePageState extends State<HomePage> {
               textAlign: TextAlign.center,
             ),
             onTap: () {
-              Navigator.pop(context);
+              _deleteToken(context);
             },
           ),
         ],
@@ -305,7 +304,7 @@ class _HomePageState extends State<HomePage> {
                       return Text('Input a URL to start');
                     case ConnectionState.waiting:
                       print("waiting");
-                      return CircularProgressIndicator();
+                      return Container();
                     case ConnectionState.active:
                       print("active");
                       return Text('active');
@@ -375,4 +374,12 @@ class _HomePageState extends State<HomePage> {
 
     Navigator.pop(context);
   }
+}
+
+void _deleteToken(BuildContext context) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setString("accessToken", "").then((value) {
+    Navigator.pop(context);
+    Navigator.popAndPushNamed(context, "sign_in_page");
+  });
 }

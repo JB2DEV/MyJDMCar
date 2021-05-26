@@ -41,6 +41,7 @@ class ApiClient {
           UserModel.fromJson(jsonDecode(decodedJson['data']));
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setInt('userId', actualUser.id);
+      await prefs.setString('email', actualUser.userName);
       await prefs.setString('accessToken', actualUser.accessToken);
       await prefs.setString('userName', actualUser.userName);
 //      print(actualUser.toJson());

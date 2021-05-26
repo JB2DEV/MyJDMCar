@@ -27,7 +27,21 @@ class _SignInPageState extends State<SignInPage> {
   ApiClientTest apiTest = ApiClientTest();
 
   @override
+  void initState() {
+    super.initState();
+    userHaveToken();
+  }
+
+  Future userHaveToken() async {
+    UserModel loggedUser = await apiTest.getLoggedUser();
+    if(loggedUser.accessToken.length > 0){
+      Navigator.popAndPushNamed(context, "home_page");
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    userHaveToken();
     return Scaffold(
         body: GestureDetector(
       onTap: () {
