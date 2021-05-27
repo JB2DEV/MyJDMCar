@@ -15,7 +15,7 @@ class CarPartBrandTextFormField extends StatefulWidget {
 class _CarPartBrandTextFormFieldState extends State<CarPartBrandTextFormField> {
   final TextEditingController _carPartBrandController = TextEditingController();
   Future carPartsBrands;
-  ApiClient apiClientTest = ApiClient();
+  ApiClient _apiClient = ApiClient();
 
   var items = [
     'None',
@@ -30,7 +30,7 @@ class _CarPartBrandTextFormFieldState extends State<CarPartBrandTextFormField> {
   @override
   void initState() {
     super.initState();
-    carPartsBrands = apiClientTest.getCarPartsBrands(context);
+    carPartsBrands = _apiClient.getCarPartsBrands(context);
   }
 
   @override
