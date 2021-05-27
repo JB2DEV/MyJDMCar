@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myjdmcar/api/api_client_test.dart';
+import 'package:myjdmcar/api/api_client.dart';
 import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/models/car_part_brand.dart';
 import 'package:myjdmcar/utils/utils.dart';
@@ -15,7 +15,7 @@ class CarPartBrandTextFormField extends StatefulWidget {
 class _CarPartBrandTextFormFieldState extends State<CarPartBrandTextFormField> {
   final TextEditingController _carPartBrandController = TextEditingController();
   Future carPartsBrands;
-  ApiClientTest apiClientTest = ApiClientTest();
+  ApiClient apiClientTest = ApiClient();
 
   var items = [
     'None',

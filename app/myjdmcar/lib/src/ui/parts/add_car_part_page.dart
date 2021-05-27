@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myjdmcar/api/api_client_test.dart';
+import 'package:myjdmcar/api/api_client.dart';
 import 'package:myjdmcar/config/app_colors.dart';
 import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/src/widgets/buttons/theme_button.dart';
@@ -18,7 +18,7 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
   List<dynamic> dataList;
   List<dynamic> visibleItems;
   Future data;
-  ApiClientTest apiTest = ApiClientTest();
+  ApiClient _apiClient = ApiClient();
   bool carPartBrandSelected = false;
   bool carPartSelected = false;
   final TextEditingController _textController = TextEditingController();
@@ -31,7 +31,7 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
     super.initState();
     dataList = [];
     visibleItems = [];
-    data = apiTest.listCarPartDynamic(
+    data = _apiClient.listCarPartDynamic(
         carPartBrandSelected, carPartSelected, context, idCarPartBrand);
   }
 
@@ -65,11 +65,10 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
                       icon: Icon(Icons.notification_important)),
                 )
               ],
-
             ),
             SliverList(
                 delegate: SliverChildListDelegate([
-                  _searchDelegate(),
+              _searchDelegate(),
               ListView.builder(
                 padding: EdgeInsets.only(top: 10),
                 physics: NeverScrollableScrollPhysics(),
@@ -120,9 +119,13 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
                                     dataList[index]),
                                 child: carPartBrandSelected
                                     ? AddCarPartItemContainer(
-                                        carPart: visibleItems.isNotEmpty ? visibleItems[index] : dataList[index])
+                                        carPart: visibleItems.isNotEmpty
+                                            ? visibleItems[index]
+                                            : dataList[index])
                                     : CarPartBrandItemContainer(
-                                        carPartBrand: visibleItems.isNotEmpty ? visibleItems[index] : dataList[index]));
+                                        carPartBrand: visibleItems.isNotEmpty
+                                            ? visibleItems[index]
+                                            : dataList[index]));
                           },
                         );
                       }
@@ -144,9 +147,7 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
   ///Función que carga los datos de las marcas o las piezas según el estado de la lista de seleccionados y
   ///añade la marca o la pieza a esta lista
   void _checkItemsStateAndAddItems(dynamic item) {
-  
     setState(() {
-      
       if (items.isEmpty) {
         carPartBrandSelected = true;
         DismissDirection direction = DismissDirection.endToStart;
@@ -156,8 +157,8 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
         idCarPartBrand = newItem.carPartBrand.id;
         _addItem(
             newItem, direction, MainAxisAlignment.end, newItem.carPartBrand.id);
-        data = apiTest.listCarPartDynamic(carPartBrandSelected, carPartSelected,
-            context, newItem.carPartBrand.id);
+        data = _apiClient.listCarPartDynamic(carPartBrandSelected,
+            carPartSelected, context, newItem.carPartBrand.id);
         _textController.clear();
         search = false;
         visibleItems.clear();
@@ -226,12 +227,12 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
         items.clear();
         carPartBrandSelected = false;
         carPartSelected = false;
-        data = apiTest.listCarPartDynamic(
+        data = _apiClient.listCarPartDynamic(
             carPartBrandSelected, carPartSelected, context, brandId);
       } else {
         items.removeAt(1);
         carPartSelected = false;
-        data = apiTest.listCarPartDynamic(
+        data = _apiClient.listCarPartDynamic(
             carPartBrandSelected, carPartSelected, context, brandId);
       }
     });
@@ -239,7 +240,7 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
 
   ///Función que añade la pieza al coche actualdel usuario
   void addCarPart() async {
-    bool insert = await apiTest.addCarPart(context, idCarPart);
+    bool insert = await _apiClient.addCarPart(context, idCarPart);
     if (insert) Navigator.of(context).popAndPushNamed("home_page");
   }
 
