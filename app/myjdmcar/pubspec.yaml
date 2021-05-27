@@ -61,17 +61,8 @@ flutter:
     - assets/images/
     - fonts/
     - assets/icons/
-<<<<<<< HEAD
-    - assets/data/car_parts_type.json
     - assets/data/car_brands.json
     - assets/car_models_Nissan.json
-=======
-    - assets/data/user_cars.json
-    - assets/data/0.json
-    - assets/data/1.json
-    - assets/data/user_car_model_1111.json
-    - assets/data/car_parts_brands.json
->>>>>>> master
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
