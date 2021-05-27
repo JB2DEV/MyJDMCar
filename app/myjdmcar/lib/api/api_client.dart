@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:myjdmcar/config/globals.dart';
 import 'package:myjdmcar/models/car.dart';
+import 'package:myjdmcar/models/car_brand.dart';
 import 'package:myjdmcar/models/car_model.dart';
 import 'package:myjdmcar/models/car_part.dart';
 import 'package:myjdmcar/models/car_part_brand.dart';
@@ -242,6 +243,40 @@ class ApiClient {
         data.map((i) => CarPartModel.fromJson(json.decode(i))).toList();
 
     return carPartList;
+  }
+
+  Future<List<CarBrandModel>> getCarBrands() async {
+    final response =
+        await http.post(Uri.http(baseUrl, "/getters/getCarBrands.php"));
+
+    List<dynamic> data = json.decode(response.body);
+    /*  //CHECK DATATYPE
+    print(data.runtimeType.toString() + " " + data.toString());
+    data.forEach((element) {
+      print(element.runtimeType.toString() + " " + element.toString());
+    });*/
+
+    List<CarBrandModel> carBrandsList =
+        data.map((i) => CarBrandModel.fromJson(json.decode(i))).toList();
+
+    return carBrandsList;
+  }
+
+  Future<List<CarModelModel>> getCarModelsByBrand(String marca) async {
+    final response =
+        await http.post(Uri.http(baseUrl, "/getters/getCarModelsByBrand.php"));
+
+    List<dynamic> data = json.decode(response.body);
+    /*  //CHECK DATATYPE
+    print(data.runtimeType.toString() + " " + data.toString());
+    data.forEach((element) {
+      print(element.runtimeType.toString() + " " + element.toString());
+    });*/
+
+    List<CarModelModel> carModelsList =
+        data.map((i) => CarModelModel.fromJson(json.decode(i))).toList();
+
+    return carModelsList;
   }
 
   Future<bool> addCarPart(BuildContext context, int idPieza) async {
