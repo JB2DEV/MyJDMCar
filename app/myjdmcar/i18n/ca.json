@@ -29,6 +29,8 @@
 
     "addCarPartPageTitle"               : "Añadir pieza",
     "addCarPartPageSearchHint"          : "Busca la marca/pieza",
+    "addCarPartPageDissmissibleText"    : "Eliminar",
+    "addCarPartPageButtonText"          : "Añadir",
 
     "carPartRequestPageTitle"           : "Solicitar pieza",
     "carPartRequestPageButtonText"      : "Enviar solicitud",
@@ -54,5 +56,13 @@
     "carPartTextFormFieldError"         : "Introduce una pieza",
 
     "otherInfoTextFormFieldLabel"       : "Otra información",
-    "otherInfoTextFormFieldHint"        : "Escríbenos cualquier otra información aquí..."
+    "otherInfoTextFormFieldHint"        : "Escríbenos cualquier otra información aquí...",
+
+    "carBrandTextFormFieldLabel"        : "Marca coche",
+    "carBrandTextFormFieldHint"         : "Nissan",
+    "carBrandTextFormFieldError"        : "Introduce una marca",
+
+    "carModelTextFormFieldLabel"        : "Modelo coche",
+    "carModelTextFormFieldHint"         : "s13 (CA18DET)",
+    "carModelTextFormFieldError"        : "Introduce un modelo"
 }

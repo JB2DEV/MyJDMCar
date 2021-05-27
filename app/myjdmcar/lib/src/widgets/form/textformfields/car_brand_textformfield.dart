@@ -1,51 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:myjdmcar/api/api_client_test.dart';
 import 'package:myjdmcar/config/internationalization/app_localizations.dart';
-import 'package:myjdmcar/models/car_part_brand.dart';
+import 'package:myjdmcar/models/car_brand.dart';
+import 'package:myjdmcar/provider/add_car_provider.dart';
 import 'package:myjdmcar/utils/utils.dart';
+import 'package:provider/provider.dart';
 
-class CarPartBrandTextFormField extends StatefulWidget {
-  CarPartBrandTextFormField({Key key}) : super(key: key);
+class CarBrandTextFormField extends StatefulWidget {
+  final TextEditingController controller;
+  final Future carBrandsData;
+  final Function function;
+  CarBrandTextFormField(
+      {Key key,
+      @required this.controller,
+      @required this.carBrandsData,
+      this.function})
+      : super(key: key);
 
   @override
-  _CarPartBrandTextFormFieldState createState() =>
-      _CarPartBrandTextFormFieldState();
+  _CarBrandTextFormFieldState createState() => _CarBrandTextFormFieldState();
 }
 
-class _CarPartBrandTextFormFieldState extends State<CarPartBrandTextFormField> {
-  final TextEditingController _carPartBrandController = TextEditingController();
-  Future carPartsBrands;
+class _CarBrandTextFormFieldState extends State<CarBrandTextFormField> {
+  List<CarBrandModel> carBrandsList;
   ApiClientTest apiClientTest = ApiClientTest();
-
-  var items = [
-    'None',
-  ];
+  var items = ['None'];
 
   @override
   void dispose() {
-    _carPartBrandController.dispose();
+    widget.controller.dispose();
     super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    carPartsBrands = apiClientTest.getCarPartsBrands(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      readOnly: true,
       validator: validateTextFormField,
       keyboardType: TextInputType.text,
-      controller: _carPartBrandController,
+      controller: widget.controller,
       decoration: InputDecoration(
         labelText: AppLocalizations.of(context)
-            .translate("carPartBrandTextFormFieldLabel"),
-        hintText: AppLocalizations.of(context)
-            .translate("carPartBrandTextFormFieldHint"),
-        suffixIcon: FutureBuilder<List<CarPartBrandModel>>(
-          future: carPartsBrands,
+            .translate("carBrandTextFormFieldLabel"),
+        hintText:
+            AppLocalizations.of(context).translate("carBrandTextFormFieldHint"),
+        suffixIcon: FutureBuilder<List<CarBrandModel>>(
+          future: widget.carBrandsData,
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             print("SNAPSHOT ERROR");
             print(snapshot.error);
@@ -68,17 +68,20 @@ class _CarPartBrandTextFormFieldState extends State<CarPartBrandTextFormField> {
                 } else {
                   items.clear();
                   items.add('None');
-                  List<CarPartBrandModel> carPartBrands = snapshot.data;
-                  carPartBrands.forEach((element) {
+                  List<CarBrandModel> carBrands = snapshot.data;
+                  carBrands.forEach((element) {
                     items.add(element.name);
                   });
                   return PopupMenuButton<String>(
                     icon: const Icon(Icons.arrow_drop_down),
                     onSelected: (String value) {
                       if (value == 'None') {
-                        _carPartBrandController.text = "";
+                        widget.controller.text = "";
                       } else {
-                        _carPartBrandController.text = value;
+                        widget.controller.text = value;
+                        Provider.of<AddCarProvider>(context, listen: false).currentBrand =
+                            value;
+                            if(widget.function != null) widget.function();
                       }
                     },
                     itemBuilder: (BuildContext context) {
@@ -100,8 +103,7 @@ class _CarPartBrandTextFormFieldState extends State<CarPartBrandTextFormField> {
   String validateTextFormField(String value) {
     if (isTextFieldEmpty(value))
       return AppLocalizations.of(context)
-          .translate("carPartBrandTextFormFieldError");
+          .translate("carBrandTextFormFieldError");
     return null;
   }
-
 }

@@ -33,7 +33,7 @@ import 'package:myjdmcar/src/widgets/appbars/home_appbar.dart';
 import 'package:myjdmcar/src/widgets/car_part/back_card_car_part.dart';
 import 'package:myjdmcar/src/widgets/car_part/front_card_car_part.dart';
 import 'package:myjdmcar/src/widgets/animations/page_flip_builder.dart';
-import 'package:myjdmcar/src/widgets/home/home_filter_item.dart';
+import 'package:myjdmcar/src/widgets/filters/home_filter_item.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -242,7 +242,7 @@ class _HomePageState extends State<HomePage> {
                 textAlign: TextAlign.center),
             onTap: () {
               print("Navigate to create car");
-              Navigator.pushNamed(context, "buttons");
+              Navigator.pushNamed(context, "add_car_page");
             },
           ),
           ListTile(

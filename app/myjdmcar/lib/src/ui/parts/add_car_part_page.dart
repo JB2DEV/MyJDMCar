@@ -199,7 +199,7 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
                       width: 10,
                     ),
                     Text(
-                      "Delete".toUpperCase(),
+                      AppLocalizations.of(context).translate("addCarPartPageDissmissibleText").toUpperCase(),
                       style: Theme.of(context)
                           .textTheme
                           .bodyText1
@@ -250,7 +250,7 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
       return SizedBox(
         height: 40,
         child: ThemeButton(
-          buttonText: "Añadir",
+          buttonText: AppLocalizations.of(context).translate("addCarPartPageButtonText"),
           function: function,
         ),
       );

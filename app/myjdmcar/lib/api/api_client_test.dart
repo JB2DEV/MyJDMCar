@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:myjdmcar/models/car.dart';
+import 'package:myjdmcar/models/car_brand.dart';
 import 'package:myjdmcar/models/car_model.dart';
 import 'package:myjdmcar/models/car_part.dart';
 import 'package:myjdmcar/models/car_part_brand.dart';
@@ -20,10 +21,11 @@ class ApiClientTest {
   Future<UserModel> getLoggedUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int userId = prefs.getInt("userId") ?? null;
-     String email = prefs.getString("email" ?? null);
+    String email = prefs.getString("email" ?? null);
     String userName = prefs.getString("userName" ?? null);
     String token = prefs.getString("accessToken" ?? null);
-    return UserModel(id: userId, email: email, userName: userName, accessToken: token);
+    return UserModel(
+        id: userId, email: email, userName: userName, accessToken: token);
   }
 
   Future getActualUserName() async {
@@ -208,5 +210,32 @@ class ApiClientTest {
     Map<String, dynamic> data = json.decode(json.decode(response.body)['data']);
     print(data['delete']);
     return data['delete'];
+  }
+
+  Future<List<CarBrandModel>> getCarBrands() async {
+    final result = await rootBundle.loadString('assets/data/car_brands.json');
+    final data = json.decode(result);
+    List<CarBrandModel> carBrandsList;
+    carBrandsList = (data['data'] as List)
+        .map((i) => new CarBrandModel.fromJson(i))
+        .toList();
+
+    return carBrandsList;
+  }
+
+  Future<List<CarModelModel>> getCarModelsFromCarBrand(
+      String carBrandName) async {
+    if (carBrandName.isEmpty || carBrandName.length <= 0 || carBrandName == "None") return [];
+    final result = await rootBundle
+        .loadString('assets/data/car_models_' + carBrandName + '.json');
+    final data = json.decode(result);
+    print(data);
+    List<CarModelModel> carModelsList;
+    carModelsList = (data['data'] as List)
+        .map((i) => new CarModelModel.fromJson(i))
+        .toList();
+        print(carModelsList[0].name );
+
+    return carModelsList;
   }
 }
