@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:myjdmcar/api/api_client.dart';
 import 'package:myjdmcar/api/request_provider.dart';
 import 'package:myjdmcar/config/globals.dart';
 import 'package:myjdmcar/config/internationalization/app_localizations.dart';
@@ -16,7 +17,7 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final RequestProvider _provider = RequestProvider();
+  ApiClient _apiClient = ApiClient();
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +64,7 @@ class _SignUpPageState extends State<SignUpPage> {
     if (_formKey.currentState.validate()) {
       print("validated");
       try {
-        await _provider.mySignUp();
+        await _apiClient.mySignUp();
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           duration: Duration(seconds: 2),
           content: Text('Cuenta creada correctamente'),

@@ -27,8 +27,8 @@ class _AppButtons extends State<AppButtons> {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
-              ElevatedButton(onPressed: addCar, child: Text("INSERT")),
-              ElevatedButton(onPressed: deleteCar, child: Text("DELETE")),
+              ElevatedButton(onPressed: addCar, child: Text("pass")),
+              ElevatedButton(onPressed: deleteCar, child: Text("user")),
             ],
             mainAxisAlignment: MainAxisAlignment.center,
           ),
@@ -39,7 +39,7 @@ class _AppButtons extends State<AppButtons> {
 
   void addCar() async {
     ApiClient _apiClient = ApiClient();
-    bool insert = await _apiClient.addCar(context, 1, 1);
+    bool insert = await _apiClient.changePassword("password");
 
     if (insert) {
       Navigator.of(context).popAndPushNamed("home_page");

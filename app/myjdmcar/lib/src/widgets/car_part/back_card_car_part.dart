@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:myjdmcar/api/api_client.dart';
-import 'package:myjdmcar/api/api_client_test.dart';
 import 'package:myjdmcar/config/app_colors.dart';
 import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/models/car_part.dart';
