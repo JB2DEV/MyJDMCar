@@ -17,13 +17,13 @@ class CarModelModel {
       this.image});
 
   CarModelModel.fromJson(Map<String, dynamic> parsedJson)
-      : this.id = parsedJson['id'] ?? null,
-        this.name = parsedJson['nombre'] ?? null,
-        this.description = parsedJson['descripcion'] ?? null,
-        this.engine = parsedJson['motor'] ?? null,
-        this.power = parsedJson['potencia'] ?? null,
-        this.transmission = parsedJson['transmision'] ?? null,
-        this.image = parsedJson['imagen'] ?? null;
+      : this.id = parsedJson['id'] as int ?? null,
+        this.name = parsedJson['name'] ?? null,
+        this.description = parsedJson['description'] ?? null,
+        this.engine = parsedJson['engine'] ?? null,
+        this.power = parsedJson['power'] ?? null,
+        this.transmission = parsedJson['transmission'] ?? null,
+        this.image = parsedJson['image'] ?? null;
 
   Map<String, dynamic> toJson() => {
         'id': id ?? null,

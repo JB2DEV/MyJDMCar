@@ -75,6 +75,16 @@ class ApiClient {
     }
   }
 
+  Future<UserModel> getLoggedUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int userId = prefs.getInt("userId") ?? null;
+    String email = prefs.getString("email" ?? null);
+    String userName = prefs.getString("userName" ?? null);
+    String token = prefs.getString("accessToken" ?? null);
+    return UserModel(
+        id: userId, email: email, userName: userName, accessToken: token);
+  }
+
   Future getActualUserName() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String userName = prefs.getString("userName" ?? null);
@@ -105,8 +115,9 @@ class ApiClient {
         body: toJson());
     final data = json.decode(response.body);
     print("data");
-    CarModelModel car = CarModelModel.fromJson(data);
-    print(car.toJson());
+    print(data.toString());
+    CarModelModel car = CarModelModel.fromJson(jsonDecode(data['data']));
+    //print(car.toJson());
     return car;
   }
 
@@ -178,15 +189,18 @@ class ApiClient {
   }
 
   Future<List<CarPartTypeModel>> getCarPartsTypeData() async {
-    final result =
-        await rootBundle.loadString('assets/data/car_parts_type.json');
-    //print(result);
-    final data = json.decode(result);
-    // print(data);
-    List<CarPartTypeModel> carPartsTypeList;
-    carPartsTypeList = (data['data'] as List)
-        .map((i) => new CarPartTypeModel.fromJson(i))
-        .toList();
+    final response =
+        await http.post(Uri.http(baseUrl, "/getters/getCarPartsTypeList.php"));
+
+    List<dynamic> data = json.decode(response.body);
+    /*  //CHECK DATATYPE
+    print(data.runtimeType.toString() + " " + data.toString());
+    data.forEach((element) {
+      print(element.runtimeType.toString() + " " + element.toString());
+    });*/
+
+    List<CarPartTypeModel> carPartsTypeList =
+        data.map((i) => CarPartTypeModel.fromJson(json.decode(i))).toList();
 
     return carPartsTypeList;
   }
@@ -200,7 +214,7 @@ class ApiClient {
         body: toJson());
     //final decodedJson = await json.decode(response.body);
     Map<String, dynamic> decodedJson = jsonDecode(response.body);
-    //print(decodedJson);
+    print(jsonDecode(decodedJson['data']));
     CarModel car = CarModel.fromJson(jsonDecode(decodedJson['data']));
 
     return car;
@@ -259,18 +273,20 @@ class ApiClient {
     return data['delete'];
   }
 
-  Future<bool> addCar(int idMarca, int idModelo) async {
+  Future<bool> addCar(BuildContext context, String modelo) async {
     int idUser = await getActualUserId();
-    Map<String, dynamic> toJson() => {
-          "marca": idMarca.toString(),
-          "modelo": idModelo.toString(),
-          "user": idUser.toString()
-        };
+    Map<String, dynamic> toJson() =>
+        {"modelo": modelo, "user": idUser.toString()};
     final response = await http.post(Uri.http(baseUrl, "/setters/addCar.php"),
         body: toJson());
 
     Map<String, dynamic> data = json.decode(json.decode(response.body)['data']);
-    print(data['insert']);
+    if (data['insert']) {
+      CarModel car = CarModel.fromJson(data['car']);
+      Provider.of<UserCarProvider>(context, listen: false).carId = car.id;
+      Provider.of<UserCarProvider>(context, listen: false).carModel =
+          car.carBrand.name + ' ' + car.carModel.name;
+    }
     return data['insert'];
   }
 
@@ -284,5 +300,29 @@ class ApiClient {
     Map<String, dynamic> data = json.decode(json.decode(response.body)['data']);
     print(data['delete']);
     return data['delete'];
+  }
+
+  Future<bool> logout() async {
+    int userId = await getActualUserId() as int;
+    Map<String, dynamic> toJson() => {"id": userId.toString()};
+
+    final response =
+        await http.post(Uri.http(baseUrl, "/auth/logout.php"), body: toJson());
+
+    Map<String, dynamic> data = json.decode(json.decode(response.body)['data']);
+    print(data['logout']);
+    return data['logout'];
+  }
+
+  Future<bool> changePassword(String pwd) async {
+    int userId = await getActualUserId() as int;
+    Map<String, dynamic> toJson() => {"id": userId.toString(), "pwd": pwd};
+
+    final response =
+        await http.post(Uri.http(baseUrl, "//logout.php"), body: toJson());
+
+    Map<String, dynamic> data = json.decode(json.decode(response.body)['data']);
+    print(data['logout']);
+    return data['logout'];
   }
 }

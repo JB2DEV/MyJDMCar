@@ -1,10 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:myjdmcar/api/api_client_test.dart';
-import 'package:myjdmcar/api/request_provider.dart';
+import 'package:myjdmcar/api/api_client.dart';
 import 'package:myjdmcar/config/app_colors.dart';
-import 'package:myjdmcar/config/globals.dart';
 import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/models/user.dart';
 import 'package:myjdmcar/provider/user_car_provider.dart';
@@ -12,9 +8,7 @@ import 'package:myjdmcar/src/widgets/buttons/theme_button.dart';
 import 'package:myjdmcar/src/widgets/decoration/logo_app.dart';
 import 'package:myjdmcar/src/widgets/form/login_form.dart';
 
-import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -23,8 +17,8 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final RequestProvider _provider = RequestProvider();
-  ApiClientTest apiTest = ApiClientTest();
+
+  ApiClient _apiClient = ApiClient();
 
   @override
   void initState() {
@@ -33,8 +27,8 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   Future userHaveToken() async {
-    UserModel loggedUser = await apiTest.getLoggedUser();
-    if(loggedUser.accessToken.length > 0){
+    UserModel loggedUser = await _apiClient.getLoggedUser();
+    if (loggedUser.accessToken.length > 0) {
       Navigator.popAndPushNamed(context, "home_page");
     }
   }
@@ -133,8 +127,8 @@ class _SignInPageState extends State<SignInPage> {
     if (_formKey.currentState.validate()) {
       print("validated");
       try {
-        await _provider.mySignIn();
-        await apiTest.getFirstCarData().then((car) {
+        await _apiClient.mySignIn();
+        await _apiClient.getFirstCarData().then((car) {
           Provider.of<UserCarProvider>(context, listen: false).carId = car.id;
           Provider.of<UserCarProvider>(context, listen: false).carModel =
               car.carBrand.name + ' ' + car.carModel.name;

@@ -21,7 +21,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:myjdmcar/api/api_client_test.dart';
+import 'package:myjdmcar/api/api_client.dart';
+
 import 'package:myjdmcar/config/app_colors.dart';
 import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/models/car.dart';
@@ -50,25 +51,25 @@ class _HomePageState extends State<HomePage> {
   Future data;
   Future carPartsTypeData;
   Future userCarsData;
-  ApiClientTest apiClientTest = ApiClientTest();
+  ApiClient _apiClient = ApiClient();
   String userName = "";
 
   @override
   void initState() {
     super.initState();
-    carPartsTypeData = apiClientTest.getCarPartsTypeData();
+    carPartsTypeData = _apiClient.getCarPartsTypeData();
     getUserData();
-    data = apiClientTest.getData(
+    data = _apiClient.getData(
         0, Provider.of<UserCarProvider>(context, listen: false).carId);
   }
 
   Future getUserData() async {
-    await apiClientTest.getActualUserId().then((value) {
+    await _apiClient.getActualUserId().then((value) {
       setState(() {
-        userCarsData = apiClientTest.getUserCarsData(value);
+        userCarsData = _apiClient.getUserCarsData(value);
       });
     });
-    await apiClientTest.getActualUserName().then((value) {
+    await _apiClient.getActualUserName().then((value) {
       setState(() {
         userName = value;
       });
@@ -242,7 +243,11 @@ class _HomePageState extends State<HomePage> {
                 textAlign: TextAlign.center),
             onTap: () {
               print("Navigate to create car");
+<<<<<<< HEAD
               Navigator.pushNamed(context, "add_car_page");
+=======
+              Navigator.popAndPushNamed(context, "buttons");
+>>>>>>> master
             },
           ),
           ListTile(
@@ -260,7 +265,7 @@ class _HomePageState extends State<HomePage> {
               textAlign: TextAlign.center,
             ),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.popAndPushNamed(context, "buttons");
             },
           ),
           ListTile(
@@ -354,7 +359,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       Provider.of<CarPartsFilterProvider>(context, listen: false).currentIndex =
           index;
-      data = apiClientTest.getData(
+      data = _apiClient.getData(
           Provider.of<CarPartsFilterProvider>(context, listen: false)
               .currentIndex,
           Provider.of<UserCarProvider>(context, listen: false).carId);
@@ -366,18 +371,19 @@ class _HomePageState extends State<HomePage> {
     Provider.of<UserCarProvider>(context, listen: false).carModel =
         carBrandName + " " + carModelName;
     setState(() {
-      data = apiClientTest.getData(
+      data = _apiClient.getData(
           0, Provider.of<UserCarProvider>(context, listen: false).carId);
     });
 
     Navigator.pop(context);
   }
-}
 
-void _deleteToken(BuildContext context) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  prefs.setString("accessToken", "").then((value) {
-    Navigator.pop(context);
-    Navigator.popAndPushNamed(context, "sign_in_page");
-  });
+  void _deleteToken(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await _apiClient.logout();
+    prefs.setString("accessToken", "").then((value) {
+      Navigator.pop(context);
+      Navigator.popAndPushNamed(context, "sign_in_page");
+    });
+  }
 }

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:myjdmcar/api/api_client.dart';
-import 'package:myjdmcar/api/api_client_test.dart';
-import 'package:myjdmcar/config/app_colors.dart';
 import 'package:myjdmcar/config/icons_routes.dart';
 import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/models/car_model.dart';
@@ -17,7 +15,6 @@ class UserCarDetailPage extends StatefulWidget {
 }
 
 class _UserCarDetailPageState extends State<UserCarDetailPage> {
-  ApiClientTest apiTest = ApiClientTest();
   UserCarProvider provider;
   Future data;
   ApiClient _apiClient = ApiClient();
@@ -27,7 +24,7 @@ class _UserCarDetailPageState extends State<UserCarDetailPage> {
     super.initState();
 
     int carId = Provider.of<UserCarProvider>(context, listen: false).carId;
-    data = apiTest.getUserCarModelData(carId);
+    data = _apiClient.getUserCarModelData(carId);
   }
 
   @override
@@ -121,7 +118,10 @@ class _UserCarDetailPageState extends State<UserCarDetailPage> {
                                 SizedBox(
                                   height: 20,
                                 ),
-                                Text(carModel.description, style: Theme.of(context).textTheme.bodyText2,),
+                                Text(
+                                  carModel.description,
+                                  style: Theme.of(context).textTheme.bodyText2,
+                                ),
                                 SizedBox(
                                   height: 20,
                                 ),

@@ -27,8 +27,8 @@ class _AppButtons extends State<AppButtons> {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
-              ElevatedButton(onPressed: addCar, child: Text("INSERT")),
-              ElevatedButton(onPressed: deleteCar, child: Text("DELETE")),
+              ElevatedButton(onPressed: addCar, child: Text("pass")),
+              ElevatedButton(onPressed: deleteCar, child: Text("user")),
             ],
             mainAxisAlignment: MainAxisAlignment.center,
           ),
@@ -39,10 +39,9 @@ class _AppButtons extends State<AppButtons> {
 
   void addCar() async {
     ApiClient _apiClient = ApiClient();
-    bool insert = await _apiClient.addCar(1, 1);
+    bool insert = await _apiClient.changePassword("password");
 
     if (insert) {
-      _apiClient.getFirstCarData();
       Navigator.of(context).popAndPushNamed("home_page");
     }
   }
@@ -53,6 +52,14 @@ class _AppButtons extends State<AppButtons> {
         await Provider.of<UserCarProvider>(context, listen: false).carId;
     bool insert = await _apiClient.deleteCar(carId);
 
-    if (insert) Navigator.of(context).popAndPushNamed("home_page");
+    if (insert) {
+      await _apiClient.getFirstCarData().then((car) {
+        Provider.of<UserCarProvider>(context, listen: false).carId = car.id;
+        Provider.of<UserCarProvider>(context, listen: false).carModel =
+            car.carBrand.name + ' ' + car.carModel.name;
+      });
+
+      Navigator.of(context).popAndPushNamed("home_page");
+    }
   }
 }
