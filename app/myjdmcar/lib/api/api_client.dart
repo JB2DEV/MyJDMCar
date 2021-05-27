@@ -263,8 +263,10 @@ class ApiClient {
   }
 
   Future<List<CarModelModel>> getCarModelsByBrand(String marca) async {
-    final response =
-        await http.post(Uri.http(baseUrl, "/getters/getCarModelsByBrand.php"));
+    Map<String, dynamic> toJson() => {"marca": marca};
+    final response = await http.post(
+        Uri.http(baseUrl, "/getters/getCarModelsByBrand.php"),
+        body: toJson());
 
     List<dynamic> data = json.decode(response.body);
     /*  //CHECK DATATYPE
