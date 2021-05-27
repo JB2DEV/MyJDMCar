@@ -243,7 +243,7 @@ class _HomePageState extends State<HomePage> {
                 textAlign: TextAlign.center),
             onTap: () {
               print("Navigate to create car");
-              Navigator.popAndPushNamed(context, "buttons");
+              Navigator.pushNamed(context, "add_car_page");
             },
           ),
           ListTile(
