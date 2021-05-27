@@ -10,6 +10,7 @@ import 'package:myjdmcar/provider/user_car_provider.dart';
 import 'package:myjdmcar/src/widgets/form/textformfields/email_textformfield.dart';
 import 'package:myjdmcar/src/widgets/form/textformfields/password_textformfield.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AppButtons extends StatefulWidget {
   const AppButtons({Key key}) : super(key: key);
@@ -39,7 +40,7 @@ class _AppButtons extends State<AppButtons> {
 
   void addCar() async {
     ApiClient _apiClient = ApiClient();
-    bool insert = await _apiClient.changePassword("password");
+    bool insert = await _apiClient.changePassword("adminadmin", "password");
 
     if (insert) {
       Navigator.of(context).popAndPushNamed("home_page");
@@ -48,17 +49,10 @@ class _AppButtons extends State<AppButtons> {
 
   void deleteCar() async {
     ApiClient _apiClient = ApiClient();
-    int carId =
-        await Provider.of<UserCarProvider>(context, listen: false).carId;
-    bool insert = await _apiClient.deleteCar(carId);
+    String username = "admin";
+    bool insert = await _apiClient.changeUsername(username);
 
     if (insert) {
-      await _apiClient.getFirstCarData().then((car) {
-        Provider.of<UserCarProvider>(context, listen: false).carId = car.id;
-        Provider.of<UserCarProvider>(context, listen: false).carModel =
-            car.carBrand.name + ' ' + car.carModel.name;
-      });
-
       Navigator.of(context).popAndPushNamed("home_page");
     }
   }
