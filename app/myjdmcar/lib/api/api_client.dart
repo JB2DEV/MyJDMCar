@@ -314,15 +314,33 @@ class ApiClient {
     return data['logout'];
   }
 
-  Future<bool> changePassword(String pwd) async {
+  Future<bool> changePassword(String actual, String pwd) async {
     int userId = await getActualUserId() as int;
-    Map<String, dynamic> toJson() => {"id": userId.toString(), "pwd": pwd};
+    Map<String, dynamic> toJson() =>
+        {"id": userId.toString(), "pwd": pwd, "actual": actual};
 
-    final response =
-        await http.post(Uri.http(baseUrl, "//logout.php"), body: toJson());
+    final response = await http.post(Uri.http(baseUrl, "/auth/changePwd.php"),
+        body: toJson());
 
     Map<String, dynamic> data = json.decode(json.decode(response.body)['data']);
-    print(data['logout']);
-    return data['logout'];
+    print(data['changed']);
+    return data['changed'];
+  }
+
+  Future<bool> changeUsername(String username) async {
+    int userId = await getActualUserId() as int;
+    Map<String, dynamic> toJson() =>
+        {"id": userId.toString(), "user": username};
+
+    final response = await http
+        .post(Uri.http(baseUrl, "/auth/changeUsername.php"), body: toJson());
+
+    Map<String, dynamic> data = json.decode(json.decode(response.body)['data']);
+    if (data['changed']) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('userName', username);
+    }
+
+    return data['changed'];
   }
 }
