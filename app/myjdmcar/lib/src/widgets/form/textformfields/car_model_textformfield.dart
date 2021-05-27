@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myjdmcar/api/api_client_test.dart';
+import 'package:myjdmcar/api/api_client.dart';
 import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/models/car_model.dart';
 import 'package:myjdmcar/provider/add_car_provider.dart';
@@ -21,7 +21,7 @@ class CarModelTextFormField extends StatefulWidget {
 
 class _CarModelTextFormFieldState extends State<CarModelTextFormField> {
   List<CarModelModel> carModelsList;
-  ApiClientTest apiClientTest = ApiClientTest();
+  ApiClient _apiClient = ApiClient();
   var items = ['None'];
 
   @override

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myjdmcar/api/api_client_test.dart';
+import 'package:myjdmcar/api/api_client.dart';
 import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/models/car_brand.dart';
 import 'package:myjdmcar/models/car_model.dart';
@@ -19,7 +19,7 @@ class AddCarForm extends StatefulWidget {
 class _AddCarFormState extends State<AddCarForm> {
   final TextEditingController _carBrandController = TextEditingController();
   final TextEditingController _carModelsController = TextEditingController();
-  final ApiClientTest apiClientTest = ApiClientTest();
+  ApiClient _apiClient = ApiClient();
 
   Future carBrandsData;
   Future carModelsData;
@@ -37,7 +37,7 @@ class _AddCarFormState extends State<AddCarForm> {
   @override
   void initState() {
     super.initState();
-    carBrandsData = apiClientTest.getCarBrands();
+    carBrandsData = _apiClient.getCarBrands();
   }
 
   @override
@@ -242,7 +242,7 @@ class _AddCarFormState extends State<AddCarForm> {
 
   void _loadCarModelsData() {
     
-      carModelsData = apiClientTest.getCarModelsFromCarBrand(Provider.of<AddCarProvider>(context, listen: false).currentBrand);
+      carModelsData = _apiClient.getCarModelsByBrand(Provider.of<AddCarProvider>(context, listen: false).currentBrand);
     
   }
 }
