@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:myjdmcar/config/globals.dart';
 import 'package:myjdmcar/models/car.dart';
+import 'package:myjdmcar/models/car_brand.dart';
 import 'package:myjdmcar/models/car_model.dart';
 import 'package:myjdmcar/models/car_part.dart';
 import 'package:myjdmcar/models/car_part_brand.dart';
@@ -244,6 +245,40 @@ class ApiClient {
     return carPartList;
   }
 
+  Future<List<CarBrandModel>> getCarBrands() async {
+    final response =
+        await http.post(Uri.http(baseUrl, "/getters/getCarBrands.php"));
+
+    List<dynamic> data = json.decode(response.body);
+    /*  //CHECK DATATYPE
+    print(data.runtimeType.toString() + " " + data.toString());
+    data.forEach((element) {
+      print(element.runtimeType.toString() + " " + element.toString());
+    });*/
+
+    List<CarBrandModel> carBrandsList =
+        data.map((i) => CarBrandModel.fromJson(json.decode(i))).toList();
+
+    return carBrandsList;
+  }
+
+  Future<List<CarModelModel>> getCarModelsByBrand(String marca) async {
+    final response =
+        await http.post(Uri.http(baseUrl, "/getters/getCarModelsByBrand.php"));
+
+    List<dynamic> data = json.decode(response.body);
+    /*  //CHECK DATATYPE
+    print(data.runtimeType.toString() + " " + data.toString());
+    data.forEach((element) {
+      print(element.runtimeType.toString() + " " + element.toString());
+    });*/
+
+    List<CarModelModel> carModelsList =
+        data.map((i) => CarModelModel.fromJson(json.decode(i))).toList();
+
+    return carModelsList;
+  }
+
   Future<bool> addCarPart(BuildContext context, int idPieza) async {
     int carId =
         await Provider.of<UserCarProvider>(context, listen: false).carId;
@@ -314,15 +349,33 @@ class ApiClient {
     return data['logout'];
   }
 
-  Future<bool> changePassword(String pwd) async {
+  Future<bool> changePassword(String actual, String pwd) async {
     int userId = await getActualUserId() as int;
-    Map<String, dynamic> toJson() => {"id": userId.toString(), "pwd": pwd};
+    Map<String, dynamic> toJson() =>
+        {"id": userId.toString(), "pwd": pwd, "actual": actual};
 
-    final response =
-        await http.post(Uri.http(baseUrl, "//logout.php"), body: toJson());
+    final response = await http.post(Uri.http(baseUrl, "/auth/changePwd.php"),
+        body: toJson());
 
     Map<String, dynamic> data = json.decode(json.decode(response.body)['data']);
-    print(data['logout']);
-    return data['logout'];
+    print(data['changed']);
+    return data['changed'];
+  }
+
+  Future<bool> changeUsername(String username) async {
+    int userId = await getActualUserId() as int;
+    Map<String, dynamic> toJson() =>
+        {"id": userId.toString(), "user": username};
+
+    final response = await http
+        .post(Uri.http(baseUrl, "/auth/changeUsername.php"), body: toJson());
+
+    Map<String, dynamic> data = json.decode(json.decode(response.body)['data']);
+    if (data['changed']) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('userName', username);
+    }
+
+    return data['changed'];
   }
 }
