@@ -269,14 +269,27 @@ class ApiClient {
         body: toJson());
 
     List<dynamic> data = json.decode(response.body);
-    /*  //CHECK DATATYPE
+    //CHECK DATATYPE
     print(data.runtimeType.toString() + " " + data.toString());
     data.forEach((element) {
       print(element.runtimeType.toString() + " " + element.toString());
-    });*/
+    });
 
     List<CarModelModel> carModelsList =
         data.map((i) => CarModelModel.fromJson(json.decode(i))).toList();
+
+    return carModelsList;
+  }
+
+  Future<List<CarModelModel>> getCarModelsByBrandLocal(String marca) async {
+    final result =
+        await rootBundle.loadString('assets/data/car_models_' + marca + '.json');
+    print(result);
+    final data = json.decode(result);
+    print(data);
+    List<CarModelModel> carModelsList = (data['data'] as List)
+        .map((i) => new CarModelModel.fromJson(i))
+        .toList();
 
     return carModelsList;
   }

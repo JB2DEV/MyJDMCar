@@ -42,7 +42,7 @@ class _AddCarFormState extends State<AddCarForm> {
 
   @override
   Widget build(BuildContext context) {
-    print("PROVIDER: " +
+    print("PROVIDER CURRENT: " +
         Provider.of<AddCarProvider>(context, listen: false).currentBrand);
     return Form(
       key: widget.formKey,
@@ -110,8 +110,9 @@ class _AddCarFormState extends State<AddCarForm> {
                           _carBrandController.text = value;
                           Provider.of<AddCarProvider>(context, listen: false)
                               .currentBrand = value;
+                              carModelsData = _apiClient.getCarModelsByBrandLocal(value);
                         });
-                        _loadCarModelsData();
+                        
                       }
                     },
                     itemBuilder: (BuildContext context) {
@@ -152,38 +153,7 @@ class _AddCarFormState extends State<AddCarForm> {
         suffixIcon: FutureBuilder<List<CarModelModel>>(
           future: carModelsData,
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            
-            if(snapshot.hasData){
- 
-                  print("HAS DATA");
-                  List<CarModelModel> carModelList = snapshot.data;
-                  print("Item name: " + carModelList[0].name);
-                  carModelList.forEach((element) {
-                    carModelsItems
-                        .add("item");
-                  });
-                  return PopupMenuButton<String>(
-                    icon: const Icon(Icons.arrow_drop_down),
-                    onSelected: (String value) {
-                      if (value == 'None') {
-                        _carModelsController.text = "";
-                      } else {
-                        _carModelsController.text = value;
-                      }
-                    },
-                    itemBuilder: (BuildContext context) {
-                      return carModelsItems
-                          .map<PopupMenuItem<String>>((String value) {
-                        return new PopupMenuItem(
-                            child: new Text(value), value: value);
-                      }).toList();
-                    },
-                  );
-            }else{
-              print("NO DATA");
-              return Text("NO data");
-            }
-            /*switch (snapshot.connectionState) {
+            switch (snapshot.connectionState) {
               case ConnectionState.none:
                 return Text('');
               case ConnectionState.waiting:
@@ -203,7 +173,7 @@ class _AddCarFormState extends State<AddCarForm> {
                   carModelsItems.clear();
                   carModelsItems.add('None');
                   List<CarModelModel> carModelList = snapshot.data;
-                  carModelList.forEach((element) {
+                  carModelList.forEach((element) async{
                     carModelsItems
                         .add(element.name + " (" + element.engine + ")");
                   });
@@ -225,7 +195,7 @@ class _AddCarFormState extends State<AddCarForm> {
                     },
                   );
                 }
-            }*/
+            }
             return CircularProgressIndicator();
           },
         ),
@@ -241,8 +211,7 @@ class _AddCarFormState extends State<AddCarForm> {
   }
 
   void _loadCarModelsData() {
-    
-      carModelsData = _apiClient.getCarModelsByBrand(Provider.of<AddCarProvider>(context, listen: false).currentBrand);
-    
+    carModelsData = _apiClient.getCarModelsByBrandLocal(
+        Provider.of<AddCarProvider>(context, listen: false).currentBrand);
   }
 }
