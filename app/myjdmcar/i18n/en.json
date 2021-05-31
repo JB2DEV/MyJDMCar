@@ -59,10 +59,10 @@
     "otherInfoTextFormFieldHint"        : "Escríbenos cualquier otra información aquí...",
 
     "carBrandTextFormFieldLabel"        : "Marca coche",
-    "carBrandTextFormFieldHint"         : "Nissan",
+    "carBrandTextFormFieldHint"         : "Selecciona una marca",
     "carBrandTextFormFieldError"        : "Introduce una marca",
 
     "carModelTextFormFieldLabel"        : "Modelo coche",
-    "carModelTextFormFieldHint"         : "s13 (CA18DET)",
+    "carModelTextFormFieldHint"         : "Selecciona un modelo",
     "carModelTextFormFieldError"        : "Introduce un modelo"
 }

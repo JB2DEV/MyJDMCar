@@ -116,7 +116,9 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
                           itemBuilder: (BuildContext context, int index) {
                             return GestureDetector(
                                 onTap: () => _checkItemsStateAndAddItems(
-                                    dataList[index]),
+                                     visibleItems.isNotEmpty
+                                            ? visibleItems[index]
+                                            : dataList[index]),
                                 child: carPartBrandSelected
                                     ? AddCarPartItemContainer(
                                         carPart: visibleItems.isNotEmpty
@@ -147,6 +149,7 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
   ///Función que carga los datos de las marcas o las piezas según el estado de la lista de seleccionados y
   ///añade la marca o la pieza a esta lista
   void _checkItemsStateAndAddItems(dynamic item) {
+    print("ITEM NAME " + item.name);
     setState(() {
       if (items.isEmpty) {
         carPartBrandSelected = true;

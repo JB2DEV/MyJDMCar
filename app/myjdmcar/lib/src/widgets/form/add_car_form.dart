@@ -59,7 +59,10 @@ class _AddCarFormState extends State<AddCarForm> {
             height: 30,
           ),
           _getCarModelsTextFormField(),
-          getAddButton(addCar)
+          SizedBox(
+            height: 30,
+          ),
+          ThemeButton(function: addCar, buttonText: "Añadir coche")
         ],
       ),
     );
@@ -153,6 +156,7 @@ class _AddCarFormState extends State<AddCarForm> {
         suffixIcon: FutureBuilder<List<CarModelModel>>(
           future: carModelsData,
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            //print("ERROR : " + snapshot.error);
             switch (snapshot.connectionState) {
               case ConnectionState.none:
                 return Text('');
