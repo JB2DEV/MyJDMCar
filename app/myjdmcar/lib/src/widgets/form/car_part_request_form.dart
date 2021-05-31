@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:myjdmcar/config/internationalization/app_localizations.dart';
-import 'package:myjdmcar/src/widgets/buttons/theme_button.dart';
 import 'package:myjdmcar/src/widgets/form/textformfields/car_part_brand_textformfield.dart';
 import 'package:myjdmcar/src/widgets/form/textformfields/car_part_textformfield.dart';
 import 'package:myjdmcar/src/widgets/form/textformfields/other_info_textformfield.dart';

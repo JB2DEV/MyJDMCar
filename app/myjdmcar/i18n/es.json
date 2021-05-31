@@ -35,6 +35,13 @@
     "carPartRequestPageTitle"           : "Solicitar pieza",
     "carPartRequestPageButtonText"      : "Enviar solicitud",
 
+    "addCarPageTitle"                   : "Añade un coche",
+    "addCarPageNoneSelectedPopUpMenu"   : "Ninguno",         
+    "addCarPageAddButtonText"           : "Añadir coche",
+
+    "carRequestPageTitle"               : "Solicitar coche",
+    "carRequestPageButtonText"          : "Enviar solicitud",
+
     "emailTextFormFieldLabel"           : "Email",
     "emailTextFormFieldHint"            : "email@ejemplo.com",
     "emailTextFormFieldValidationError" : "Introduce un email válido",
@@ -50,6 +57,7 @@
     "carPartBrandTextFormFieldLabel"    : "Marca Pieza",
     "carPartBrandTextFormFieldHint"     : "Garret",
     "carPartBrandTextFormFieldError"    : "Introduce una marca de pieza",
+    "carPartBrandTextFormFieldNoneValue": "Ninguno",
 
     "carPartTextFormFieldLabel"         : "Pieza",
     "carPartTextFormFieldHint"          : "Turbo GT2560R",

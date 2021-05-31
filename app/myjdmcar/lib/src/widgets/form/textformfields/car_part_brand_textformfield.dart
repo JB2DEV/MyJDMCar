@@ -17,9 +17,7 @@ class _CarPartBrandTextFormFieldState extends State<CarPartBrandTextFormField> {
   Future carPartsBrands;
   ApiClient _apiClient = ApiClient();
 
-  var items = [
-    'None',
-  ];
+  List<String> items = [];
 
   @override
   void dispose() {
@@ -67,7 +65,7 @@ class _CarPartBrandTextFormFieldState extends State<CarPartBrandTextFormField> {
                   );
                 } else {
                   items.clear();
-                  items.add('None');
+                  items.add(AppLocalizations.of(context).translate("carPartBrandTextFormFieldNoneValue"));
                   List<CarPartBrandModel> carPartBrands = snapshot.data;
                   carPartBrands.forEach((element) {
                     items.add(element.name);
@@ -75,7 +73,7 @@ class _CarPartBrandTextFormFieldState extends State<CarPartBrandTextFormField> {
                   return PopupMenuButton<String>(
                     icon: const Icon(Icons.arrow_drop_down),
                     onSelected: (String value) {
-                      if (value == 'None') {
+                      if (value == AppLocalizations.of(context).translate("carPartBrandTextFormFieldNoneValue")) {
                         _carPartBrandController.text = "";
                       } else {
                         _carPartBrandController.text = value;
