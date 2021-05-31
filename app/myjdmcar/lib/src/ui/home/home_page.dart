@@ -213,7 +213,10 @@ class _HomePageState extends State<HomePage> {
                           title: Text(userCarsList[index].carBrand.name,
                               textAlign: TextAlign.center),
                           subtitle: Text(
-                            userCarsList[index].carModel.name,
+                            userCarsList[index].carModel.name +
+                                " (" +
+                                userCarsList[index].carModel.engine +
+                                ")",
                             textAlign: TextAlign.center,
                           ),
                           onTap: () => _changeUserCar(
