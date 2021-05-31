@@ -31,7 +31,7 @@ class _AddCarPageState extends State<AddCarPage> {
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 100),
             child: Column(
               children: [
                 AddCarForm(

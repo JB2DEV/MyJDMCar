@@ -43,24 +43,19 @@ class _AddCarFormState extends State<AddCarForm> {
 
   @override
   Widget build(BuildContext context) {
-    print("PROVIDER CURRENT: " +
-        Provider.of<AddCarProvider>(context, listen: false).currentBrand);
     return Form(
       key: widget.formKey,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           _getCarBrandTextFormField(),
           SizedBox(
-            height: 30,
-          ),
-          Text(
-              Provider.of<AddCarProvider>(context, listen: false).currentBrand),
-          SizedBox(
-            height: 30,
+            height: 60,
           ),
           _getCarModelsTextFormField(),
           SizedBox(
-            height: 30,
+            height: 60,
           ),
           ThemeButton(function: addCar, buttonText: "Añadir coche")
         ],
@@ -188,25 +183,6 @@ class _AddCarFormState extends State<AddCarForm> {
                         _carModelsController.text = "";
                       } else {
                         _carModelsController.text = value;
-                        /*
- *  Security Pig is watching your horrible code
- *        _
- *        ((`)_.._     ,'-. _..._ _._
- *          \,'    '-._.-\  '     ` .-'
- *         .'            /         (
- *        /             |     _   _ \
- *       |              \     a   a  |
- *       ;                     .-.   /
- *        ;       ',       '-.( '')-'
- *         '.      |           ;-'
- *           \    /           /
- *           /   /-._  __,  7 |
- *           \  `\  \``  |  | |
- *            \   \_,\   |  |_,\
- *             '-`'      \_,\
- * 
- *  Please, fix it before it gets angry.
- */
                         setState(() {});
                       }
                     },
