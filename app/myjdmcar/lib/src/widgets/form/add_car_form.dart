@@ -4,6 +4,7 @@ import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/models/car_brand.dart';
 import 'package:myjdmcar/models/car_model.dart';
 import 'package:myjdmcar/provider/add_car_provider.dart';
+import 'package:myjdmcar/src/widgets/buttons/theme_button.dart';
 import 'package:myjdmcar/utils/utils.dart';
 import 'package:provider/provider.dart';
 
@@ -58,6 +59,10 @@ class _AddCarFormState extends State<AddCarForm> {
             height: 30,
           ),
           _getCarModelsTextFormField(),
+          SizedBox(
+            height: 30,
+          ),
+          ThemeButton(function: addCar, buttonText: "Añadir coche")
         ],
       ),
     );
@@ -110,9 +115,9 @@ class _AddCarFormState extends State<AddCarForm> {
                           _carBrandController.text = value;
                           Provider.of<AddCarProvider>(context, listen: false)
                               .currentBrand = value;
-                              carModelsData = _apiClient.getCarModelsByBrandLocal(value);
+                          carModelsData =
+                              _apiClient.getCarModelsByBrand(value);
                         });
-                        
                       }
                     },
                     itemBuilder: (BuildContext context) {
@@ -153,6 +158,7 @@ class _AddCarFormState extends State<AddCarForm> {
         suffixIcon: FutureBuilder<List<CarModelModel>>(
           future: carModelsData,
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            //print("ERROR : " + snapshot.error);
             switch (snapshot.connectionState) {
               case ConnectionState.none:
                 return Text('');
@@ -173,7 +179,7 @@ class _AddCarFormState extends State<AddCarForm> {
                   carModelsItems.clear();
                   carModelsItems.add('None');
                   List<CarModelModel> carModelList = snapshot.data;
-                  carModelList.forEach((element) async{
+                  carModelList.forEach((element) async {
                     carModelsItems
                         .add(element.name + " (" + element.engine + ")");
                   });
@@ -213,5 +219,11 @@ class _AddCarFormState extends State<AddCarForm> {
   void _loadCarModelsData() {
     carModelsData = _apiClient.getCarModelsByBrandLocal(
         Provider.of<AddCarProvider>(context, listen: false).currentBrand);
+  }
+
+  void addCar() {
+    if (widget.formKey.currentState.validate()) {
+      print("Added");
+    }
   }
 }
