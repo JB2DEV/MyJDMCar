@@ -1,9 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:myjdmcar/api/api_client.dart';
-import 'package:myjdmcar/api/request_provider.dart';
-import 'package:myjdmcar/config/globals.dart';
 import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/src/widgets/buttons/theme_button.dart';
 import 'package:myjdmcar/src/widgets/decoration/logo_app.dart';
@@ -17,6 +13,10 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
   ApiClient _apiClient = ApiClient();
 
   @override
@@ -40,7 +40,12 @@ class _SignUpPageState extends State<SignUpPage> {
                 AppLocalizations.of(context).translate("signUpPageTitle"),
                 style: Theme.of(context).textTheme.headline1,
               ),
-              RegisterForm(formKey: _formKey),
+              RegisterForm(
+                formKey: _formKey,
+                emailController: emailController,
+                passwordController: passwordController,
+                usernameController: usernameController,
+              ),
               SizedBox(
                 height: 80,
               ),

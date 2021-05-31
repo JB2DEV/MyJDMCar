@@ -11,6 +11,7 @@ class RecoverPasswordPage extends StatefulWidget {
 
 class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,7 @@ class _RecoverPasswordPageState extends State<RecoverPasswordPage> {
                 style: Theme.of(context).textTheme.headline2,
               ),
               SizedBox(height: 30),
-              Form(key: _formKey, child: EmailTextFormField()),
+              Form(key: _formKey, child: EmailTextFormField(controller: emailController,)),
               SizedBox(height: 30),
               SizedBox(
                 height: 80,

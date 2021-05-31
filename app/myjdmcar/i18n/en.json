@@ -42,6 +42,17 @@
     "carRequestPageTitle"               : "Solicitar coche",
     "carRequestPageButtonText"          : "Enviar solicitud",
 
+    "settingsPageTitle"                 : "Ajustes",
+
+    "changeUsernamePageTitle"           : "Cambiar nombre usuario",
+    "changeUsernamePageText"            : "Introduce el nuevo nombre de usuario",
+    "changeUsernamePageButtonText"      : "Cambiar",
+
+    "changePasswordPageTitle"           : "Cambiar contraseña",
+    "changePasswordButtonText"          : "Cambiar contraseña",
+
+    "appInfoPage"                       : "Información de la app",
+
     "emailTextFormFieldLabel"           : "Email",
     "emailTextFormFieldHint"            : "email@ejemplo.com",
     "emailTextFormFieldValidationError" : "Introduce un email válido",
@@ -72,5 +83,9 @@
 
     "carModelTextFormFieldLabel"        : "Modelo coche",
     "carModelTextFormFieldHint"         : "Selecciona un modelo",
-    "carModelTextFormFieldError"        : "Introduce un modelo"
+    "carModelTextFormFieldError"        : "Introduce un modelo",
+
+    "newPasswordTextFormFieldLabel"     : "Nueva contraseña",
+    "newPasswordTextFormFieldHint"      : "********",
+    "newPasswordTextFormFieldError"     : "Introduce una contraseña válida"
 }

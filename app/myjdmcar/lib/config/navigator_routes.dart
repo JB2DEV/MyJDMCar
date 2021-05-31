@@ -8,7 +8,9 @@ import 'package:myjdmcar/src/ui/car/user_car_detail_page.dart';
 import 'package:myjdmcar/src/ui/home/home_page.dart';
 import 'package:myjdmcar/src/ui/parts/add_car_part_page.dart';
 import 'package:myjdmcar/src/ui/parts/car_part_request_page.dart';
-import 'package:myjdmcar/src/ui/test/buttons.dart';
+import 'package:myjdmcar/src/ui/settings/change_password_page.dart';
+import 'package:myjdmcar/src/ui/settings/change_username_page.dart';
+import 'package:myjdmcar/src/ui/settings/settings_page.dart';
 
 Map<String, WidgetBuilder> getAppRoutes() {
   return <String, WidgetBuilder>{
@@ -21,5 +23,8 @@ Map<String, WidgetBuilder> getAppRoutes() {
     "car_part_request_page":      (BuildContext context) => CarPartRequestPage(),
     "add_car_page" :              (BuildContext context) => AddCarPage(),
     "car_request_page" :          (BuildContext context) => CarRequestPage(),
+    "settings_page" :             (BuildContext context) => SettingsPage(),
+    "change_username_page" :      (BuildContext context) => ChangeUsernamePage(),
+    "change_password_page" :      (BuildContext context) => ChangePasswordPage()
   };
 }
