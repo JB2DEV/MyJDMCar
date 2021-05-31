@@ -4,6 +4,7 @@ import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/models/car_brand.dart';
 import 'package:myjdmcar/models/car_model.dart';
 import 'package:myjdmcar/provider/add_car_provider.dart';
+import 'package:myjdmcar/src/widgets/buttons/theme_button.dart';
 import 'package:myjdmcar/utils/utils.dart';
 import 'package:provider/provider.dart';
 
@@ -58,6 +59,7 @@ class _AddCarFormState extends State<AddCarForm> {
             height: 30,
           ),
           _getCarModelsTextFormField(),
+          getAddButton(addCar)
         ],
       ),
     );
@@ -95,7 +97,6 @@ class _AddCarFormState extends State<AddCarForm> {
                   );
                 } else {
                   carBrandsItems.clear();
-                  carBrandsItems.add('None');
                   List<CarBrandModel> carBrands = snapshot.data;
                   carBrands.forEach((element) {
                     carBrandsItems.add(element.name);
@@ -110,9 +111,8 @@ class _AddCarFormState extends State<AddCarForm> {
                           _carBrandController.text = value;
                           Provider.of<AddCarProvider>(context, listen: false)
                               .currentBrand = value;
-                              carModelsData = _apiClient.getCarModelsByBrandLocal(value);
+                          carModelsData = _apiClient.getCarModelsByBrand(value);
                         });
-                        
                       }
                     },
                     itemBuilder: (BuildContext context) {
@@ -173,7 +173,7 @@ class _AddCarFormState extends State<AddCarForm> {
                   carModelsItems.clear();
                   carModelsItems.add('None');
                   List<CarModelModel> carModelList = snapshot.data;
-                  carModelList.forEach((element) async{
+                  carModelList.forEach((element) async {
                     carModelsItems
                         .add(element.name + " (" + element.engine + ")");
                   });
@@ -184,6 +184,26 @@ class _AddCarFormState extends State<AddCarForm> {
                         _carModelsController.text = "";
                       } else {
                         _carModelsController.text = value;
+                        /*
+ *  Security Pig is watching your horrible code
+ *        _
+ *        ((`)_.._     ,'-. _..._ _._
+ *          \,'    '-._.-\  '     ` .-'
+ *         .'            /         (
+ *        /             |     _   _ \
+ *       |              \     a   a  |
+ *       ;                     .-.   /
+ *        ;       ',       '-.( '')-'
+ *         '.      |           ;-'
+ *           \    /           /
+ *           /   /-._  __,  7 |
+ *           \  `\  \``  |  | |
+ *            \   \_,\   |  |_,\
+ *             '-`'      \_,\
+ * 
+ *  Please, fix it before it gets angry.
+ */
+                        setState(() {});
                       }
                     },
                     itemBuilder: (BuildContext context) {
@@ -203,6 +223,22 @@ class _AddCarFormState extends State<AddCarForm> {
     );
   }
 
+  Widget getAddButton(Function function) {
+    print(_carModelsController.text);
+    if (!_carModelsController.text.startsWith("None")) {
+      return SizedBox(
+        height: 40,
+        child: ThemeButton(
+          buttonText: AppLocalizations.of(context)
+              .translate("addCarPartPageButtonText"),
+          function: function,
+        ),
+      );
+    } else {
+      return Container();
+    }
+  }
+
   String validateCarModelTextFormField(String value) {
     if (isTextFieldEmpty(value))
       return AppLocalizations.of(context)
@@ -210,8 +246,8 @@ class _AddCarFormState extends State<AddCarForm> {
     return null;
   }
 
-  void _loadCarModelsData() {
-    carModelsData = _apiClient.getCarModelsByBrandLocal(
-        Provider.of<AddCarProvider>(context, listen: false).currentBrand);
+  void addCar() async {
+    bool insert = await _apiClient.addCar(context, _carModelsController.text);
+    if (insert) Navigator.of(context).popAndPushNamed("home_page");
   }
 }

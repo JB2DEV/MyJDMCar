@@ -269,11 +269,11 @@ class ApiClient {
         body: toJson());
 
     List<dynamic> data = json.decode(response.body);
-    //CHECK DATATYPE
+    /*//CHECK DATATYPE
     print(data.runtimeType.toString() + " " + data.toString());
     data.forEach((element) {
       print(element.runtimeType.toString() + " " + element.toString());
-    });
+    });*/
 
     List<CarModelModel> carModelsList =
         data.map((i) => CarModelModel.fromJson(json.decode(i))).toList();
@@ -281,7 +281,7 @@ class ApiClient {
     return carModelsList;
   }
 
-  Future<List<CarModelModel>> getCarModelsByBrandLocal(String marca) async {
+  /* Future<List<CarModelModel>> getCarModelsByBrandLocal(String marca) async {
     final result =
         await rootBundle.loadString('assets/data/car_models_' + marca + '.json');
     print(result);
@@ -292,7 +292,7 @@ class ApiClient {
         .toList();
 
     return carModelsList;
-  }
+  }*/
 
   Future<bool> addCarPart(BuildContext context, int idPieza) async {
     int carId =
@@ -332,7 +332,9 @@ class ApiClient {
 
     Map<String, dynamic> data = json.decode(json.decode(response.body)['data']);
     if (data['insert']) {
+      print(data['car']);
       CarModel car = CarModel.fromJson(data['car']);
+      print(car.toJson().toString());
       Provider.of<UserCarProvider>(context, listen: false).carId = car.id;
       Provider.of<UserCarProvider>(context, listen: false).carModel =
           car.carBrand.name + ' ' + car.carModel.name;
