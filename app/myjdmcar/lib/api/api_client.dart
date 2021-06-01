@@ -62,7 +62,8 @@ class ApiClient {
     }
   }
 
-  Future<UserModel> mySignUp(String username, String email, String password) async {
+  Future<UserModel> mySignUp(
+      String username, String email, String password) async {
     var test = '/auth/signup.php';
     Map<String, dynamic> toJson() =>
         {'user': username, 'email': email, 'pass': password};
@@ -208,6 +209,7 @@ class ApiClient {
 
   Future getFirstCarData() async {
     int userId = await getActualUserId() as int;
+
     Map<String, dynamic> toJson() => {"id": userId.toString()};
 
     final response = await http.post(
@@ -215,10 +217,13 @@ class ApiClient {
         body: toJson());
     //final decodedJson = await json.decode(response.body);
     Map<String, dynamic> decodedJson = jsonDecode(response.body);
-    print(jsonDecode(decodedJson['data']));
-    CarModel car = CarModel.fromJson(jsonDecode(decodedJson['data']));
-
-    return car;
+    //print(jsonDecode(decodedJson['data']));
+    if (decodedJson == null) {
+      return null;
+    } else {
+      CarModel car = CarModel.fromJson(jsonDecode(decodedJson['data']));
+      return car;
+    }
   }
 
   Future<List<CarPartModel>> getCarPartsListFilteredByBrand(
