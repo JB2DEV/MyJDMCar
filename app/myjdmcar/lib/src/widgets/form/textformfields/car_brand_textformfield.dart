@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:myjdmcar/api/api_client.dart';
 import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/models/car_brand.dart';
 import 'package:myjdmcar/provider/add_car_provider.dart';
@@ -23,7 +22,6 @@ class CarBrandTextFormField extends StatefulWidget {
 
 class _CarBrandTextFormFieldState extends State<CarBrandTextFormField> {
   List<CarBrandModel> carBrandsList;
-  ApiClient _apiClient = ApiClient();
   List<String> items = [];
 
   @override

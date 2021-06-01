@@ -84,6 +84,8 @@
     "carModelTextFormFieldLabel"        : "Modelo coche",
     "carModelTextFormFieldHint"         : "Selecciona un modelo",
     "carModelTextFormFieldError"        : "Introduce un modelo",
+    "carModelTextFormFieldNoneValue"    : "Ninguno",
+
 
     "newPasswordTextFormFieldLabel"     : "Nueva contraseña",
     "newPasswordTextFormFieldHint"      : "********",

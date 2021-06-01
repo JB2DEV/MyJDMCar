@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:myjdmcar/api/api_client.dart';
 import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/models/car_model.dart';
-import 'package:myjdmcar/provider/add_car_provider.dart';
 import 'package:myjdmcar/utils/utils.dart';
-import 'package:provider/provider.dart';
 
 class CarModelTextFormField extends StatefulWidget {
   final TextEditingController controller;
@@ -21,8 +18,7 @@ class CarModelTextFormField extends StatefulWidget {
 
 class _CarModelTextFormFieldState extends State<CarModelTextFormField> {
   List<CarModelModel> carModelsList;
-  ApiClient _apiClient = ApiClient();
-  var items = ['None'];
+  List<String> items = [];
 
   @override
   void dispose() {
@@ -64,7 +60,7 @@ class _CarModelTextFormFieldState extends State<CarModelTextFormField> {
                   );
                 } else {
                   items.clear();
-                  items.add('None');
+                  items.add(AppLocalizations.of(context).translate("carModelTextFormFieldNoneValue"));
                    List<CarModelModel> carModelList = snapshot.data;
                   carModelList.forEach((element) {
                     items.add(element.name + " (" + element.engine + ")");
@@ -72,7 +68,7 @@ class _CarModelTextFormFieldState extends State<CarModelTextFormField> {
                   return PopupMenuButton<String>(
                     icon: const Icon(Icons.arrow_drop_down),
                     onSelected: (String value) {
-                      if (value == 'None') {
+                      if (value == AppLocalizations.of(context).translate("carModelTextFormFieldNoneValue")) {
                         widget.controller.text = "";
                       } else {
                         widget.controller.text = value;

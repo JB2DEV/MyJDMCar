@@ -12,6 +12,9 @@ class CarPartRequestPage extends StatefulWidget {
 
 class _CarPartRequestPageState extends State<CarPartRequestPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController carPartBrandController = TextEditingController();
+  final TextEditingController carPartController = TextEditingController();
+  final TextEditingController otherInfoController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +37,9 @@ class _CarPartRequestPageState extends State<CarPartRequestPage> {
               children: [
                 CarPartRequestForm(
                   formKey: _formKey,
+                  carPartBrandController: carPartBrandController,
+                  carPartController: carPartController,
+                  otherInfoController: otherInfoController,
                 ),
                 SizedBox(
                   height: 30,

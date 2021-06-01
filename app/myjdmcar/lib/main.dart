@@ -31,7 +31,6 @@ class MyApp extends StatelessWidget {
         title: 'MyJDMCar',
         theme: AppStyles.mainTheme,
         routes: getAppRoutes(),
-        //initialRoute: 'sign_in_page',
         home: SplashScreen(),
         supportedLocales: [Locale("en"), Locale("es"), Locale("ca")],
         localizationsDelegates: [

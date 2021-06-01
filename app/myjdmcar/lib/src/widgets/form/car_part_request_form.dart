@@ -5,7 +5,17 @@ import 'package:myjdmcar/src/widgets/form/textformfields/other_info_textformfiel
 
 class CarPartRequestForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
-  CarPartRequestForm({Key key, @required this.formKey}) : super(key: key);
+  final TextEditingController carPartBrandController;
+  final TextEditingController carPartController;
+  final TextEditingController otherInfoController;
+
+  CarPartRequestForm(
+      {Key key,
+      @required this.formKey,
+      @required this.carPartBrandController,
+      @required this.carPartController,
+      @required this.otherInfoController})
+      : super(key: key);
 
   @override
   _CarPartRequestFormState createState() => _CarPartRequestFormState();
@@ -21,15 +31,15 @@ class _CarPartRequestFormState extends State<CarPartRequestForm> {
           SizedBox(
             height: 30,
           ),
-          CarPartBrandTextFormField(),
+          CarPartBrandTextFormField(controller: widget.carPartBrandController),
           SizedBox(
             height: 30,
           ),
-          CarPartTextFormField(),
+          CarPartTextFormField(controller: widget.carPartController),
           SizedBox(
             height: 30,
           ),
-          OtherInfoTextFormField(),
+          OtherInfoTextFormField(controller: widget.otherInfoController,),
         ],
       ),
     );

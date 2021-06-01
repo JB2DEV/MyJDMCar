@@ -69,7 +69,7 @@ class _SignUpPageState extends State<SignUpPage> {
     if (_formKey.currentState.validate()) {
       print("validated");
       try {
-        await _apiClient.mySignUp();
+        await _apiClient.mySignUp(usernameController.text,emailController.text,passwordController.text);
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           duration: Duration(seconds: 2),
           content: Text('Cuenta creada correctamente'),
@@ -80,7 +80,7 @@ class _SignUpPageState extends State<SignUpPage> {
       } on Exception catch (_) {
         print("Error signup");
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          duration: Duration(seconds: 2),
+          duration: Duration(seconds: 3),
           content: Text('Ya existe un usuario con ese email'),
         ));
       }
