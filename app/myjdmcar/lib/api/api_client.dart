@@ -401,4 +401,14 @@ class ApiClient {
 
     return data['changed'];
   }
+
+  Future<bool> recoverPassword(String mail) async {
+    Map<String, dynamic> toJson() => {"mail": mail};
+
+    final response = await http
+        .post(Uri.http(baseUrl, "/auth/recoverPassword.php"), body: toJson());
+
+    Map<String, dynamic> data = json.decode(json.decode(response.body)['data']);
+    return data['changed'];
+  }
 }

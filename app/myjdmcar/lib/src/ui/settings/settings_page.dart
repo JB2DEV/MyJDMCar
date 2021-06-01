@@ -7,27 +7,35 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-          elevation: 0,
-          title: Text(AppLocalizations.of(context).translate("settingsPageTitle"),
-              style: Theme.of(context).textTheme.headline6)),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SettingsListTile(
-            title: AppLocalizations.of(context).translate("changeUsernamePageTitle"),
-            routeName: "change_username_page",
-          ),
-          SettingsListTile(
-            title: AppLocalizations.of(context).translate("changePasswordPageTitle"),
-            routeName: "change_password_page",
-          ),
-          SettingsListTile(
-            title: AppLocalizations.of(context).translate("appInfoPage"),
-            routeName: "info_page",
-          ),
-        ],
+    return WillPopScope(
+      onWillPop: () {
+        Navigator.popAndPushNamed(context, "home_page");
+      },
+      child: Scaffold(
+        appBar: AppBar(
+            elevation: 0,
+            title: Text(
+                AppLocalizations.of(context).translate("settingsPageTitle"),
+                style: Theme.of(context).textTheme.headline6)),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SettingsListTile(
+              title: AppLocalizations.of(context)
+                  .translate("changeUsernamePageTitle"),
+              routeName: "change_username_page",
+            ),
+            SettingsListTile(
+              title: AppLocalizations.of(context)
+                  .translate("changePasswordPageTitle"),
+              routeName: "change_password_page",
+            ),
+            SettingsListTile(
+              title: AppLocalizations.of(context).translate("appInfoPage"),
+              routeName: "info_page",
+            ),
+          ],
+        ),
       ),
     );
   }

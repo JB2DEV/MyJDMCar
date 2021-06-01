@@ -280,7 +280,8 @@ class _HomePageState extends State<HomePage> {
               textAlign: TextAlign.center,
             ),
             onTap: () {
-              Navigator.pushNamed(context, "settings_page");
+              Navigator.pop(context);
+              Navigator.popAndPushNamed(context, "settings_page");
             },
           ),
           ListTile(
@@ -367,6 +368,7 @@ class _HomePageState extends State<HomePage> {
 
   ///Función para mostrar el drawer / menú lateral
   void showDrawer() {
+    setState(() {});
     _scaffoldKey.currentState.openDrawer();
   }
 
