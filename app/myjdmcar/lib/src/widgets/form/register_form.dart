@@ -5,8 +5,11 @@ import 'package:myjdmcar/src/widgets/form/textformfields/username_textformfield.
 
 class RegisterForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
+  final TextEditingController usernameController;
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
 
-  RegisterForm({Key key, this.formKey}) : super(key: key);
+  RegisterForm({Key key, this.formKey, @required this.usernameController, @required this.emailController, @required this.passwordController}) : super(key: key);
 
   @override
   _RegisterFormState createState() => _RegisterFormState();
@@ -22,11 +25,11 @@ class _RegisterFormState extends State<RegisterForm> {
           SizedBox(
             height: 35,
           ),
-          UsernameTextFormField(),
+          UsernameTextFormField(controller: widget.usernameController),
           SizedBox(height: 35),
-          EmailTextFormField(),
+          EmailTextFormField(controller: widget.emailController,),
           SizedBox(height: 35),
-          PasswordTextFormField(),  
+          PasswordTextFormField(controller: widget.passwordController,),  
         ],
       ),
     );

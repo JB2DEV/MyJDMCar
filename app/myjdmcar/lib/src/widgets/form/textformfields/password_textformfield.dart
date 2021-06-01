@@ -4,17 +4,19 @@ import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/utils/utils.dart';
 
 class PasswordTextFormField extends StatefulWidget {
+  final TextEditingController controller;
+
+  const PasswordTextFormField({Key key, @required this.controller}) : super(key: key); 
   @override
   _PasswordTextFormFieldState createState() => _PasswordTextFormFieldState();
 }
 
 class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
-  final TextEditingController passwordController = TextEditingController();
   bool _passwordVisible = false;
 
   @override
   void dispose() {
-    passwordController.dispose();
+    widget.controller.dispose();
     super.dispose();
   }
 
@@ -23,7 +25,7 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
     return TextFormField(
         validator: validatePassword,
         obscureText: !_passwordVisible,
-        controller: passwordController,
+        controller:  widget.controller,
         decoration: InputDecoration(
             labelText: AppLocalizations.of(context)
                 .translate("passwordTextFormFieldLabel"),

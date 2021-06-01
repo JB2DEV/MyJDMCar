@@ -24,7 +24,7 @@ class CarBrandTextFormField extends StatefulWidget {
 class _CarBrandTextFormFieldState extends State<CarBrandTextFormField> {
   List<CarBrandModel> carBrandsList;
   ApiClient _apiClient = ApiClient();
-  var items = ['None'];
+  List<String> items = [];
 
   @override
   void dispose() {
@@ -67,7 +67,7 @@ class _CarBrandTextFormFieldState extends State<CarBrandTextFormField> {
                   );
                 } else {
                   items.clear();
-                  items.add('None');
+                  items.add(AppLocalizations.of(context).translate("carPartBrandTextFormFieldNoneValue"));
                   List<CarBrandModel> carBrands = snapshot.data;
                   carBrands.forEach((element) {
                     items.add(element.name);
@@ -75,7 +75,7 @@ class _CarBrandTextFormFieldState extends State<CarBrandTextFormField> {
                   return PopupMenuButton<String>(
                     icon: const Icon(Icons.arrow_drop_down),
                     onSelected: (String value) {
-                      if (value == 'None') {
+                      if (value == AppLocalizations.of(context).translate("carPartBrandTextFormFieldNoneValue")) {
                         widget.controller.text = "";
                       } else {
                         widget.controller.text = value;

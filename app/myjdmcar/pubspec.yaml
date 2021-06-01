@@ -58,7 +58,6 @@ flutter:
     - i18n/en.json
     - i18n/en.json
     - assets/images/
-    - assets/images/
     - fonts/
     - assets/icons/
     - assets/data/car_models_Nissan.json

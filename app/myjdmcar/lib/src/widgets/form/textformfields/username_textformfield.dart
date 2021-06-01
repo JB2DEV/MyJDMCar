@@ -4,18 +4,18 @@ import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/utils/utils.dart';
 
 class UsernameTextFormField extends StatefulWidget {
-  UsernameTextFormField({Key key}) : super(key: key);
+  final TextEditingController controller;
+  UsernameTextFormField({Key key, @required this.controller}) : super(key: key);
 
   @override
   _UsernameTextFormFieldState createState() => _UsernameTextFormFieldState();
 }
 
 class _UsernameTextFormFieldState extends State<UsernameTextFormField> {
-  final TextEditingController usernameController = TextEditingController();
 
   @override
   void dispose() { 
-    usernameController.dispose();
+    widget.controller.dispose();
     super.dispose();
   }
 
@@ -24,7 +24,7 @@ class _UsernameTextFormFieldState extends State<UsernameTextFormField> {
     return TextFormField(
         validator: validateTextField,
         keyboardType: TextInputType.name,
-        controller: usernameController,
+        controller: widget.controller,
         decoration: InputDecoration(
             labelText: AppLocalizations.of(context)
                 .translate("usernameTextFormFieldLabel"),

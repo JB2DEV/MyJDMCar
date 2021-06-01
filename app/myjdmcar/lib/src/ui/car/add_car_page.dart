@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myjdmcar/models/car_brand.dart';
-import 'package:myjdmcar/models/car_model.dart';
+import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/src/widgets/form/add_car_form.dart';
 
 class AddCarPage extends StatefulWidget {
@@ -22,7 +21,20 @@ class _AddCarPageState extends State<AddCarPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add car title"),
+        elevation: 0,
+        title: Text(
+          AppLocalizations.of(context).translate("addCarPageTitle"),
+          style: Theme.of(context).textTheme.headline6,
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: IconButton(
+              icon: Icon(Icons.notification_important),
+              onPressed: () => Navigator.pushNamed(context, "car_request_page"),
+            ),
+          )
+        ],
       ),
       body: GestureDetector(
         onTap: () {
@@ -31,7 +43,8 @@ class _AddCarPageState extends State<AddCarPage> {
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 100),
             child: Column(
               children: [
                 AddCarForm(

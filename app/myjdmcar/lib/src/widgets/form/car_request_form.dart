@@ -2,22 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:myjdmcar/api/api_client.dart';
 import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/models/car_brand.dart';
-import 'package:myjdmcar/models/car_model.dart';
-import 'package:myjdmcar/provider/add_car_provider.dart';
 import 'package:myjdmcar/src/widgets/buttons/theme_button.dart';
 import 'package:myjdmcar/utils/utils.dart';
-import 'package:provider/provider.dart';
 
-class AddCarForm extends StatefulWidget {
+class CarRequestForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
 
-  AddCarForm({Key key, @required this.formKey}) : super(key: key);
+  CarRequestForm({Key key, @required this.formKey}) : super(key: key);
 
   @override
-  _AddCarFormState createState() => _AddCarFormState();
+  _CarRequestFormState createState() => _CarRequestFormState();
 }
 
-class _AddCarFormState extends State<AddCarForm> {
+class _CarRequestFormState extends State<CarRequestForm> {
   final TextEditingController _carBrandController = TextEditingController();
   final TextEditingController _carModelsController = TextEditingController();
   ApiClient _apiClient = ApiClient();
@@ -49,6 +46,9 @@ class _AddCarFormState extends State<AddCarForm> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          SizedBox(
+            height: 60,
+          ),
           _getCarBrandTextFormField(),
           SizedBox(
             height: 60,
@@ -57,10 +57,6 @@ class _AddCarFormState extends State<AddCarForm> {
           SizedBox(
             height: 60,
           ),
-          ThemeButton(
-              function: addCar,
-              buttonText: AppLocalizations.of(context)
-                  .translate("addCarPageAddButtonText"))
         ],
       ),
     );
@@ -68,7 +64,6 @@ class _AddCarFormState extends State<AddCarForm> {
 
   Widget _getCarBrandTextFormField() {
     return TextFormField(
-      readOnly: true,
       validator: validateCarBrandTextFormField,
       keyboardType: TextInputType.text,
       controller: _carBrandController,
@@ -97,9 +92,6 @@ class _AddCarFormState extends State<AddCarForm> {
                     style: TextStyle(color: Colors.red),
                   );
                 } else {
-                  carBrandsItems.clear();
-                  carBrandsItems.add(AppLocalizations.of(context)
-                      .translate("addCarPageNoneSelectedPopUpMenu"));
                   List<CarBrandModel> carBrands = snapshot.data;
                   carBrands.forEach((element) {
                     carBrandsItems.add(element.name);
@@ -114,9 +106,6 @@ class _AddCarFormState extends State<AddCarForm> {
                       } else {
                         setState(() {
                           _carBrandController.text = value;
-                          Provider.of<AddCarProvider>(context, listen: false)
-                              .currentBrand = value;
-                          carModelsData = _apiClient.getCarModelsByBrand(value);
                         });
                       }
                     },
@@ -146,7 +135,6 @@ class _AddCarFormState extends State<AddCarForm> {
 
   Widget _getCarModelsTextFormField() {
     return TextFormField(
-      readOnly: true,
       validator: validateCarModelTextFormField,
       keyboardType: TextInputType.text,
       controller: _carModelsController,
@@ -155,60 +143,6 @@ class _AddCarFormState extends State<AddCarForm> {
             .translate("carModelTextFormFieldLabel"),
         hintText:
             AppLocalizations.of(context).translate("carModelTextFormFieldHint"),
-        suffixIcon: FutureBuilder<List<CarModelModel>>(
-          future: carModelsData,
-          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            //print("ERROR : " + snapshot.error);
-            switch (snapshot.connectionState) {
-              case ConnectionState.none:
-                return Text('');
-              case ConnectionState.waiting:
-                print("waiting");
-                return CircularProgressIndicator();
-              case ConnectionState.active:
-                print("active");
-                return Text('active');
-              case ConnectionState.done:
-                if (snapshot.hasError) {
-                  print("has Error");
-                  return Text(
-                    '${snapshot.error}',
-                    style: TextStyle(color: Colors.red),
-                  );
-                } else {
-                  carModelsItems.clear();
-                  carModelsItems.add(AppLocalizations.of(context)
-                      .translate("addCarPageNoneSelectedPopUpMenu"));
-                  List<CarModelModel> carModelList = snapshot.data;
-                  carModelList.forEach((element) async {
-                    carModelsItems
-                        .add(element.name + " (" + element.engine + ")");
-                  });
-                  return PopupMenuButton<String>(
-                    icon: const Icon(Icons.arrow_drop_down),
-                    onSelected: (String value) {
-                      if (value ==
-                          AppLocalizations.of(context)
-                              .translate("addCarPageNoneSelectedPopUpMenu")) {
-                        _carModelsController.text = "";
-                      } else {
-                        _carModelsController.text = value;
-                        setState(() {});
-                      }
-                    },
-                    itemBuilder: (BuildContext context) {
-                      return carModelsItems
-                          .map<PopupMenuItem<String>>((String value) {
-                        return new PopupMenuItem(
-                            child: new Text(value), value: value);
-                      }).toList();
-                    },
-                  );
-                }
-            }
-            return CircularProgressIndicator();
-          },
-        ),
       ),
     );
   }
@@ -220,10 +154,7 @@ class _AddCarFormState extends State<AddCarForm> {
     return null;
   }
 
-  void addCar() async {
-    if (widget.formKey.currentState.validate()) {
-      bool insert = await _apiClient.addCar(context, _carModelsController.text);
-      if (insert) Navigator.of(context).popAndPushNamed("home_page");
-    }
+  void request() async {
+    print("Request");
   }
 }

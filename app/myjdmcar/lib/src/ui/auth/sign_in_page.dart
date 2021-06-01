@@ -17,6 +17,8 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
 
   ApiClient _apiClient = ApiClient();
 
@@ -54,7 +56,7 @@ class _SignInPageState extends State<SignInPage> {
               Text(AppLocalizations.of(context).translate("loginPageTitle"),
                   style: Theme.of(context).textTheme.headline1),
               LoginForm(
-                formKey: _formKey,
+                formKey: _formKey, emailController: emailController, passwordController: passwordController,
               ),
               SizedBox(height: 30),
               Row(

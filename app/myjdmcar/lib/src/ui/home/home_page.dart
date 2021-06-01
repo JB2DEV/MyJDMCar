@@ -234,6 +234,7 @@ class _HomePageState extends State<HomePage> {
           ListTile(
             leading: Icon(
               Icons.add,
+              size: 35,
               color: AppColors.green_jdm_arrow,
             ),
             trailing: Icon(
@@ -245,13 +246,13 @@ class _HomePageState extends State<HomePage> {
                 AppLocalizations.of(context).translate("homeDrawerAddCar"),
                 textAlign: TextAlign.center),
             onTap: () {
-              print("Navigate to create car");
               Navigator.pushNamed(context, "add_car_page");
             },
           ),
           ListTile(
             leading: Icon(
               Icons.settings,
+              size: 35,
               color: AppColors.green_jdm_arrow,
             ),
             trailing: Icon(
@@ -264,17 +265,18 @@ class _HomePageState extends State<HomePage> {
               textAlign: TextAlign.center,
             ),
             onTap: () {
-              Navigator.popAndPushNamed(context, "buttons");
+              Navigator.pushNamed(context, "settings_page");
             },
           ),
           ListTile(
+            leading: Icon(
+              Icons.login_outlined,
+              size: 35,
+              color: AppColors.green_jdm_arrow,
+            ),
             trailing: Icon(
               Icons.arrow_forward_ios_sharp,
               size: 18,
-              color: AppColors.green_jdm_arrow,
-            ),
-            leading: Icon(
-              Icons.login_outlined,
               color: AppColors.green_jdm_arrow,
             ),
             title: Text(

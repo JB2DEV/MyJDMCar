@@ -7,11 +7,11 @@ import 'package:myjdmcar/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 class CarModelTextFormField extends StatefulWidget {
-  final TextEditingController carModelController;
+  final TextEditingController controller;
   final Future carModelsData;
   CarModelTextFormField(
       {Key key,
-      @required this.carModelController,
+      @required this.controller,
       @required this.carModelsData})
       : super(key: key);
 
@@ -26,7 +26,7 @@ class _CarModelTextFormFieldState extends State<CarModelTextFormField> {
 
   @override
   void dispose() {
-    widget.carModelController.dispose();
+    widget.controller.dispose();
     super.dispose();
   }
 
@@ -36,7 +36,7 @@ class _CarModelTextFormFieldState extends State<CarModelTextFormField> {
       readOnly: true,
       validator: validateTextFormField,
       keyboardType: TextInputType.text,
-      controller: widget.carModelController,
+      controller: widget.controller,
       decoration: InputDecoration(
         labelText: AppLocalizations.of(context)
             .translate("carModelTextFormFieldLabel"),
@@ -73,9 +73,9 @@ class _CarModelTextFormFieldState extends State<CarModelTextFormField> {
                     icon: const Icon(Icons.arrow_drop_down),
                     onSelected: (String value) {
                       if (value == 'None') {
-                        widget.carModelController.text = "";
+                        widget.controller.text = "";
                       } else {
-                        widget.carModelController.text = value;
+                        widget.controller.text = value;
                        
                       }
                     },
