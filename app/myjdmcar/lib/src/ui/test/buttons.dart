@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+
 import 'package:myjdmcar/api/api_client.dart';
 import 'package:myjdmcar/config/app_colors.dart';
 import 'dart:math';
@@ -28,8 +29,8 @@ class _AppButtons extends State<AppButtons> {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
-              ElevatedButton(onPressed: addCar, child: Text("pass")),
-              ElevatedButton(onPressed: deleteCar, child: Text("user")),
+              ElevatedButton(onPressed: addCar, child: Text("send mail")),
+              //ElevatedButton(onPressed: deleteCar, child: Text("user")),
             ],
             mainAxisAlignment: MainAxisAlignment.center,
           ),
@@ -39,12 +40,26 @@ class _AppButtons extends State<AppButtons> {
   }
 
   void addCar() async {
-    ApiClient _apiClient = ApiClient();
+    /* ApiClient _apiClient = ApiClient();
     bool insert = await _apiClient.changePassword("adminadmin", "password");
 
     if (insert) {
       Navigator.of(context).popAndPushNamed("home_page");
     }
+    
+     final Email email = Email(
+      body: 'La contraseña temporal es: ',
+      subject: '[MyJDMCar] - Solicitud de cambio de contraseña',
+      recipients: ['mrbema222@gmail.com'],
+      cc: [],
+      bcc: [],
+      attachmentPaths: [],
+      isHTML: false,
+    );
+
+    await FlutterEmailSender.send(email);
+
+    */
   }
 
   void deleteCar() async {

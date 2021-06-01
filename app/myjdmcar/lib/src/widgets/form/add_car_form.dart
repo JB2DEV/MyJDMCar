@@ -252,6 +252,9 @@ class _AddCarFormState extends State<AddCarForm> {
 
   void addCar() async {
     bool insert = await _apiClient.addCar(context, _carModelsController.text);
-    if (insert) Navigator.of(context).popAndPushNamed("home_page");
+
+    if (insert) {
+      Navigator.of(context).popAndPushNamed("home_page");
+    }
   }
 }
