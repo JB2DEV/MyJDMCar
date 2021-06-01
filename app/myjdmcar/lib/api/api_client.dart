@@ -411,4 +411,16 @@ class ApiClient {
     Map<String, dynamic> data = json.decode(json.decode(response.body)['data']);
     return data['changed'];
   }
+
+  Future requestMissing(String marca, String modelo, String info) async {
+    int userId = await getActualUserId() as int;
+
+    Map<String, dynamic> toJson() => {
+          "id": userId.toString(),
+          "marca": marca,
+          "modelo": modelo,
+          "info": info == null ? 'null' : info
+        };
+    await http.post(Uri.http(baseUrl, "/request/request.php"), body: toJson());
+  }
 }

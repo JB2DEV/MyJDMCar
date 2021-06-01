@@ -5,17 +5,23 @@ import 'package:myjdmcar/models/car_brand.dart';
 import 'package:myjdmcar/utils/utils.dart';
 
 class CarRequestForm extends StatefulWidget {
+  final TextEditingController carBrandController;
+  final TextEditingController carModelsController;
+
   final GlobalKey<FormState> formKey;
 
-  CarRequestForm({Key key, @required this.formKey}) : super(key: key);
+  CarRequestForm(
+      {Key key,
+      @required this.formKey,
+      @required this.carBrandController,
+      @required this.carModelsController})
+      : super(key: key);
 
   @override
   _CarRequestFormState createState() => _CarRequestFormState();
 }
 
 class _CarRequestFormState extends State<CarRequestForm> {
-  final TextEditingController _carBrandController = TextEditingController();
-  final TextEditingController _carModelsController = TextEditingController();
   ApiClient _apiClient = ApiClient();
 
   Future carBrandsData;
@@ -26,8 +32,8 @@ class _CarRequestFormState extends State<CarRequestForm> {
 
   @override
   void dispose() {
-    _carBrandController.dispose();
-    _carModelsController.dispose();
+    widget.carBrandController.dispose();
+    widget.carModelsController.dispose();
     super.dispose();
   }
 
@@ -65,7 +71,7 @@ class _CarRequestFormState extends State<CarRequestForm> {
     return TextFormField(
       validator: validateCarBrandTextFormField,
       keyboardType: TextInputType.text,
-      controller: _carBrandController,
+      controller: widget.carBrandController,
       decoration: InputDecoration(
         labelText: AppLocalizations.of(context)
             .translate("carBrandTextFormFieldLabel"),
@@ -101,10 +107,10 @@ class _CarRequestFormState extends State<CarRequestForm> {
                       if (value ==
                           AppLocalizations.of(context)
                               .translate("addCarPageNoneSelectedPopUpMenu")) {
-                        _carBrandController.text = "";
+                        widget.carBrandController.text = "";
                       } else {
                         setState(() {
-                          _carBrandController.text = value;
+                          widget.carBrandController.text = value;
                         });
                       }
                     },
@@ -136,7 +142,7 @@ class _CarRequestFormState extends State<CarRequestForm> {
     return TextFormField(
       validator: validateCarModelTextFormField,
       keyboardType: TextInputType.text,
-      controller: _carModelsController,
+      controller: widget.carModelsController,
       decoration: InputDecoration(
         labelText: AppLocalizations.of(context)
             .translate("carModelTextFormFieldLabel"),
