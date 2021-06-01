@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myjdmcar/api/api_client.dart';
 import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/src/widgets/buttons/theme_button.dart';
 import 'package:myjdmcar/src/widgets/decoration/logo_app.dart';
@@ -14,6 +15,8 @@ class ChangeUsernamePage extends StatefulWidget {
 class _ChangeUsernamePageState extends State<ChangeUsernamePage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController usernameController = TextEditingController();
+
+  ApiClient _apiClient = ApiClient();
 
   @override
   Widget build(BuildContext context) {
@@ -33,19 +36,25 @@ class _ChangeUsernamePageState extends State<ChangeUsernamePage> {
               LogoApp(),
               SizedBox(height: 50),
               Text(
-                AppLocalizations.of(context).translate("changeUsernamePageText"),
+                AppLocalizations.of(context)
+                    .translate("changeUsernamePageText"),
                 style: Theme.of(context).textTheme.headline1,
               ),
               SizedBox(
                 height: 30,
               ),
-              Form(key: _formKey, child: UsernameTextFormField(controller: usernameController,)),
+              Form(
+                  key: _formKey,
+                  child: UsernameTextFormField(
+                    controller: usernameController,
+                  )),
               SizedBox(
                 height: 60,
               ),
               ThemeButton(
                   function: changeUsername,
-                  buttonText: AppLocalizations.of(context).translate("changeUsernamePageButtonText")),
+                  buttonText: AppLocalizations.of(context)
+                      .translate("changeUsernamePageButtonText")),
             ],
           ),
         ),
@@ -56,6 +65,11 @@ class _ChangeUsernamePageState extends State<ChangeUsernamePage> {
   void changeUsername() async {
     if (_formKey.currentState.validate()) {
       print("validated");
+      bool changed = await _apiClient.changeUsername(usernameController.text);
+      if (changed) {
+        Navigator.popUntil(context, ModalRoute.withName("settings_page"));
+        //Navigator.pushNamedAndRemoveUntil(context, "settings_page", (route) => false);
+      }
     } else {
       print("Not validated");
     }

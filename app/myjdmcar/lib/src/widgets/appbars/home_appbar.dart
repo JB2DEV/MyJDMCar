@@ -50,18 +50,31 @@ class HomeSliverAppbar extends StatelessWidget {
               scrollable: true,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(8))),
-              title: Text(AppLocalizations.of(context).translate("homeDialogEmptyCarsTitle"), textAlign: TextAlign.center,),
+              title: Text(
+                AppLocalizations.of(context)
+                    .translate("homeDialogEmptyCarsTitle"),
+                textAlign: TextAlign.center,
+              ),
               titleTextStyle: Theme.of(context).textTheme.bodyText1,
-              content: Text(AppLocalizations.of(context).translate("homeDialogEmptyCarsContent"),),
+              content: Text(
+                AppLocalizations.of(context)
+                    .translate("homeDialogEmptyCarsContent"),
+              ),
               actions: [
                 TextButton(
-                  child: Text(AppLocalizations.of(context).translate("homeDialogEmptyCarsCancelButton"),),
+                  child: Text(
+                    AppLocalizations.of(context)
+                        .translate("homeDialogEmptyCarsCancelButton"),
+                  ),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
                 ),
                 TextButton(
-                  child: Text(AppLocalizations.of(context).translate("homeDialogEmptyCarsCreateButton"),),
+                  child: Text(
+                    AppLocalizations.of(context)
+                        .translate("homeDialogEmptyCarsCreateButton"),
+                  ),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },

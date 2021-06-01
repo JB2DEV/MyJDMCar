@@ -20,11 +20,10 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
             create: (BuildContext context) => CarPartsFilterProvider()),
-            ChangeNotifierProvider(
+        ChangeNotifierProvider(
             create: (BuildContext context) => UserCarProvider()),
-            ChangeNotifierProvider(
+        ChangeNotifierProvider(
             create: (BuildContext context) => AddCarProvider()),
-            
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

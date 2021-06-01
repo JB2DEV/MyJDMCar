@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myjdmcar/api/api_client.dart';
 import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/src/widgets/buttons/theme_button.dart';
 import 'package:myjdmcar/src/widgets/form/car_request_form.dart';
@@ -12,7 +13,9 @@ class CarRequestPage extends StatefulWidget {
 
 class _CarRequestPageState extends State<CarRequestPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
+  final TextEditingController carBrandController = TextEditingController();
+  final TextEditingController carModelController = TextEditingController();
+  ApiClient _apiClient = ApiClient();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,6 +38,8 @@ class _CarRequestPageState extends State<CarRequestPage> {
               children: [
                 CarRequestForm(
                   formKey: _formKey,
+                  carBrandController: carBrandController,
+                  carModelsController: carModelController,
                 ),
                 SizedBox(
                   height: 30,
@@ -52,9 +57,18 @@ class _CarRequestPageState extends State<CarRequestPage> {
     );
   }
 
-  void _sendCarPartRequest() {
+  void _sendCarPartRequest() async {
     if (_formKey.currentState.validate()) {
       print("validated");
+      await _apiClient.requestMissing(
+          carBrandController.text, carModelController.text, null);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        duration: Duration(seconds: 3),
+        content: Text('Se ha enviado tu petición'),
+      ));
+      Future.delayed(Duration(seconds: 2), () {
+        Navigator.pop(context);
+      });
     } else {
       print("Not validated");
     }

@@ -207,10 +207,20 @@ class _HomePageState extends State<HomePage> {
                           onPressed: null,
                           menuItems: [
                             FocusedMenuItem(
-                                title: Text("Delete", style: Theme.of(context).textTheme.bodyText1.copyWith(color: AppColors.white),),
-                                trailingIcon: Icon(Icons.delete,color: AppColors.white,),
+                                title: Text(
+                                  "Delete",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1
+                                      .copyWith(color: AppColors.white),
+                                ),
+                                trailingIcon: Icon(
+                                  Icons.delete,
+                                  color: AppColors.white,
+                                ),
                                 backgroundColor: Colors.redAccent,
-                                onPressed: () => _deleteCar(context))
+                                onPressed: () =>
+                                    _deleteCar(context, userCarsList[index].id))
                           ],
                           child: ListTile(
                             leading: Icon(
@@ -280,7 +290,8 @@ class _HomePageState extends State<HomePage> {
               textAlign: TextAlign.center,
             ),
             onTap: () {
-              Navigator.pushNamed(context, "settings_page");
+              Navigator.pop(context);
+              Navigator.popAndPushNamed(context, "settings_page");
             },
           ),
           ListTile(
@@ -367,6 +378,7 @@ class _HomePageState extends State<HomePage> {
 
   ///Función para mostrar el drawer / menú lateral
   void showDrawer() {
+    setState(() {});
     _scaffoldKey.currentState.openDrawer();
   }
 
@@ -402,10 +414,23 @@ class _HomePageState extends State<HomePage> {
       Navigator.popAndPushNamed(context, "sign_in_page");
     });
   }
-}
 
-void _deleteCar(BuildContext context) async {
-  print("Delete car");
-  Navigator.pop(context);
-  Navigator.popAndPushNamed(context, "home_page");
+  void _deleteCar(BuildContext context, int idCar) async {
+    print("Delete car");
+    bool deleted = await _apiClient.deleteCar(idCar);
+    if (deleted) {
+      print(
+          Provider.of<UserCarProvider>(context, listen: false).carId == idCar);
+      if (Provider.of<UserCarProvider>(context, listen: false).carId == idCar) {
+        CarModel car = await _apiClient.getFirstCarData();
+        _changeUserCar(
+            id: car.id,
+            carBrandName: car.carBrand.name,
+            carModelName: car.carModel.name);
+      }
+
+      Navigator.pop(context);
+      Navigator.popAndPushNamed(context, "home_page");
+    }
+  }
 }
