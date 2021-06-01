@@ -21,6 +21,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:focused_menu/focused_menu.dart';
+import 'package:focused_menu/modals.dart';
 import 'package:myjdmcar/api/api_client.dart';
 
 import 'package:myjdmcar/config/app_colors.dart';
@@ -199,30 +201,43 @@ class _HomePageState extends State<HomePage> {
                       itemBuilder: (BuildContext context, int index) {
                         List<CarModel> userCarsList = snapshot.data;
 
-                        return ListTile(
-                          leading: Icon(
-                            Icons.drive_eta,
-                            color: AppColors.green_jdm_arrow,
-                            size: 35,
+                        return FocusedMenuHolder(
+                          blurSize: 5,
+                          duration: Duration(milliseconds: 500),
+                          onPressed: null,
+                          menuItems: [
+                            FocusedMenuItem(
+                                title: Text("Delete", style: Theme.of(context).textTheme.bodyText1.copyWith(color: AppColors.white),),
+                                trailingIcon: Icon(Icons.delete,color: AppColors.white,),
+                                backgroundColor: Colors.redAccent,
+                                onPressed: () => _deleteCar(context))
+                          ],
+                          child: ListTile(
+                            leading: Icon(
+                              Icons.drive_eta,
+                              color: AppColors.green_jdm_arrow,
+                              size: 35,
+                            ),
+                            trailing: Icon(
+                              Icons.arrow_forward_ios_sharp,
+                              size: 18,
+                              color: AppColors.green_jdm_arrow,
+                            ),
+                            title: Text(userCarsList[index].carBrand.name,
+                                textAlign: TextAlign.center),
+                            subtitle: Text(
+                              userCarsList[index].carModel.name +
+                                  " (" +
+                                  userCarsList[index].carModel.engine +
+                                  ")",
+                              textAlign: TextAlign.center,
+                            ),
+                            onTap: () => _changeUserCar(
+                                id: userCarsList[index].id,
+                                carBrandName: userCarsList[index].carBrand.name,
+                                carModelName:
+                                    userCarsList[index].carModel.name),
                           ),
-                          trailing: Icon(
-                            Icons.arrow_forward_ios_sharp,
-                            size: 18,
-                            color: AppColors.green_jdm_arrow,
-                          ),
-                          title: Text(userCarsList[index].carBrand.name,
-                              textAlign: TextAlign.center),
-                          subtitle: Text(
-                            userCarsList[index].carModel.name +
-                                " (" +
-                                userCarsList[index].carModel.engine +
-                                ")",
-                            textAlign: TextAlign.center,
-                          ),
-                          onTap: () => _changeUserCar(
-                              id: userCarsList[index].id,
-                              carBrandName: userCarsList[index].carBrand.name,
-                              carModelName: userCarsList[index].carModel.name),
                         );
                       },
                     );
@@ -387,4 +402,10 @@ class _HomePageState extends State<HomePage> {
       Navigator.popAndPushNamed(context, "sign_in_page");
     });
   }
+}
+
+void _deleteCar(BuildContext context) async {
+  print("Delete car");
+  Navigator.pop(context);
+  Navigator.popAndPushNamed(context, "home_page");
 }
