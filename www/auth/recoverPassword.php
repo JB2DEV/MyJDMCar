@@ -1,5 +1,5 @@
 <?php 
-	$user = $_GET['mail'];
+	$user = $_POST['mail'];
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -30,19 +30,21 @@ try {
 		);
 
     $mail->setFrom('noreply.myjdmcar@gmail.com', "No-Reply"); // sender's email and name
-    $mail->addAddress('mrbema222@gmail.com', "mrbema222");  // receiver's email and name
+    $mail->addAddress("$user", "$user");  // receiver's email and name
 
     $mail->Subject = '[MyJDMCar] - Solicitud de cambio de contraseña';
     $mail->Body    = 'La contraseña temporal es: '.$pass;
 
     $mail->send();
     //echo 'Message has been sent';
-	echo '<br>'. $pass;
+	
 	$encr_pwd = sha1($pass);
-	echo '<br>'. $encr_pwd;
+	
 	$updt = $conn->query("UPDATE usuario SET `password`='$encr_pwd' where `email`='$user'");
 	if($updt){
-		echo "updated";
+		$return = $conn->query("SELECT json_object('changed',true) as data");
+			if($return)
+				echo json_encode($return->fetch_assoc());
 	}
 } catch (Exception $e) { // handle error.
     echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
