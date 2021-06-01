@@ -5,7 +5,8 @@ import 'package:myjdmcar/models/car_part_brand.dart';
 import 'package:myjdmcar/utils/utils.dart';
 
 class CarPartBrandTextFormField extends StatefulWidget {
-  CarPartBrandTextFormField({Key key}) : super(key: key);
+  final TextEditingController controller;
+  CarPartBrandTextFormField({Key key, @required this.controller}) : super(key: key);
 
   @override
   _CarPartBrandTextFormFieldState createState() =>
@@ -13,7 +14,6 @@ class CarPartBrandTextFormField extends StatefulWidget {
 }
 
 class _CarPartBrandTextFormFieldState extends State<CarPartBrandTextFormField> {
-  final TextEditingController _carPartBrandController = TextEditingController();
   Future carPartsBrands;
   ApiClient _apiClient = ApiClient();
 
@@ -21,7 +21,7 @@ class _CarPartBrandTextFormFieldState extends State<CarPartBrandTextFormField> {
 
   @override
   void dispose() {
-    _carPartBrandController.dispose();
+    widget.controller.dispose();
     super.dispose();
   }
 
@@ -36,7 +36,7 @@ class _CarPartBrandTextFormFieldState extends State<CarPartBrandTextFormField> {
     return TextFormField(
       validator: validateTextFormField,
       keyboardType: TextInputType.text,
-      controller: _carPartBrandController,
+      controller: widget.controller,
       decoration: InputDecoration(
         labelText: AppLocalizations.of(context)
             .translate("carPartBrandTextFormFieldLabel"),
@@ -74,9 +74,9 @@ class _CarPartBrandTextFormFieldState extends State<CarPartBrandTextFormField> {
                     icon: const Icon(Icons.arrow_drop_down),
                     onSelected: (String value) {
                       if (value == AppLocalizations.of(context).translate("carPartBrandTextFormFieldNoneValue")) {
-                        _carPartBrandController.text = "";
+                        widget.controller.text = "";
                       } else {
-                        _carPartBrandController.text = value;
+                        widget.controller.text = value;
                       }
                     },
                     itemBuilder: (BuildContext context) {

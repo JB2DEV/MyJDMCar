@@ -3,21 +3,27 @@ import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/utils/utils.dart';
 
 class CarPartTextFormField extends StatefulWidget {
-  CarPartTextFormField({Key key}) : super(key: key);
+  final TextEditingController controller;
+  CarPartTextFormField({Key key, @required this.controller}) : super(key: key);
 
   @override
   _CarPartTextFormFieldState createState() => _CarPartTextFormFieldState();
 }
 
 class _CarPartTextFormFieldState extends State<CarPartTextFormField> {
-  final TextEditingController _carPartController = TextEditingController();
+
+  @override
+  void dispose() { 
+    widget.controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       validator: validateTextFormField,
       keyboardType: TextInputType.text,
-      controller: _carPartController,
+      controller: widget.controller,
       decoration: InputDecoration(
         labelText: AppLocalizations.of(context)
             .translate("carPartTextFormFieldLabel"),

@@ -30,7 +30,7 @@ class _SignInPageState extends State<SignInPage> {
 
   Future userHaveToken() async {
     UserModel loggedUser = await _apiClient.getLoggedUser();
-    if (loggedUser.accessToken.length > 0) {
+    if (loggedUser.accessToken != null && loggedUser.accessToken.length > 0) {
       Navigator.popAndPushNamed(context, "home_page");
     }
   }
@@ -56,7 +56,9 @@ class _SignInPageState extends State<SignInPage> {
               Text(AppLocalizations.of(context).translate("loginPageTitle"),
                   style: Theme.of(context).textTheme.headline1),
               LoginForm(
-                formKey: _formKey, emailController: emailController, passwordController: passwordController,
+                formKey: _formKey,
+                emailController: emailController,
+                passwordController: passwordController,
               ),
               SizedBox(height: 30),
               Row(
@@ -129,15 +131,22 @@ class _SignInPageState extends State<SignInPage> {
     if (_formKey.currentState.validate()) {
       print("validated");
       try {
-        await _apiClient.mySignIn();
+        await _apiClient.mySignIn(
+            emailController.text, passwordController.text);
         await _apiClient.getFirstCarData().then((car) {
-          Provider.of<UserCarProvider>(context, listen: false).carId = car.id;
-          Provider.of<UserCarProvider>(context, listen: false).carModel =
-              car.carBrand.name + ' ' + car.carModel.name;
+          if (car != null) {
+            Provider.of<UserCarProvider>(context, listen: false).carId = car.id;
+            Provider.of<UserCarProvider>(context, listen: false).carModel =
+                car.carBrand.name + ' ' + car.carModel.name;
+          } 
         });
         Navigator.popAndPushNamed(context, "home_page");
       } on Exception {
         print('ERROR');
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          duration: Duration(seconds: 3),
+          content: Text('El email o la contraseña no es válido/a'),
+        ));
       }
     } else {
       print("Not validated");
