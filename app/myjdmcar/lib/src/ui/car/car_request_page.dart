@@ -64,7 +64,8 @@ class _CarRequestPageState extends State<CarRequestPage> {
           carBrandController.text, carModelController.text, null);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         duration: Duration(seconds: 3),
-        content: Text('Se ha enviado tu petición'),
+        content: Text(AppLocalizations.of(context)
+                      .translate("carRequestPageScaffoldMessageSend")),
       ));
       Future.delayed(Duration(seconds: 2), () {
         Navigator.pop(context);

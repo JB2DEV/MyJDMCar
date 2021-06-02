@@ -241,7 +241,7 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
     });
   }
 
-  ///Función que añade la pieza al coche actualdel usuario
+  ///Función que añade la pieza al coche actual del usuario
   void addCarPart() async {
     bool insert = await _apiClient.addCarPart(context, idCarPart);
     if (insert) Navigator.of(context).popAndPushNamed("home_page");
@@ -263,6 +263,7 @@ class _AddCarPartPageState extends State<AddCarPartPage> {
     }
   }
 
+  ///Método que devuelve el buscador
   Widget _searchDelegate() {
     return Container(
       height: 50,

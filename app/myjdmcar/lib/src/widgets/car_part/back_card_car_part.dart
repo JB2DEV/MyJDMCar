@@ -74,6 +74,7 @@ class _BackCardCarPartState extends State<BackCardCarPart> {
         ));
   }
 
+  ///Método que muestra la información en detalle de la marca de la pieza
   Future _showDetailItem(BuildContext context) {
     return showDialog(
         context: context,
@@ -121,6 +122,7 @@ class _BackCardCarPartState extends State<BackCardCarPart> {
  *  Please, fix it before it gets angry.
  */
 
+  ///Función que elimina una pieza del vehículo seleccionado
   void _deleteCarPart(BuildContext context, ApiClient _apiClient) async {
     print("Delete carPart with ID: ${widget.carPart.id}");
     _apiClient.deleteCarPartFromCar(context, widget.carPart.id).then((value) {

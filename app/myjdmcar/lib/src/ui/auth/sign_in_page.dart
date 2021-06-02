@@ -145,7 +145,7 @@ class _SignInPageState extends State<SignInPage> {
         print('ERROR');
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           duration: Duration(seconds: 3),
-          content: Text('El email o la contraseña no es válido/a'),
+          content: Text(AppLocalizations.of(context).translate("loginPageScaffoldMessageLoginError")),
         ));
       }
     } else {

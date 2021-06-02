@@ -1,93 +1,93 @@
 {
-    "loginPageTitle"                    : "Bienvenido a MyJDMCar",
-    "loginPageForgotPassword"           : "Has olvidado la contraseña?",
+    "loginPageTitle"                    : "Benvingut a MyJDMCar",
+    "loginPageForgotPassword"           : "Has oblidat la contrasenya?",
     "loginPageRecoverPassword"          : "Recuperar",
-    "loginPageHaveAccount"              : "No tienes cuenta?",
-    "loginPageRegister"                 : "Regístrate!",
+    "loginPageHaveAccount"              : "No tens compte?",
+    "loginPageRegister"                 : "Registra't!",
     "loginPageButtonText"               : "Entrar",
 
-    "recoverPasswordPageTitle"          : "Ayúdanos a recuperar tu contraseña",
-    "recoverPasswordPageSubtitle"       : "Introduce tu correo y te enviaremos un correo con las instrucciones",
+    "recoverPasswordPageTitle"          : "Ajuda'ns a recuperar la teva contrasenya",
+    "recoverPasswordPageSubtitle"       : "Introdueix el teu correu i et farem arribar un correu amb les instruccions",
     "recoverPasswordPageButtonText"     : "Recuperar",
 
-    "signUpPageTitle"                   : "Regístrate en MyJDMCar",
-    "signUpPageButtonText"              : "Registrarse",
+    "signUpPageTitle"                   : "Registra't en MyJDMCar",
+    "signUpPageButtonText"              : "Registrar-se",
 
-    "homeDrawerAddCar"                  : "Añadir coche",
-    "homeDrawerSettings"                : "Ajustes",
-    "homeDrawerLogout"                  : "Salir",
+    "homeDrawerAddCar"                  : "Afegir cotxe",
+    "homeDrawerSettings"                : "Ajustos",
+    "homeDrawerLogout"                  : "Sortir",
 
-    "userCarDetailPageDescription"      : "Descripción",
+    "userCarDetailPageDescription"      : "Descripció",
 
     "homeBackCardItemDelete"            : "Eliminar",
-    "homeFrontCardDetailDealer"         : "Distribuidor",
+    "homeFrontCardDetailDealer"         : "Distribuïdor",
     
-    "homeDialogEmptyCarsTitle"          : "No tienes ningún vehículo",
-    "homeDialogEmptyCarsContent"        : "Toca el botón de crear para crear uno!",
+    "homeDialogEmptyCarsTitle"          : "No tens cap cotxe",
+    "homeDialogEmptyCarsContent"        : "Prem el botó de crear per crear un!",
     "homeDialogEmptyCarsCancelButton"   : "Cancelar",
     "homeDialogEmptyCarsCreateButton"   : "Crear",
 
-    "addCarPartPageTitle"               : "Añadir pieza",
-    "addCarPartPageSearchHint"          : "Busca la marca/pieza",
+    "addCarPartPageTitle"               : "Afegir peça",
+    "addCarPartPageSearchHint"          : "Troba la marca/peça",
     "addCarPartPageDissmissibleText"    : "Eliminar",
-    "addCarPartPageButtonText"          : "Añadir",
+    "addCarPartPageButtonText"          : "Afegir",
 
-    "carPartRequestPageTitle"           : "Solicitar pieza",
-    "carPartRequestPageButtonText"      : "Enviar solicitud",
+    "carPartRequestPageTitle"           : "Sol·licitar peça",
+    "carPartRequestPageButtonText"      : "Enviar sol·licitud",
 
-    "addCarPageTitle"                   : "Añade un coche",
-    "addCarPageNoneSelectedPopUpMenu"   : "Ninguno",         
-    "addCarPageAddButtonText"           : "Añadir coche",
+    "addCarPageTitle"                   : "Afegir un cotxe",
+    "addCarPageNoneSelectedPopUpMenu"   : "Cap",         
+    "addCarPageAddButtonText"           : "Afegir cotxe",
 
-    "carRequestPageTitle"               : "Solicitar coche",
-    "carRequestPageButtonText"          : "Enviar solicitud",
+    "carRequestPageTitle"               : "Sol·licitar cotxe",
+    "carRequestPageButtonText"          : "Enviar sol·licitud",
 
-    "settingsPageTitle"                 : "Ajustes",
+    "settingsPageTitle"                 : "Ajustos",
 
-    "changeUsernamePageTitle"           : "Cambiar nombre usuario",
-    "changeUsernamePageText"            : "Introduce el nuevo nombre de usuario",
-    "changeUsernamePageButtonText"      : "Cambiar",
+    "changeUsernamePageTitle"           : "Canviar nom d'usuari",
+    "changeUsernamePageText"            : "Introdueix el nou nom d'usuari",
+    "changeUsernamePageButtonText"      : "Canviar",
 
-    "changePasswordPageTitle"           : "Cambiar contraseña",
-    "changePasswordButtonText"          : "Cambiar contraseña",
+    "changePasswordPageTitle"           : "Canviar contrasenya",
+    "changePasswordButtonText"          : "Canviar contrasenya",
 
-    "appInfoPage"                       : "Información de la app",
+    "appInfoPage"                       : "Informació de la app",
 
     "emailTextFormFieldLabel"           : "Email",
     "emailTextFormFieldHint"            : "email@ejemplo.com",
-    "emailTextFormFieldValidationError" : "Introduce un email válido",
+    "emailTextFormFieldValidationError" : "Introdueix un email vàlid",
 
-    "passwordTextFormFieldLabel"        : "Contraseña",
+    "passwordTextFormFieldLabel"        : "Contrasenya",
     "passwordTextFormFieldHint"         : "********",
-    "passwordTextFormFieldError"        : "Introduce una contraseña válida ( + 8 carácteres )",
+    "passwordTextFormFieldError"        : "Introdueix una contrasenya vàlida ( + 8 caràcters )",
 
-    "usernameTextFormFieldLabel"        : "Usuario",
-    "usernameTextFormFieldHint"         : "Usuario2392",
-    "usernameTextFormFieldError"        : "Introduce un nombre de usuario",
+    "usernameTextFormFieldLabel"        : "Usuari",
+    "usernameTextFormFieldHint"         : "Usuari2392",
+    "usernameTextFormFieldError"        : "Introdueix un nom d'usuari",
 
-    "carPartBrandTextFormFieldLabel"    : "Marca Pieza",
+    "carPartBrandTextFormFieldLabel"    : "Marca Peça",
     "carPartBrandTextFormFieldHint"     : "Garret",
-    "carPartBrandTextFormFieldError"    : "Introduce una marca de pieza",
-    "carPartBrandTextFormFieldNoneValue": "Ninguno",
+    "carPartBrandTextFormFieldError"    : "Introdueix una marca de peça",
+    "carPartBrandTextFormFieldNoneValue": "Cap",
 
-    "carPartTextFormFieldLabel"         : "Pieza",
+    "carPartTextFormFieldLabel"         : "Peça",
     "carPartTextFormFieldHint"          : "Turbo GT2560R",
-    "carPartTextFormFieldError"         : "Introduce una pieza",
+    "carPartTextFormFieldError"         : "Introdueix una peça",
 
-    "otherInfoTextFormFieldLabel"       : "Otra información",
-    "otherInfoTextFormFieldHint"        : "Escríbenos cualquier otra información aquí...",
+    "otherInfoTextFormFieldLabel"       : "Altre informació",
+    "otherInfoTextFormFieldHint"        : "Escriu-nos qualsevol informació aquí...",
 
-    "carBrandTextFormFieldLabel"        : "Marca coche",
+    "carBrandTextFormFieldLabel"        : "Marca cotxe",
     "carBrandTextFormFieldHint"         : "Selecciona una marca",
-    "carBrandTextFormFieldError"        : "Introduce una marca",
+    "carBrandTextFormFieldError"        : "Introdueix una marca",
 
-    "carModelTextFormFieldLabel"        : "Modelo coche",
-    "carModelTextFormFieldHint"         : "Selecciona un modelo",
-    "carModelTextFormFieldError"        : "Introduce un modelo",
-    "carModelTextFormFieldNoneValue"    : "Ninguno",
+    "carModelTextFormFieldLabel"        : "Model cotxe",
+    "carModelTextFormFieldHint"         : "Selecciona un model",
+    "carModelTextFormFieldError"        : "Introdueix un model",
+    "carModelTextFormFieldNoneValue"    : "Cap",
 
 
-    "newPasswordTextFormFieldLabel"     : "Nueva contraseña",
+    "newPasswordTextFormFieldLabel"     : "Nova contrasenya",
     "newPasswordTextFormFieldHint"      : "********",
-    "newPasswordTextFormFieldError"     : "Introduce una contraseña válida"
+    "newPasswordTextFormFieldError"     : "Introdueix una contrasenya vàlida"
 }

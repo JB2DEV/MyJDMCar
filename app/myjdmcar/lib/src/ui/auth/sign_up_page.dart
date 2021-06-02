@@ -81,7 +81,7 @@ class _SignUpPageState extends State<SignUpPage> {
         print("Error signup");
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           duration: Duration(seconds: 3),
-          content: Text('Ya existe un usuario con ese email'),
+          content: Text(AppLocalizations.of(context).translate("signUpPageScaffoldMessageSignUpError")),
         ));
       }
     } else {

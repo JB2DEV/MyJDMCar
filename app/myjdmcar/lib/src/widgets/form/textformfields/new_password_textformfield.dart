@@ -46,6 +46,8 @@ class _NewPasswordTextFormFieldState extends State<NewPasswordTextFormField> {
     );
   }
 
+  ///Función que comprueba que el campo de texto de la nueva
+  ///contraseña sea mayor o igual a 8 dígitos
   String validatePassword(String password) {
     if (!isPasswordValid(password)) {
       return AppLocalizations.of(context)
