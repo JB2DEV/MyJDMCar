@@ -37,6 +37,8 @@ class _EmailTextFormFieldState extends State<EmailTextFormField> {
         });
   }
 
+  ///Función que comprueba que el campo de texto del email
+  ///cumpla las restricciones de un email válido
   String validateEmail(String email) {
     // isEmailValid ==> Utils Method
     if (!isEmailValid(email)) {

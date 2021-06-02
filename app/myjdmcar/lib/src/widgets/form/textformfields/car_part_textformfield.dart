@@ -33,6 +33,8 @@ class _CarPartTextFormFieldState extends State<CarPartTextFormField> {
     );
   }
 
+  ///Función que comprueba que el campo de texto de la pieza
+  ///del coche no esté vacío
   String validateTextFormField(String value) {
     if (isTextFieldEmpty(value))
       return AppLocalizations.of(context)

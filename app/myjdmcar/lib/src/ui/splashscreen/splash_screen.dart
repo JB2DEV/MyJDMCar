@@ -33,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen>
     super.dispose();
   }
 
-  _loadWidget() async {
+   _loadWidget() async {
     var _duration = Duration(seconds: splashDelay);
     UserModel loggedUser = await _apiClient.getLoggedUser();
     if (loggedUser.accessToken.length <= 0) {

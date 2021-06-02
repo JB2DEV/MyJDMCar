@@ -92,7 +92,8 @@ class _UserCarDetailPageState extends State<UserCarDetailPage> {
                               Expanded(child: SizedBox()),
                               CarDataContainer(
                                 icon: appIcons['car_power'],
-                                text: carModel.power + " HP",
+                                text: carModel.power + " " + AppLocalizations.of(context).translate(
+                                      "userCarDetailPagePowerText"),
                               ),
                               Expanded(child: SizedBox()),
                               CarDataContainer(

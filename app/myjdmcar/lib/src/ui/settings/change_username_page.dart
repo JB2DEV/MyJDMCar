@@ -62,13 +62,13 @@ class _ChangeUsernamePageState extends State<ChangeUsernamePage> {
     ));
   }
 
+  ///Función que permite al usuario actual cambiarse de nombre de usuario
   void changeUsername() async {
     if (_formKey.currentState.validate()) {
       print("validated");
       bool changed = await _apiClient.changeUsername(usernameController.text);
       if (changed) {
         Navigator.popUntil(context, ModalRoute.withName("settings_page"));
-        //Navigator.pushNamedAndRemoveUntil(context, "settings_page", (route) => false);
       }
     } else {
       print("Not validated");

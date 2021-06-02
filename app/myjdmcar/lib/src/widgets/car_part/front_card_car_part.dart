@@ -58,7 +58,7 @@ class FrontCardCarPart extends StatelessWidget {
           )),
     );
   }
-
+  ///Método que muestra la información en detalle de una pieza
   Future _showDetailItem(BuildContext context) {
     return showDialog(
         context: context,
@@ -83,6 +83,8 @@ class FrontCardCarPart extends StatelessWidget {
         });
   }
 
+  ///Método que comprueba si el distribuidor tiene la pieza en su tienda.
+  ///Si es así, lo muestra
   Widget _checkDealer(BuildContext context) {
     if (carPart.url != null && carPart.url.contains("www.dna-autoparts.com")) {
       return Column(

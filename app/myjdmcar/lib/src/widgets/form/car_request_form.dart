@@ -67,6 +67,7 @@ class _CarRequestFormState extends State<CarRequestForm> {
     );
   }
 
+  ///Método para obtener el campo de texto de la marca del coche
   Widget _getCarBrandTextFormField() {
     return TextFormField(
       validator: validateCarBrandTextFormField,
@@ -131,6 +132,8 @@ class _CarRequestFormState extends State<CarRequestForm> {
     );
   }
 
+  ///Función que valida si el campo de texto de la marca del coche
+  ///está vacío
   String validateCarBrandTextFormField(String value) {
     if (isTextFieldEmpty(value))
       return AppLocalizations.of(context)
@@ -138,6 +141,7 @@ class _CarRequestFormState extends State<CarRequestForm> {
     return null;
   }
 
+  ///Método para obtener el campo de texto del modelo del coche
   Widget _getCarModelsTextFormField() {
     return TextFormField(
       validator: validateCarModelTextFormField,
@@ -152,6 +156,8 @@ class _CarRequestFormState extends State<CarRequestForm> {
     );
   }
 
+  ///Función que valida si el campo de texto del modelo del coche
+  ///está vacío
   String validateCarModelTextFormField(String value) {
     if (isTextFieldEmpty(value))
       return AppLocalizations.of(context)
@@ -159,7 +165,4 @@ class _CarRequestFormState extends State<CarRequestForm> {
     return null;
   }
 
-  void request() async {
-    print("Request");
-  }
 }

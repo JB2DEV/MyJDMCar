@@ -20,34 +20,6 @@ class AnimatedPageFlipBuilder extends AnimatedWidget {
   final double maxTilt;
   final double maxScale;
 
-  Animation<double> get animation => listenable as Animation<double>;
-
-  bool get _isAnimationFirstHalf => animation.value.abs() < 0.5;
-
-  double _getTilt() {
-    var tilt = (animation.value - 0.5).abs() - 0.5;
-    if (animation.value < -0.5) {
-      tilt = 1.0 + animation.value;
-    }
-    return tilt * (_isAnimationFirstHalf ? -maxTilt : maxTilt);
-  }
-
-  double _rotationAngle() {
-    final rotationValue = animation.value * pi;
-    if (animation.value > 0.5) {
-      return pi - rotationValue; // input from 0.5 to 1.0
-    } else if (animation.value > -0.5) {
-      return rotationValue; // input from -0.5 to 0.5
-    } else {
-      return -pi - rotationValue; // input from -1.0 to -0.5
-    }
-  }
-
-  double _scale() {
-    final absValue = animation.value.abs();
-    return 1.0 - (absValue < 0.5 ? absValue : 1.0 - absValue) * maxScale;
-  }
-
   @override
   Widget build(BuildContext context) {
     final child = _isAnimationFirstHalf ^ showFrontSide
@@ -62,5 +34,37 @@ class AnimatedPageFlipBuilder extends AnimatedWidget {
       child: child,
       alignment: Alignment.center,
     );
+  }
+
+  Animation<double> get animation => listenable as Animation<double>;
+
+  ///Función que retorna si la carta se ha girado + del 50% 
+  bool get _isAnimationFirstHalf => animation.value.abs() < 0.5;
+
+  ///Función que retorna la inclinación de la carta
+  double _getTilt() {
+    var tilt = (animation.value - 0.5).abs() - 0.5;
+    if (animation.value < -0.5) {
+      tilt = 1.0 + animation.value;
+    }
+    return tilt * (_isAnimationFirstHalf ? -maxTilt : maxTilt);
+  }
+
+  ///Función que retorna el angulo de rotación dela carta
+  double _rotationAngle() {
+    final rotationValue = animation.value * pi;
+    if (animation.value > 0.5) {
+      return pi - rotationValue;
+    } else if (animation.value > -0.5) {
+      return rotationValue; 
+    } else {
+      return -pi - rotationValue; 
+    }
+  }
+
+  ///Función que retorna la amplitud de la carta
+  double _scale() {
+    final absValue = animation.value.abs();
+    return 1.0 - (absValue < 0.5 ? absValue : 1.0 - absValue) * maxScale;
   }
 }

@@ -8,8 +8,10 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
+      
       onWillPop: () {
         Navigator.popAndPushNamed(context, "home_page");
+        return;
       },
       child: Scaffold(
         appBar: AppBar(

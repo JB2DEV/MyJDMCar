@@ -208,7 +208,7 @@ class _HomePageState extends State<HomePage> {
                           menuItems: [
                             FocusedMenuItem(
                                 title: Text(
-                                  "Delete",
+                                  AppLocalizations.of(context).translate("homeDrawerDeleteCar"),
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText1

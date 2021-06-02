@@ -54,7 +54,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   ThemeButton(
                       function: changePassword,
                       buttonText: AppLocalizations.of(context)
-                          .translate("changePasswordButtonText"))
+                          .translate("changePasswordPageButtonText"))
                 ],
               ),
             ),
@@ -64,14 +64,14 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
     );
   }
 
+  ///Función que permite al usuario actual, cambiar su contraseña por otra
   void changePassword() async {
     if (_formKey.currentState.validate()) {
       print("validated");
       if (newPasswordController1.text != newPasswordController2.text) {
-        print("Nuevas contraseñas diferentes entre ellas");
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           duration: Duration(seconds: 3),
-          content: Text('Nuevas contraseñas diferentes entre ellas'),
+          content: Text(AppLocalizations.of(context).translate("changePasswordPageScaffoldMessageDifferentsNewPasswords")),
         ));
       } else {
         bool changed = await _apiClient.changePassword(
@@ -79,7 +79,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
         if (changed) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             duration: Duration(seconds: 3),
-            content: Text('Contraseña cambiada correctamente'),
+            content: Text(AppLocalizations.of(context).translate("changePasswordPageScaffoldMessagePasswordChanged")),
           ));
           Future.delayed(Duration(seconds: 2), () {
             Navigator.pop(context);
@@ -87,7 +87,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
         } else {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             duration: Duration(seconds: 3),
-            content: Text('La contraseña actual no es correcta'),
+            content: Text(AppLocalizations.of(context).translate("changePasswordPageScaffoldMessageDifferentActualPassword")),
           ));
         }
       }

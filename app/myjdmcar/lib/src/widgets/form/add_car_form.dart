@@ -66,6 +66,7 @@ class _AddCarFormState extends State<AddCarForm> {
     );
   }
 
+  ///Método para obtener el campo de texto de la marca del coche
   Widget _getCarBrandTextFormField() {
     return TextFormField(
       readOnly: true,
@@ -136,7 +137,8 @@ class _AddCarFormState extends State<AddCarForm> {
       ),
     );
   }
-
+  ///Función que valida si el campo de texto de la marca del coche
+  ///está vacío
   String validateCarBrandTextFormField(String value) {
     if (isTextFieldEmpty(value))
       return AppLocalizations.of(context)
@@ -144,6 +146,7 @@ class _AddCarFormState extends State<AddCarForm> {
     return null;
   }
 
+  ///Método para obtener el campo de texto del modelo del coche
   Widget _getCarModelsTextFormField() {
     return TextFormField(
       readOnly: true,
@@ -213,6 +216,8 @@ class _AddCarFormState extends State<AddCarForm> {
     );
   }
 
+  ///Función que valida si el campo de texto del modelo del coche
+  ///está vacío
   String validateCarModelTextFormField(String value) {
     if (isTextFieldEmpty(value))
       return AppLocalizations.of(context)
@@ -220,6 +225,7 @@ class _AddCarFormState extends State<AddCarForm> {
     return null;
   }
 
+  ///Función que añade un coche a la lista de coches del usuario actual
   void addCar() async {
     if (widget.formKey.currentState.validate()) {
       bool insert = await _apiClient.addCar(context, _carModelsController.text);

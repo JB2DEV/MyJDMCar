@@ -41,6 +41,9 @@ class HomeSliverAppbar extends StatelessWidget {
     );
   }
 
+  ///Función que muestra un diálogo de alerta si el usuario quiere ver
+  ///los datos de un modelo del coche, pero el usuario no tiene ningún
+  ///vehículo
   void _checkIfUserHaveCars(BuildContext context) {
     if (Provider.of<UserCarProvider>(context, listen: false).carId < 0) {
       showDialog(

@@ -36,8 +36,8 @@ class _UsernameTextFormFieldState extends State<UsernameTextFormField> {
           });
         });
   }
-
-  ///Valida que el textfield no esté vacío
+  ///Función que comprueba que el campo de texto del
+  ///nombre de usuario no esté vacío
   String validateTextField(String value) {
     if (isTextFieldEmpty(value)) {
       return AppLocalizations.of(context)

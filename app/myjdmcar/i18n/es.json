@@ -5,6 +5,7 @@
     "loginPageHaveAccount"              : "No tienes cuenta?",
     "loginPageRegister"                 : "Regístrate!",
     "loginPageButtonText"               : "Entrar",
+    "loginPageScaffoldMessageLoginError": "'El email o la contraseña no es válido/a",
 
     "recoverPasswordPageTitle"          : "Ayúdanos a recuperar tu contraseña",
     "recoverPasswordPageSubtitle"       : "Introduce tu correo y te enviaremos un correo con las instrucciones",
@@ -12,10 +13,12 @@
 
     "signUpPageTitle"                   : "Regístrate en MyJDMCar",
     "signUpPageButtonText"              : "Registrarse",
+    "signUpPageScaffoldMessageSignUpError" : "Ya existe un usuario con ese email",
 
     "homeDrawerAddCar"                  : "Añadir coche",
     "homeDrawerSettings"                : "Ajustes",
     "homeDrawerLogout"                  : "Salir",
+    "homeDrawerDeleteCar"               : "Eliminar coche",
 
     "userCarDetailPageDescription"      : "Descripción",
 
@@ -34,6 +37,7 @@
 
     "carPartRequestPageTitle"           : "Solicitar pieza",
     "carPartRequestPageButtonText"      : "Enviar solicitud",
+    "carPartRequestPageScaffoldMessageSend" : "Se ha enviado tu solicitud",
 
     "addCarPageTitle"                   : "Añade un coche",
     "addCarPageNoneSelectedPopUpMenu"   : "Ninguno",         
@@ -41,6 +45,9 @@
 
     "carRequestPageTitle"               : "Solicitar coche",
     "carRequestPageButtonText"          : "Enviar solicitud",
+    "carRequestPageScaffoldMessageSend" : "Se ha enviado tu solicitud",
+
+    "userCarDetailPagePowerText"        : "CV",
 
     "settingsPageTitle"                 : "Ajustes",
 
@@ -48,8 +55,11 @@
     "changeUsernamePageText"            : "Introduce el nuevo nombre de usuario",
     "changeUsernamePageButtonText"      : "Cambiar",
 
-    "changePasswordPageTitle"           : "Cambiar contraseña",
-    "changePasswordButtonText"          : "Cambiar contraseña",
+    "changePasswordPageTitle"                                      : "Cambiar contraseña",
+    "changePasswordPageButtonText"                                 : "Cambiar contraseña",
+    "changePasswordPageScaffoldMessageDifferentsNewPasswords"      : "Las nuevas contraseñas tienen que ser iguales",
+    "changePasswordPageScaffoldMessageDifferentActualPassword"     : "La contraseña actual no es correcta",
+    "changePasswordPageScaffoldMessagePasswordChanged"             : "Contraseña cambiada correctamente",
 
     "appInfoPage"                       : "Información de la app",
 
