@@ -25,19 +25,11 @@ class _SignInPageState extends State<SignInPage> {
   @override
   void initState() {
     super.initState();
-    userHaveToken();
   }
 
-  Future userHaveToken() async {
-    UserModel loggedUser = await _apiClient.getLoggedUser();
-    if (loggedUser.accessToken != null && loggedUser.accessToken.length > 0) {
-      Navigator.popAndPushNamed(context, "home_page");
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    userHaveToken();
     return Scaffold(
         body: GestureDetector(
       onTap: () {

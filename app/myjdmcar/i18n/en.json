@@ -58,7 +58,7 @@
     "emailTextFormFieldValidationError" : "Insert a valid email",
 
     "passwordTextFormFieldLabel"        : "Password",
-    "passwordTextFormFieldHint"         : "**",
+    "passwordTextFormFieldHint"         : "********",
     "passwordTextFormFieldError"        : "Insert a valid password ( + 8 characters )",
 
     "usernameTextFormFieldLabel"        : "User",
@@ -88,6 +88,6 @@
 
 
     "newPasswordTextFormFieldLabel"     : "New password",
-    "newPasswordTextFormFieldHint"      : "**",
+    "newPasswordTextFormFieldHint"      : "********",
     "newPasswordTextFormFieldError"     : "Insert a valid password ( + 8 characters )"
 }

@@ -54,7 +54,8 @@ class ApiClient {
       await prefs.setString('email', actualUser.userName);
       await prefs.setString('accessToken', actualUser.accessToken);
       await prefs.setString('userName', actualUser.userName);
-//      print(actualUser.toJson());
+      await prefs.setString('expDate', actualUser.expDate);
+      print(actualUser.toJson());
 
       return actualUser;
     } else {
@@ -83,8 +84,9 @@ class ApiClient {
     String email = prefs.getString("email" ?? null);
     String userName = prefs.getString("userName" ?? null);
     String token = prefs.getString("accessToken" ?? null);
+    String expDate = prefs.getString("expDate" ?? null);
     return UserModel(
-        id: userId, email: email, userName: userName, accessToken: token);
+        id: userId, email: email, userName: userName, accessToken: token, expDate: expDate);
   }
 
   Future getActualUserName() async {

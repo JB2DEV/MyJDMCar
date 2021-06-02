@@ -33,10 +33,12 @@ class _SplashScreenState extends State<SplashScreen>
     super.dispose();
   }
 
-   _loadWidget() async {
+  _loadWidget() async {
     var _duration = Duration(seconds: splashDelay);
     UserModel loggedUser = await _apiClient.getLoggedUser();
-    if (loggedUser.accessToken.length <= 0) {
+    if (loggedUser.accessToken == null ||
+        DateTime.parse(loggedUser.expDate).isBefore(DateTime.now()) ||
+        loggedUser.accessToken.length <= 0) {
       return Timer(_duration, navigationSignInPage);
     } else {
       CarModel car = await _apiClient.getFirstCarData();
