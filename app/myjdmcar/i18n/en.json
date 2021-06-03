@@ -5,17 +5,21 @@
     "loginPageHaveAccount"              : "You don't have an account yet?",
     "loginPageRegister"                 : "Sign up!",
     "loginPageButtonText"               : "Log in",
+"loginPageScaffoldMessageLoginError": "The email or the password is not valid",
 
     "recoverPasswordPageTitle"          : "Help us to recover your password",
+
     "recoverPasswordPageSubtitle"       : "Insert your email and we'll send you the instructions",
     "recoverPasswordPageButtonText"     : "Recover",
 
     "signUpPageTitle"                   : "Sign up to MyJDMCar",
     "signUpPageButtonText"              : "Sign up",
+"signUpPageScaffoldMessageSignUpError" : "That email is already registered",
 
     "homeDrawerAddCar"                  : "Add car",
     "homeDrawerSettings"                : "Settings",
     "homeDrawerLogout"                  : "Log out",
+"homeDrawerDeleteCar"               : "Delete car",
 
     "userCarDetailPageDescription"      : "Description",
 
@@ -27,29 +31,57 @@
     "homeDialogEmptyCarsCancelButton"   : "Cancel",
     "homeDialogEmptyCarsCreateButton"   : "Create",
 
+
+
+
+
+
+
+
+
     "addCarPartPageTitle"               : "Add part",
     "addCarPartPageSearchHint"          : "Search the brand/part",
     "addCarPartPageDissmissibleText"    : "Delete",
     "addCarPartPageButtonText"          : "Add",
 
+
+
+
     "carPartRequestPageTitle"           : "Request new part",
     "carPartRequestPageButtonText"      : "Send request",
+"carPartRequestPageScaffoldMessageSend" : "Your request has been sent",
+
+
 
     "addCarPageTitle"                   : "Add a car",
     "addCarPageNoneSelectedPopUpMenu"   : "None",         
     "addCarPageAddButtonText"           : "Add car",
 
+
     "carRequestPageTitle"               : "Request new car",
     "carRequestPageButtonText"          : "Send request",
+"carRequestPageScaffoldMessageSend" : "Your request has been sent",
 
+"userCarDetailPagePowerText"        : "CV",
     "settingsPageTitle"                 : "Settings",
 
-    "changeUsernamePageTitle"           : "Change nombre usuario",
+    "changeUsernamePageTitle"           : "Change username",
     "changeUsernamePageText"            : "Insert the new username",
     "changeUsernamePageButtonText"      : "Change",
 
+
+
+
+
+
     "changePasswordPageTitle"           : "Change password",
     "changePasswordButtonText"          : "Change password",
+"changePasswordPageScaffoldMessageDifferentsNewPasswords"      : "The new password must match with the confirmation",
+    "changePasswordPageScaffoldMessageDifferentActualPassword"     : "Your current password doesnt match",
+    "changePasswordPageScaffoldMessagePasswordChanged"             : "Password updated successfully",
+
+	
+	
 
     "appInfoPage"                       : "App info",
 
@@ -75,6 +107,7 @@
     "carPartTextFormFieldError"         : "Insert a part",
 
     "otherInfoTextFormFieldLabel"       : "Other information",
+
     "otherInfoTextFormFieldHint"        : "Add here any other useful information",
 
     "carBrandTextFormFieldLabel"        : "Car brand",
