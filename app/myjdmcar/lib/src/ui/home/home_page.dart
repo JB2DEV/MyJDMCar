@@ -208,7 +208,8 @@ class _HomePageState extends State<HomePage> {
                           menuItems: [
                             FocusedMenuItem(
                                 title: Text(
-                                  AppLocalizations.of(context).translate("homeDrawerDeleteCar"),
+                                  AppLocalizations.of(context)
+                                      .translate("homeDrawerDeleteCar"),
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText1
@@ -423,14 +424,22 @@ class _HomePageState extends State<HomePage> {
           Provider.of<UserCarProvider>(context, listen: false).carId == idCar);
       if (Provider.of<UserCarProvider>(context, listen: false).carId == idCar) {
         CarModel car = await _apiClient.getFirstCarData();
-        _changeUserCar(
-            id: car.id,
-            carBrandName: car.carBrand.name,
-            carModelName: car.carModel.name);
-      }
+        if (car != null) {
+          _changeUserCar(
+              id: car.id,
+              carBrandName: car.carBrand.name,
+              carModelName: car.carModel.name);
 
-      Navigator.pop(context);
-      Navigator.popAndPushNamed(context, "home_page");
+          Navigator.pop(context);
+          Navigator.popAndPushNamed(context, "home_page");
+        } else {
+          Provider.of<UserCarProvider>(context, listen: false).carId = -1;
+          Provider.of<UserCarProvider>(context, listen: false).carModel = "";
+          Navigator.pop(context);
+          Navigator.popAndPushNamed(context, "add_car_page");
+        }
+      }
     }
+    setState(() {});
   }
 }
