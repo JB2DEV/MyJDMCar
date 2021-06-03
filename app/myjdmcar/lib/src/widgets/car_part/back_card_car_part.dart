@@ -102,26 +102,6 @@ class _BackCardCarPartState extends State<BackCardCarPart> {
         });
   }
 
-/*
- *  Security Pig is watching your horrible code
- *        _
- *        ((`)_.._     ,'-. _..._ _._
- *          \,'    '-._.-\  '     ` .-'
- *         .'            /         (
- *        /             |     _   _ \
- *       |              \     a   a  |
- *       ;                     .-.   /
- *        ;       ',       '-.( '')-'
- *         '.      |           ;-'
- *           \    /           /
- *           /   /-._  __,  7 |
- *           \  `\  \``  |  | |
- *            \   \_,\   |  |_,\
- *             '-`'      \_,\
- * 
- *  Please, fix it before it gets angry.
- */
-
   ///Función que elimina una pieza del vehículo seleccionado
   void _deleteCarPart(BuildContext context, ApiClient _apiClient) async {
     print("Delete carPart with ID: ${widget.carPart.id}");
@@ -129,24 +109,4 @@ class _BackCardCarPartState extends State<BackCardCarPart> {
       Navigator.of(context).popAndPushNamed("home_page");
     });
   }
-  /*
- *  Security Pig is watching your horrible code
- *        _
- *        ((`)_.._     ,'-. _..._ _._
- *          \,'    '-._.-\  '     ` .-'
- *         .'            /         (
- *        /             |     _   _ \
- *       |              \     a   a  |
- *       ;                     .-.   /
- *        ;       ',       '-.( '')-'
- *         '.      |           ;-'
- *           \    /           /
- *           /   /-._  __,  7 |
- *           \  `\  \``  |  | |
- *            \   \_,\   |  |_,\
- *             '-`'      \_,\
- * 
- *  Please, fix it before it gets angry.
- */
-
 }

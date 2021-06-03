@@ -3,6 +3,7 @@ import 'package:myjdmcar/api/api_client.dart';
 import 'package:myjdmcar/config/app_colors.dart';
 import 'package:myjdmcar/config/internationalization/app_localizations.dart';
 import 'package:myjdmcar/models/car_part.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FrontCardCarPart extends StatelessWidget {
   final CarPartModel carPart;
@@ -58,6 +59,7 @@ class FrontCardCarPart extends StatelessWidget {
           )),
     );
   }
+
   ///Método que muestra la información en detalle de una pieza
   Future _showDetailItem(BuildContext context) {
     return showDialog(
@@ -99,11 +101,34 @@ class FrontCardCarPart extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          Image.asset("assets/images/dna.png"),
+          GestureDetector(
+            onTap: () async{
+              const url = 'https://google.com';
+              if(await canLaunch(url)){
+                await launch(url);
+              } else{
+                throw 'Could not launch $url';
+              }
+            },
+            child: Container(
+              height: 50,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      fit: BoxFit.contain,
+                      image: AssetImage("assets/images/dna.png"))),
+            ),
+          ),
         ],
       );
     } else {
       return Container();
     }
+  }
+
+  void _launchURL() async {
+    print("taped");
+    await canLaunch('https://flutter.io')
+        ? await launch('https://flutter.io')
+        : throw 'Could not launch https://flutter.io';
   }
 }

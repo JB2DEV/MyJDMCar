@@ -117,6 +117,28 @@
 		<key>
 			UIViewControllerBasedStatusBarAppearance
 		</key>
+		<key>
+			LSApplicationQueriesSchemes
+		</key>
+		<array>
+			<string>
+				https
+			</string>
+			<string>
+				http
+			</string>
+		</array>
+		<key>
+			LSApplicationQueriesSchemes
+		</key>
+		<array>
+			<string>
+				https
+			</string>
+			<string>
+				http
+			</string>
+		</array>
 		<false />
 	</dict>
 </plist>
