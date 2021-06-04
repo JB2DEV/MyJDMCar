@@ -52,6 +52,8 @@
     "changePasswordButtonText"          : "Canviar contrasenya",
 
     "appInfoPage"                       : "Informació de la app",
+    "appInfoPageText"                   : "La aplicació consta de la gestió i el control de les peçes de “aftermarket” del teu vehicle, a més de la informació tècnica d'aquestes, de les marques i els models dels vehicles.",
+
 
     "emailTextFormFieldLabel"           : "Email",
     "emailTextFormFieldHint"            : "email@ejemplo.com",

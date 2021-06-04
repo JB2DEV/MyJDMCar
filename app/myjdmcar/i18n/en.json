@@ -84,6 +84,8 @@
 	
 
     "appInfoPage"                       : "App info",
+    "appInfoPageText"                   : "The application consists of the management and control of the aftermarket car parts from your vehicle, including the technical information from car parts, as well as the brands and models of the vehicles.",
+
 
     "emailTextFormFieldLabel"           : "Email",
     "emailTextFormFieldHint"            : "email@example.com",

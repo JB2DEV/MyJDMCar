@@ -102,13 +102,8 @@ class FrontCardCarPart extends StatelessWidget {
             height: 20,
           ),
           GestureDetector(
-            onTap: () async{
-              const url = 'https://google.com';
-              if(await canLaunch(url)){
-                await launch(url);
-              } else{
-                throw 'Could not launch $url';
-              }
+            onTap: () async {
+              _launchURL();
             },
             child: Container(
               height: 50,
@@ -127,8 +122,8 @@ class FrontCardCarPart extends StatelessWidget {
 
   void _launchURL() async {
     print("taped");
-    await canLaunch('https://flutter.io')
-        ? await launch('https://flutter.io')
-        : throw 'Could not launch https://flutter.io';
+    await canLaunch(carPart.url)
+        ? await launch(carPart.url)
+        : throw 'Could not launch ${carPart.url}';
   }
 }
