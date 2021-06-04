@@ -27,7 +27,6 @@ class _SignInPageState extends State<SignInPage> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -130,14 +129,17 @@ class _SignInPageState extends State<SignInPage> {
             Provider.of<UserCarProvider>(context, listen: false).carId = car.id;
             Provider.of<UserCarProvider>(context, listen: false).carModel =
                 car.carBrand.name + ' ' + car.carModel.name;
-          } 
+            Navigator.popAndPushNamed(context, "home_page");
+          } else {
+            Navigator.popAndPushNamed(context, "add_car_page");
+          }
         });
-        Navigator.popAndPushNamed(context, "home_page");
       } on Exception {
         print('ERROR');
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           duration: Duration(seconds: 3),
-          content: Text(AppLocalizations.of(context).translate("loginPageScaffoldMessageLoginError")),
+          content: Text(AppLocalizations.of(context)
+              .translate("loginPageScaffoldMessageLoginError")),
         ));
       }
     } else {

@@ -86,7 +86,11 @@ class ApiClient {
     String token = prefs.getString("accessToken" ?? null);
     String expDate = prefs.getString("expDate" ?? null);
     return UserModel(
-        id: userId, email: email, userName: userName, accessToken: token, expDate: expDate);
+        id: userId,
+        email: email,
+        userName: userName,
+        accessToken: token,
+        expDate: expDate);
   }
 
   Future getActualUserName() async {
