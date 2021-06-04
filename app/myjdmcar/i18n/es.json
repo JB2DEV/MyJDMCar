@@ -62,6 +62,7 @@
     "changePasswordPageScaffoldMessagePasswordChanged"             : "Contraseña cambiada correctamente",
 
     "appInfoPage"                       : "Información de la app",
+    "appInfoPageText"                   : "La aplicación consta de la gestión y el control de las piezas de “aftermarket” de tu vehículo, incluyendo la información técnica tanto de éstas, como de las marcas y los modelos de los vehículos.",
 
     "emailTextFormFieldLabel"           : "Email",
     "emailTextFormFieldHint"            : "email@ejemplo.com",
