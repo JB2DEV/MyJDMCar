@@ -22,7 +22,6 @@ import 'api_routes.dart';
 
 class ApiClient {
   static final _client = ApiClient._internal();
-  final _http = HttpClient();
 
   ApiClient._internal();
 
@@ -43,7 +42,6 @@ class ApiClient {
     var test = '/auth/login.php';
     Map<String, dynamic> toJson() => {'user': email, 'pass': password};
     final response = await http.post(Uri.http(baseUrl, test), body: toJson());
-    //final decodedJson = await json.decode(response.body);
     Map<String, dynamic> decodedJson = jsonDecode(response.body);
     print(decodedJson);
     if (decodedJson['response'] == 'success') {
@@ -115,8 +113,6 @@ class ApiClient {
   }
 
   Future<CarModelModel> getUserCarModelData(int carId) async {
-    //final result = await rootBundle.loadString("assets/data/user_car_model_" + carId.toString() + ".json");
-
     Map<String, dynamic> toJson() => {'id': carId.toString()};
     final response = await http.post(
         Uri.http(baseUrl, "/getters/getUserCarModelData.php"),
@@ -125,7 +121,6 @@ class ApiClient {
     print("data");
     print(data.toString());
     CarModelModel car = CarModelModel.fromJson(jsonDecode(data['data']));
-    //print(car.toJson());
     return car;
   }
 
@@ -148,22 +143,11 @@ class ApiClient {
   }
 
   Future<List<CarPartModel>> getData(int typeId, int carId) async {
-    /*final result = await rootBundle
-        .loadString('assets/data/' + typeId.toString() + '.json');
-    final data = json.decode(result);
-    print(data);*/
-
     Map<String, dynamic> toJson() =>
         {"typeId": typeId.toString(), "id": carId.toString()};
     final response = await http
         .post(Uri.http(baseUrl, "/getters/getCarPartData.php"), body: toJson());
     List<dynamic> data = json.decode(response.body);
-    /*//CHECK DATATYPE
-    print(data.runtimeType.toString() + " " + data.toString());
-    data.forEach((element) {
-      print(element.runtimeType.toString() + " " + element.toString());
-    });*/
-
     List<CarPartModel> carPartsList =
         data.map((i) => CarPartModel.fromJson(json.decode(i))).toList();
     print(carPartsList.toString());
@@ -172,9 +156,6 @@ class ApiClient {
 
   Future<List<CarPartBrandModel>> getCarPartsBrands(
       BuildContext context) async {
-    /*final result =
-        await rootBundle.loadString('assets/data/car_parts_brands.json');
-    print(result);*/
     int carId =
         await Provider.of<UserCarProvider>(context, listen: false).carId;
 
@@ -184,11 +165,6 @@ class ApiClient {
         body: toJson());
 
     List<dynamic> data = json.decode(response.body);
-    /*  //CHECK DATATYPE
-    print(data.runtimeType.toString() + " " + data.toString());
-    data.forEach((element) {
-      print(element.runtimeType.toString() + " " + element.toString());
-    });*/
 
     List<CarPartBrandModel> carPartsBrandsList =
         data.map((i) => CarPartBrandModel.fromJson(json.decode(i))).toList();
@@ -201,11 +177,6 @@ class ApiClient {
         await http.post(Uri.http(baseUrl, "/getters/getCarPartsTypeList.php"));
 
     List<dynamic> data = json.decode(response.body);
-    /*  //CHECK DATATYPE
-    print(data.runtimeType.toString() + " " + data.toString());
-    data.forEach((element) {
-      print(element.runtimeType.toString() + " " + element.toString());
-    });*/
 
     List<CarPartTypeModel> carPartsTypeList =
         data.map((i) => CarPartTypeModel.fromJson(json.decode(i))).toList();
@@ -221,9 +192,7 @@ class ApiClient {
     final response = await http.post(
         Uri.http(baseUrl, "/getters/getUserFirstCarData.php"),
         body: toJson());
-    //final decodedJson = await json.decode(response.body);
     Map<String, dynamic> decodedJson = jsonDecode(response.body);
-    //print(jsonDecode(decodedJson['data']));
     if (decodedJson == null) {
       return null;
     } else {
@@ -244,11 +213,6 @@ class ApiClient {
         body: toJson());
 
     List<dynamic> data = json.decode(response.body);
-    /*  //CHECK DATATYPE
-    print(data.runtimeType.toString() + " " + data.toString());
-    data.forEach((element) {
-      print(element.runtimeType.toString() + " " + element.toString());
-    });*/
 
     List<CarPartModel> carPartList =
         data.map((i) => CarPartModel.fromJson(json.decode(i))).toList();
@@ -261,11 +225,6 @@ class ApiClient {
         await http.post(Uri.http(baseUrl, "/getters/getCarBrands.php"));
 
     List<dynamic> data = json.decode(response.body);
-    /*  //CHECK DATATYPE
-    print(data.runtimeType.toString() + " " + data.toString());
-    data.forEach((element) {
-      print(element.runtimeType.toString() + " " + element.toString());
-    });*/
 
     List<CarBrandModel> carBrandsList =
         data.map((i) => CarBrandModel.fromJson(json.decode(i))).toList();
@@ -281,30 +240,12 @@ class ApiClient {
         body: toJson());
 
     List<dynamic> data = json.decode(response.body);
-    /*//CHECK DATATYPE
-    print(data.runtimeType.toString() + " " + data.toString());
-    data.forEach((element) {
-      print(element.runtimeType.toString() + " " + element.toString());
-    });*/
 
     List<CarModelModel> carModelsList =
         data.map((i) => CarModelModel.fromJson(json.decode(i))).toList();
 
     return carModelsList;
   }
-
-  /* Future<List<CarModelModel>> getCarModelsByBrandLocal(String marca) async {
-    final result =
-        await rootBundle.loadString('assets/data/car_models_' + marca + '.json');
-    print(result);
-    final data = json.decode(result);
-    print(data);
-    List<CarModelModel> carModelsList = (data['data'] as List)
-        .map((i) => new CarModelModel.fromJson(i))
-        .toList();
-
-    return carModelsList;
-  }*/
 
   Future<bool> addCarPart(BuildContext context, int idPieza) async {
     int carId =
