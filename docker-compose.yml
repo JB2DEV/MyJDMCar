@@ -1,0 +1,22 @@
+version: '3.2'
+
+services:
+   db:
+      image: mysql:8.0
+      container_name: MyCarPartsDB
+      ports:
+       - '6603:3306'
+      environment:
+        MYSQL_ROOT_PASSWORD: root
+      volumes:
+        - /home/javi/MyCarParts/db/data:/var/lib/mysql
+
+   app:
+      depends_on:
+       - db
+      image: phpmyadmin/phpmyadmin
+      container_name: phpmyadmin
+      ports:
+       - '8080:80'
+      environment:
+        PMA_HOST: db
